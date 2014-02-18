@@ -91,21 +91,46 @@ var ppbutton = $("#play-pause-button");
 var cicadaTestContainer = $('#cicadatest-slider-container');
 var cicadaTestmp4 = $('#cicadatestmp4');
 var cicadaTest0 = $('#cicadatest')[0];
+var collapseButton = $('#collapse-button');
+var expandButton = $('#expand-button');
+var slc = 'sliders-collapsed';
+var cicadacounter = 0;
 
-cicadaTestContainer.click( 
+expandButton.click( 
 
   function() {
   
-    if (cicadaTestContainer.hasClass( 'sliders sliders-collapsed' )) {
+    if (cicadaTestContainer.hasClass( slc )) {
      
-     cicadaTestContainer.attr('class', 'sliders');
+     cicadaTestContainer.removeClass( slc )
      
-     cicadaTestmp4.attr('src', 'audio/cicadatest.mp4').detach().appendTo(cicadaTest0);
+     console.log(cicadaTestContainer.attr('class'));
+     
+     if (cicadacounter == 0) {
+     
+      cicadaTestmp4.attr('src', 'audio/cicadatest.mp4').detach().appendTo(cicadaTest0);
+      cicadacounter = 1;
+     }
+     
+     $(this).hide();
+
     }
   
   }
 
-)
+);
+
+collapseButton.click(
+
+  function() {
+  
+    cicadaTestContainer.addClass( slc );
+    console.log(cicadaTestContainer.attr('class'));
+    expandButton.show();
+  
+  }
+
+);
 
 
 
@@ -821,7 +846,9 @@ $(window).load(function(){
 </div>
 
 <div id="cicadatest-slider-container" class="sliders sliders-collapsed">
-  <div id="cicadatest-slider-background" class="slider-background"></div>
+  <div id="collapse-button"></div>
+  <div id="expand-button"></div>
+  <div id="cicadatest-slider-background" class="slider-background"></div> 
   <div id="cicadatest-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="cicadatest-slider">Cicadas</label> </div>
       <input type="range" id="cicadatest-slider" value="0.0" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>

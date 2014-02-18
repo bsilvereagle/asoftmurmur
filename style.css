@@ -265,7 +265,7 @@ html {
 
 /* end */
 
-/* Style collapsed sliders */
+/* Style collapsing for sliders */
 
 .sliders-collapsed {
   cursor: pointer;
@@ -292,6 +292,30 @@ html {
 
 #page-container #sliders-container .sliders-collapsed {
   height: 33px;
+}
+
+#expand-button {
+  height: 100%;
+  width: 100%;
+  background: none;
+  position: absolute;
+  z-index: 6;
+}
+
+#collapse-button {
+  height:30px;
+  width: 30px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-image: url('img/collapse.png');
+  cursor: pointer;
+  cursor: hand;
+  z-index: 5;
+}
+
+.sliders-collapsed #collapse-button {
+  display: none;
 }
 
 /* end */
