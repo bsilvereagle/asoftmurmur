@@ -315,6 +315,10 @@ html {
   background-image: url('img/humans.jpg');
 }
 
+#cicadastest-slider-background {
+  background-image: url('img/cicadatest.jpg');
+}
+
 .slider-inner {
   position: absolute;
   height: 100%;
