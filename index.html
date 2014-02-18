@@ -86,7 +86,7 @@ var fademinutesinput = $('#minutestillfade');
 
 var ppbutton = $("#play-pause-button");
 
-// Expand collapsed sounds on click or tap
+// Expand collapsed sounds on click or tap test function
 
 var cicadaTestContainer = $('#cicadatest-slider-container');
 var cicadaTestmp4 = $('#cicadatestmp4');
@@ -132,9 +132,21 @@ collapseButton.click(
 
 );
 
+// test response of calls to audio element with no source
+
+var cicadaslider = $("#cicadatest-slider");
+var cicadabackground = $("#cicadatest-slider-background");
+var cicadaplayer0 = $('#cicadatest')[0]; 
+var cicadaplayer = $('#cicadatest'); 
+
+if (cicadaplayer.currentTime !== undefined) {
+
+console.log(cicadaplayer.currentTime);
+
+}
 
 
-// end test function
+// end test functions
 
 function loadAudible(player0, player){
   if(player0.volume > 0.02) {
@@ -225,6 +237,8 @@ loadAudible(humansplayer0, humansplayer);
     remembervol(rainslider, "lsrain");
   })
   
+//  
+  
   var lastwavesvol = localStorage.getItem("lswaves");
       if (typeof lastwavesvol != "object"){ 
         wavesslider.val(lastwavesvol);
@@ -236,7 +250,9 @@ loadAudible(humansplayer0, humansplayer);
   wavesslider.on( 'change', function( event, ui ) {
     slidervol(wavesplayer0, wavesglueplayer0, wavesslider, wavesbackground);
     remembervol(wavesslider, "lswaves");    
-  })  
+  })
+  
+//    
 
   var lastthundervol = localStorage.getItem("lsthunder");
       if (typeof lastthundervol != "object"){ 
@@ -251,6 +267,8 @@ loadAudible(humansplayer0, humansplayer);
     remembervol(thunderslider, "lsthunder");
   })  
 
+//
+
   var lastfirevol = localStorage.getItem("lsfire");
       if (typeof lastfirevol != "object"){ 
         fireslider.val(lastfirevol);
@@ -264,6 +282,8 @@ loadAudible(humansplayer0, humansplayer);
     remembervol(fireslider, "lsfire");
   }) 
 
+//
+
   var lastbirdsvol = localStorage.getItem("lsbirds");
       if (typeof lastbirdsvol != "object"){ 
         birdsslider.val(lastbirdsvol);
@@ -276,6 +296,8 @@ loadAudible(humansplayer0, humansplayer);
     slidervol(birdsplayer0, birdsglueplayer0, birdsslider, birdsbackground);
     remembervol(birdsslider, "lsbirds");
   }) 
+
+//
 
   var lasthumansvol = localStorage.getItem("lshumans");
       if (typeof lasthumansvol != "object"){ 
