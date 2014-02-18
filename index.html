@@ -86,6 +86,31 @@ var fademinutesinput = $('#minutestillfade');
 
 var ppbutton = $("#play-pause-button");
 
+// Expand collapsed sounds on click or tap
+
+var cicadaTestContainer = $('#cicadatest-slider-container');
+var cicadaTestmp4 = $('#cicadatestmp4');
+var cicadaTest0 = $('#cicadatest')[0];
+
+cicadaTestContainer.click( 
+
+  function() {
+  
+    if (cicadaTestContainer.hasClass( 'sliders sliders-collapsed' )) {
+     
+     cicadaTestContainer.attr('class', 'sliders');
+     
+     cicadaTestmp4.attr('src', 'audio/cicadatest.mp4').detach().appendTo(cicadaTest0);
+    }
+  
+  }
+
+)
+
+
+
+// end test function
+
 function loadAudible(player0, player){
   if(player0.volume > 0.02) {
     player.attr("preload", "auto");
@@ -795,11 +820,11 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="cicadatest-slider-container" class="sliders">
+<div id="cicadatest-slider-container" class="sliders sliders-collapsed">
   <div id="cicadatest-slider-background" class="slider-background"></div>
   <div id="cicadatest-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="humans-slider">Cicadas</label> </div>
-      <input type="range" id="humans-slider" value="0.0" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+    <div class="labelfix"> <label for="cicadatest-slider">Cicadas</label> </div>
+      <input type="range" id="cicadatest-slider" value="0.0" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -903,7 +928,7 @@ $(window).load(function(){
 
 <div class="audioplayer">
   <audio id="cicadatest" controls loop>
-    <source src="" type="audio/mp4">
+    <source id="cicadatestmp4" src="" type="audio/mp4">
   </audio>
 </div>
 

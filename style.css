@@ -265,6 +265,37 @@ html {
 
 /* end */
 
+/* Style collapsed sliders */
+
+.sliders-collapsed {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.sliders-collapsed #cicadatest-slider-background  {
+  background-image: none;
+}
+
+.sliders-collapsed .ui-slider {
+  display: none;
+}
+
+.sliders-collapsed label.ui-input-text {
+  display: block;
+  margin: 0;
+}
+
+.sliders-collapsed .labelfix {
+  margin-top: 0;
+  background: none;
+} 
+
+#page-container #sliders-container .sliders-collapsed {
+  height: 33px;
+}
+
+/* end */
+
 /* Style slider containers */
 
 .sliders .ui-input-text {
@@ -315,7 +346,7 @@ html {
   background-image: url('img/humans.jpg');
 }
 
-#cicadastest-slider-background {
+#cicadatest-slider-background {
   background-image: url('img/cicadatest.jpg');
 }
 
