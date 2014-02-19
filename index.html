@@ -96,6 +96,9 @@ var expandButton = $('#expand-button');
 var slc = 'sliders-collapsed';
 var cicadacounter = 0;
 
+var cicadaTestGluemp4 = $('#cicadatest-gluemp4');
+var cicadaTestGlue0 = $('#cicadatest-glue')[0];
+
 expandButton.click( 
 
   function() {
@@ -104,10 +107,11 @@ expandButton.click(
      
      cicadaTestContainer.removeClass( slc )
      
-     console.log(cicadaTestContainer.attr('class'));
+//     console.log(cicadaTestContainer.attr('class'));
      
      if (cicadacounter == 0) {
      
+      cicadaTestGluemp4.attr('src', 'audio/cicadatest.glue.mp4').detach().appendTo(cicadaTestGlue0);      
       cicadaTestmp4.attr('src', 'audio/cicadatest.mp4').detach().appendTo(cicadaTest0);
       cicadacounter = 1;
      }
@@ -120,30 +124,66 @@ expandButton.click(
 
 );
 
+function pauseOnCollapse(player, glueplayer) {
+  player.pause();
+  glueplayer.pause();
+}
+
+function silenceOnCollapse(slider) {
+  slider.val(0);
+  slider.slider("refresh");
+}
+
 collapseButton.click(
 
   function() {
   
     cicadaTestContainer.addClass( slc );
-    console.log(cicadaTestContainer.attr('class'));
+//    console.log(cicadaTestContainer.attr('class'));
     expandButton.show();
+    pauseOnCollapse(cicadaplayer0, cicadaglueplayer0);
+    silenceOnCollapse(cicadaslider);
   
   }
 
 );
 
-// test response of calls to audio element with no source
+// Get slider working
 
 var cicadaslider = $("#cicadatest-slider");
 var cicadabackground = $("#cicadatest-slider-background");
 var cicadaplayer0 = $('#cicadatest')[0]; 
-var cicadaplayer = $('#cicadatest'); 
+var cicadaplayer = $('#cicadatest');
+var cicadaglueplayer0 = $('#cicadatest-glue')[0]; 
+var cicadaglueplayer = $('#cicadatest-glue');  
 
-if (cicadaplayer.currentTime !== undefined) {
-
-console.log(cicadaplayer.currentTime);
-
+function cicadaSliderVol(player, glueplayer, slider, sliderbackground) {
+  if (player.currentTime !== undefined) {
+    player.volume = slider.val();
+    glueplayer.volume = slider.val();
+    sliderbackground.css({'opacity': slider.val() });
+      if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all')) {
+        player.play();
+      }
+      if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all') && player.currentTime <0.01 && glueplayer.paused){
+        glueplayer.currentTime = 7;
+        glueplayer.play(); // play half of glueplayer while the main audio element loads          
+      }
+      if(player.volume <= 0.02) {
+        player.pause();
+      }
+      if(glueplayer.volume <= 0.02) {
+        glueplayer.pause();
+      }
+    }
 }
+
+slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
+  
+cicadaslider.on( 'change', function( event, ui ) {
+  slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
+  remembervol(cicadaslider, "lscicada");
+})
 
 
 // end test functions
@@ -160,6 +200,7 @@ loadAudible(fireplayer0, fireplayer);
 loadAudible(wavesplayer0, wavesplayer);
 loadAudible(birdsplayer0, birdsplayer);
 loadAudible(humansplayer0, humansplayer);
+loadAudible(cicadaplayer0, cicadaplayer);
     
   function playif(player, glueplayer){
       if(player.volume > 0.02) {
@@ -179,21 +220,24 @@ loadAudible(humansplayer0, humansplayer);
     playif(fireplayer0, fireglueplayer0);
     playif(birdsplayer0, birdsglueplayer0);          
     playif(humansplayer0, humansglueplayer0);
+    playif(cicadaplayer0, cicadaglueplayer0);  
+  }
+  
+  function pauseIf(player, glueplayer){
+    if (player.currentTime !== undefined) {
+      player.pause();
+      glueplayer.pause();
+    }
   }
   
   function pauseall(){
-    rainplayer0.pause();
-    rainglueplayer0.pause();
-    wavesplayer0.pause();
-    wavesglueplayer0.pause();
-    thunderplayer0.pause();
-    thunderglueplayer0.pause();
-    fireplayer0.pause();
-    fireglueplayer0.pause();
-    birdsplayer0.pause();
-    birdsglueplayer0.pause();          
-    humansplayer0.pause();
-    humansglueplayer0.pause();
+    pauseIf(rainplayer0, rainglueplayer0);
+    pauseIf(wavesplayer0, wavesglueplayer0);  
+    pauseIf(thunderplayer0, thunderglueplayer0);
+    pauseIf(fireplayer0, fireglueplayer0);
+    pauseIf(birdsplayer0, birdsglueplayer0);  
+    pauseIf(humansplayer0, humansglueplayer0);    
+    pauseIf(cicadaplayer0, cicadaglueplayer0);    
   }  
   
 //play-all and pause-all function
@@ -1066,6 +1110,12 @@ $(window).load(function(){
 <div class="audioplayer">
   <audio id="cicadatest" controls loop>
     <source id="cicadatestmp4" src="" type="audio/mp4">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="cicadatest-glue" controls loop>
+    <source id="cicadatest-gluemp4" src="" type="audio/mp4">
   </audio>
 </div>
 
