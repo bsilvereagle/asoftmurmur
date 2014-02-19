@@ -431,11 +431,11 @@ var optionsbutton = $("#optionsbutton");
     
     var optionstext = optionsbutton.text()
 
-    if( optionstext.indexOf( "Options" ) !== -1 ) {
+    if( optionstext.indexOf( "Tools" ) !== -1 ) {
       optionsbutton.text("Hide");
     }
     else {
-      optionsbutton.text("Options");
+      optionsbutton.text("Tools");
     }
   });
 
@@ -457,6 +457,7 @@ reset.click(function(){
   resetall(wavesslider, 0);
   resetall(birdsslider, 0);  
   resetall(humansslider, 0);
+  resetall(cicadaslider, 0);  
 })
 
 // reset: resets volume to defaults
@@ -473,6 +474,7 @@ silence.click(function(){
   silenceall(wavesslider);
   silenceall(birdsslider);  
   silenceall(humansslider);
+  silenceall(cicadaslider);  
 })
     
 // silence: sets all sliders to 0
@@ -567,26 +569,30 @@ tfbutton.click(function(){
 
   var fademinutes = $("input#minutestillfade").val();
   var fadems = fademinutes * 60000;
-  var fadesecs = fadems / 1000;
+  var fadesecs = fadems / 1000;  
+  var fadedecisecs = fadesecs * 10;
   var fadestarttime = mstotime(fadems);
   
   var rainval = rainslider.val();
-  var rainco = rainslider.val() / fadesecs;
+  var rainco = rainslider.val() / fadedecisecs;
   
   var thunderval = thunderslider.val();  
-  var thunderco = thunderslider.val() / fadesecs;
+  var thunderco = thunderslider.val() / fadedecisecs;
   
   var fireval = fireslider.val();
-  var fireco = fireslider.val() / fadesecs;
+  var fireco = fireslider.val() / fadedecisecs;
 
   var wavesval = wavesslider.val();
-  var wavesco = wavesslider.val() / fadesecs;
+  var wavesco = wavesslider.val() / fadedecisecs;
 
   var birdsval = birdsslider.val();
-  var birdsco = birdsslider.val() / fadesecs;
+  var birdsco = birdsslider.val() / fadedecisecs;
 
   var humansval = humansslider.val();
-  var humansco = humansslider.val() / fadesecs;
+  var humansco = humansslider.val() / fadedecisecs;
+  
+  var cicadaval = cicadaslider.val();
+  var cicadaco = cicadaslider.val() / fadedecisecs;  
  
   timedpausepre.css("display", "none");
   timedfadepre.css("display", "none");
@@ -599,11 +605,11 @@ tfbutton.click(function(){
      ppbutton.attr("class", "pause-all");
   }
   
-  var fadetimeout = setInterval(function(){timedfadefunction()},1000);
+  var fadetimeout = setInterval(function(){timedfadefunction()},100);
   
   function timedfadefunction(){
   
-    fadems = fadems - 1000;
+    fadems = fadems - 100;
     var fadetimeleft = mstotime(fadems);
     $("#timedfademinutesleft").text(fadetimeleft);
     
@@ -630,6 +636,10 @@ tfbutton.click(function(){
     humansval = humansval - humansco;
     humansslider.val(humansval);
     humansslider.slider("refresh"); 
+    
+    cicadaval = cicadaval - cicadaco;
+    cicadaslider.val(cicadaval);
+    cicadaslider.slider("refresh");     
     
     if (fadems <= 0){
       clearInterval(fadetimeout);
@@ -915,7 +925,7 @@ $(window).load(function(){
   <div id="cicadatest-slider-background" class="slider-background"></div> 
   <div id="cicadatest-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="cicadatest-slider">Cicadas</label> </div>
-      <input type="range" id="cicadatest-slider" value="0.0" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+      <input type="range" id="cicadatest-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -1106,13 +1116,13 @@ $(window).load(function(){
 </div>
 
 <div class="audioplayer">
-  <audio id="cicadatest" controls loop>
+  <audio id="cicadatest" controls>
     <source id="cicadatestmp4" src="" type="audio/mp4">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="cicadatest-glue" controls loop>
+  <audio id="cicadatest-glue" controls>
     <source id="cicadatest-gluemp4" src="" type="audio/mp4">
   </audio>
 </div>
