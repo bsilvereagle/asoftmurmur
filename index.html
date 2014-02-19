@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="js/jquery.mobile.custom.structure.min.css" />
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/jquery.mobile.custom.min.js"></script>
+<script src="js/hotkeys.js"></script>
 
 <link rel="icon" href="favicon.png">
 <script type="text/javascript">
@@ -700,6 +701,15 @@ if(urlvhex !== null){
   var queryhumansvolume = parseInt(queryvolumes[5], 16) / 100;
   humansslider.val(queryhumansvolume);
   humansslider.slider("refresh");   
+  
+  var querycicadavolume = parseInt(queryvolumes[6], 16) / 100;
+  
+  if( querycicadavolume > 0.02 ) { 
+    expandSliderCicada();
+  }
+  
+  cicadaslider.val(querycicadavolume);
+  cicadaslider.slider("refresh");    
 }
 
 // if query string is present, set sliders to value in string
@@ -772,6 +782,22 @@ share.click( function() {
 
 // write url with query string when called
 //write social urls
+
+$(document).bind('keydown', 'space', function() {
+
+  event.preventDefault();
+  ppbutton.trigger( "click" );
+  
+});
+
+$(document).bind('keydown', 't', function() {
+
+  event.preventDefault();
+  optionsbutton.trigger( "click" );
+
+});
+
+// keyboard shortcut support
 
 $(window).load(function(){
 
