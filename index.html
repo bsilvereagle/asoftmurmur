@@ -331,17 +331,12 @@ loadAudible(cicadaplayer0, cicadaplayer);
       if (typeof lastcicadavol != "object"){ 
         
         if (lastcicadavol > 0.02) {
-          expandSliderCicada();
+          expandSliderCicada(); // expand and load audio if localstorage volume > 0.02
         }
         
         cicadaslider.val(lastcicadavol);
         cicadaslider.slider("refresh");
-        
-// If a volume is in local storage, expand the slider and load the audio element src   
-
-        
-        
-      }
+     }
 
   slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
   
@@ -407,7 +402,16 @@ loadAudible(cicadaplayer0, cicadaplayer);
 
   humansglueplayer.bind('timeupdate', function() {
     sloop(humansglueplayer0, humansplayer0, 5);
+  })
+  
+  cicadaplayer.bind('timeupdate', function() {
+    sloop(cicadaplayer0, cicadaglueplayer0, 141);
+  })
+
+  cicadaglueplayer.bind('timeupdate', function() {
+    sloop(cicadaglueplayer0, cicadaplayer0, 5);
   })  
+    
 
 // looping parameters for each sample
 
@@ -827,7 +831,7 @@ $(window).load(function(){
 </div>
 
 <div id="options" class="otext">
-  <p><a href="#" id="optionsbutton" class="show_hide">Options</a></p>
+  <p><a href="#" id="optionsbutton" class="show_hide">Tools</a></p>
   <div class="optionshidden">
   <div id="optionscontainer">
   <div id ="buttonoptions" class="linkbuttons">
