@@ -294,7 +294,7 @@ html {
   height: 33px;
 }
 
-#expand-button {
+.expand-button {
   height: 100%;
   width: 100%;
   background: none;
@@ -302,7 +302,7 @@ html {
   z-index: 6;
 }
 
-#collapse-button {
+.collapse-button {
   height:30px;
   width: 30px;
   position: absolute;
@@ -314,7 +314,7 @@ html {
   z-index: 5;
 }
 
-.sliders-collapsed #collapse-button {
+.sliders-collapsed .collapse-button {
   display: none;
 }
 

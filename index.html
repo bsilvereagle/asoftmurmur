@@ -88,40 +88,39 @@ var ppbutton = $("#play-pause-button");
 
 // Expand collapsed sounds on click or tap test function
 
-var cicadaTestContainer = $('#cicadatest-slider-container');
-var cicadaTestmp4 = $('#cicadatestmp4');
-var cicadaTest0 = $('#cicadatest')[0];
-var collapseButton = $('#collapse-button');
-var expandButton = $('#expand-button');
+var cicadaContainer = $('#cicadatest-slider-container');
+var cicadaMp4 = $('#cicadatestmp4');
+var cicadaMp4Src = 'audio/cicadatest.mp4';
+var cicadaglueMp4 =$('#cicadatest-gluemp4');
+var cicadaglueMp4Src = 'audio/cicadatest.glue.mp4';
+var cicadaCollapseButton = $('#cicada-collapse-button');
+var cicadaExpandButton = $('#cicada-expand-button');
 var slc = 'sliders-collapsed';
-var cicadacounter = 0;
 
-var cicadaTestGluemp4 = $('#cicadatest-gluemp4');
-var cicadaTestGlue0 = $('#cicadatest-glue')[0];
+console.log(cicadaMp4.attr('src'));
 
-expandButton.click( 
+function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
+  if (container.hasClass( slc )) {
+    container.removeClass( slc);
+    if ( mp4.attr('src') == "" )  {
+      mp4.attr('src', mp4src).detach().appendTo(player0);
+      gluemp4.attr('src', gluemp4src).detach().appendTo(glueplayer0);
+    }
+    
+    button.hide();
+    
+  }
+}
+
+function expandSliderCicada() {
+  expandSlider(cicadaContainer, cicadaMp4, cicadaMp4Src, cicadaglueMp4, cicadaglueMp4Src, 0 ,0, 0, 0, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0)
+}
+
+cicadaExpandButton.click( 
 
   function() {
-  
-    if (cicadaTestContainer.hasClass( slc )) {
-     
-     cicadaTestContainer.removeClass( slc )
-     
-//     console.log(cicadaTestContainer.attr('class'));
-     
-     if (cicadacounter == 0) {
-     
-      cicadaTestGluemp4.attr('src', 'audio/cicadatest.glue.mp4').detach().appendTo(cicadaTestGlue0);      
-      cicadaTestmp4.attr('src', 'audio/cicadatest.mp4').detach().appendTo(cicadaTest0);
-      cicadacounter = 1;
-     }
-     
-     $(this).hide();
-
-    }
-  
+    expandSliderCicada();
   }
-
 );
 
 function pauseOnCollapse(player, glueplayer) {
@@ -134,13 +133,13 @@ function silenceOnCollapse(slider) {
   slider.slider("refresh");
 }
 
-collapseButton.click(
+cicadaCollapseButton.click(
 
   function() {
   
-    cicadaTestContainer.addClass( slc );
+    cicadaContainer.addClass( slc );
 //    console.log(cicadaTestContainer.attr('class'));
-    expandButton.show();
+    cicadaExpandButton.show();
     pauseOnCollapse(cicadaplayer0, cicadaglueplayer0);
     silenceOnCollapse(cicadaslider);
   
@@ -156,34 +155,6 @@ var cicadaplayer0 = $('#cicadatest')[0];
 var cicadaplayer = $('#cicadatest');
 var cicadaglueplayer0 = $('#cicadatest-glue')[0]; 
 var cicadaglueplayer = $('#cicadatest-glue');  
-
-function cicadaSliderVol(player, glueplayer, slider, sliderbackground) {
-  if (player.currentTime !== undefined) {
-    player.volume = slider.val();
-    glueplayer.volume = slider.val();
-    sliderbackground.css({'opacity': slider.val() });
-      if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all')) {
-        player.play();
-      }
-      if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all') && player.currentTime <0.01 && glueplayer.paused){
-        glueplayer.currentTime = 7;
-        glueplayer.play(); // play half of glueplayer while the main audio element loads          
-      }
-      if(player.volume <= 0.02) {
-        player.pause();
-      }
-      if(glueplayer.volume <= 0.02) {
-        glueplayer.pause();
-      }
-    }
-}
-
-slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
-  
-cicadaslider.on( 'change', function( event, ui ) {
-  slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
-  remembervol(cicadaslider, "lscicada");
-})
 
 
 // end test functions
@@ -224,10 +195,8 @@ loadAudible(cicadaplayer0, cicadaplayer);
   }
   
   function pauseIf(player, glueplayer){
-    if (player.currentTime !== undefined) {
       player.pause();
-      glueplayer.pause();
-    }
+      glueplayer.pause(); 
   }
   
   function pauseall(){
@@ -243,22 +212,22 @@ loadAudible(cicadaplayer0, cicadaplayer);
 //play-all and pause-all function
 
   function slidervol(player, glueplayer, slider, sliderbackground) {
-    player.volume = slider.val();
-    glueplayer.volume = slider.val();
-    sliderbackground.css({'opacity': slider.val() });
-      if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all')) {
-        player.play();
-      }
-      if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all') && player.currentTime <0.01 && glueplayer.paused){
-        glueplayer.currentTime = 7;
-        glueplayer.play(); // play half of glueplayer while the main audio element loads          
-      }
-      if(player.volume <= 0.02) {
-        player.pause();
-      }
-      if(glueplayer.volume <= 0.02) {
-        glueplayer.pause();
-      }
+      player.volume = slider.val();
+      glueplayer.volume = slider.val();
+      sliderbackground.css({'opacity': slider.val() });
+        if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all')) {
+          player.play();
+        }
+        if(player.volume > 0.02 && $("#play-pause-button").hasClass('pause-all') && player.currentTime <0.01 && glueplayer.paused){
+          glueplayer.currentTime = 7;
+          glueplayer.play(); // play half of glueplayer while the main audio element loads          
+        }
+        if(player.volume <= 0.02) {
+          player.pause();
+        }
+        if(glueplayer.volume <= 0.02) {
+          glueplayer.pause();
+        } 
   }
   
   function remembervol(slider, lsvol) {
@@ -269,7 +238,7 @@ loadAudible(cicadaplayer0, cicadaplayer);
   
 
   var lastrainvol = localStorage.getItem("lsrain");
-      if (typeof lastrainvol != "object"){ 
+      if (typeof lastrainvol != "object"){           // if the volume is in localstorage, this will be a string
         rainslider.val(lastrainvol);
         rainslider.slider("refresh");
       }
@@ -354,7 +323,32 @@ loadAudible(cicadaplayer0, cicadaplayer);
   humansslider.on( 'change', function( event, ui ) {
     slidervol(humansplayer0, humansglueplayer0, humansslider, humansbackground);
     remembervol(humansslider, "lshumans");
-  })   
+  })
+  
+//
+
+ var lastcicadavol = localStorage.getItem("lscicada");
+      if (typeof lastcicadavol != "object"){ 
+        
+        if (lastcicadavol > 0.02) {
+          expandSliderCicada();
+        }
+        
+        cicadaslider.val(lastcicadavol);
+        cicadaslider.slider("refresh");
+        
+// If a volume is in local storage, expand the slider and load the audio element src   
+
+        
+        
+      }
+
+  slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
+  
+  cicadaslider.on( 'change', function( event, ui ) {
+    slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
+    remembervol(cicadaslider, "lscicada");
+  })     
   
 // parameters to update audio by slider
 
@@ -912,8 +906,8 @@ $(window).load(function(){
 </div>
 
 <div id="cicadatest-slider-container" class="sliders sliders-collapsed">
-  <div id="collapse-button"></div>
-  <div id="expand-button"></div>
+  <div class="collapse-button" id="cicada-collapse-button"></div>
+  <div class="expand-button" id="cicada-expand-button"></div>
   <div id="cicadatest-slider-background" class="slider-background"></div> 
   <div id="cicadatest-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="cicadatest-slider">Cicadas</label> </div>
