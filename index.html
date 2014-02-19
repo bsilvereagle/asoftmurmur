@@ -763,9 +763,15 @@ share.click( function() {
   var humanshex = humansdec.toString(16);
   if (humanshex.length < 2) {
     humanshex = "0" + humanshex;
-  }          
+  }        
+  
+  var cicadadec = Math.round(cicadaslider.val() * 100);
+  var cicadahex = cicadadec.toString(16);
+  if (cicadahex.length < 2) {
+    cicadahex = "0" + cicadahex;
+  }     
 
-  var hexquery = rainhex + thunderhex + firehex + waveshex + birdshex + humanshex
+  var hexquery = rainhex + thunderhex + firehex + waveshex + birdshex + humanshex + cicadahex
   var hexurl = "http://asoftmurmur.com/?v=" + hexquery
   
   showshareurl.text(hexurl);
@@ -901,7 +907,7 @@ $(window).load(function(){
   <div id="rain-slider-background" class="slider-background"></div>
   <div id="rain-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="rain-slider">Rain</label> </div>
-      <input type="range" id="rain-slider" value="0.3" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+      <input type="range" id="rain-slider" value="0.3" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -909,7 +915,7 @@ $(window).load(function(){
   <div id="thunder-slider-background" class="slider-background"></div>
   <div id="thunder-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="thunder-slider">Thunder</label> </div>
-      <input type="range" id="thunder-slider" value="0.8" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+      <input type="range" id="thunder-slider" value="0.8" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -917,7 +923,7 @@ $(window).load(function(){
   <div id="fire-slider-background" class="slider-background"></div>
   <div id="fire-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="fire-slider">Fire</label> </div>
-      <input type="range" id="fire-slider" value="0.4" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+      <input type="range" id="fire-slider" value="0.4" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -925,7 +931,7 @@ $(window).load(function(){
   <div id="waves-slider-background" class="slider-background"></div>
   <div id="waves-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="waves-slider">Waves</label> </div>
-      <input type="range" id="waves-slider" value="0.0" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+      <input type="range" id="waves-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -933,7 +939,7 @@ $(window).load(function(){
   <div id="birds-slider-background" class="slider-background"></div>
   <div id="birds-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="birds-slider">Birds</label> </div>
-      <input type="range" id="birds-slider" value="0.0" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+      <input type="range" id="birds-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -941,7 +947,7 @@ $(window).load(function(){
   <div id="humans-slider-background" class="slider-background"></div>
   <div id="humans-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="humans-slider">Humans</label> </div>
-      <input type="range" id="humans-slider" value="0.0" min="0" max="1" step="0.01" class="ui-hidden-accessible"/>
+      <input type="range" id="humans-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
