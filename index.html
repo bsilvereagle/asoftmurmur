@@ -110,6 +110,18 @@ var humansGlueOggSrc = 'audio/humans.glue.ogg';
 var humansCollapseButton = $('#humans-collapse-button');
 var humansExpandButton = $('#humans-expand-button');
 
+var birdsContainer = $('#birds-slider-container');
+var birdsMp4 = $('#birdsmp4');
+var birdsMp4Src = 'audio/birds.fade.mp4';
+var birdsGlueMp4 =$('#birdsgluemp4');
+var birdsGlueMp4Src = 'audio/birds.glue.mp4';
+var birdsOgg = $('#birdsogg');
+var birdsOggSrc = 'audio/birds.fade.ogg';
+var birdsGlueOgg =$('#birdsglueogg');
+var birdsGlueOggSrc = 'audio/birds.glue.ogg';
+var birdsCollapseButton = $('#birds-collapse-button');
+var birdsExpandButton = $('#birds-expand-button');
+
 
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
   if (container.hasClass( sliderCollapsed )) {
@@ -138,9 +150,19 @@ function expandSliderCicada() {
   expandSlider(cicadaContainer, cicadaMp4, cicadaMp4Src, cicadaglueMp4, cicadaglueMp4Src, 0 ,0, 0, 0, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0)
 }
 
+//
+
 function expandSliderHumans() {
   expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0)
 }
+
+//
+
+function expandSliderBirds() {
+  expandSlider(birdsContainer, birdsMp4, birdsMp4Src, birdsGlueMp4, birdsGlueMp4Src, birdsOgg, birdsOggSrc, birdsGlueOgg, birdsGlueOggSrc, birdsExpandButton, birdsplayer0, birdsglueplayer0)
+}
+
+//
 
 cicadaExpandButton.click( 
 
@@ -149,6 +171,8 @@ cicadaExpandButton.click(
   }
 );
 
+//
+
 humansExpandButton.click( 
 
   function() {
@@ -156,10 +180,22 @@ humansExpandButton.click(
   }
 );
 
+//
+
+birdsExpandButton.click( 
+
+  function() {
+    expandSliderBirds();
+  }
+);
+
+//
+
 function pauseOnCollapse(player, glueplayer) {
   player.pause();
   glueplayer.pause();
 }
+
 
 function silenceOnCollapse(slider) {
   slider.val(0);
@@ -182,6 +218,8 @@ function collapseSlider(container, button, player0, glueplayer0, slider) {
 
 }
 
+//
+
 cicadaCollapseButton.click(
 
   function() {
@@ -190,10 +228,22 @@ cicadaCollapseButton.click(
 
 );
 
+//
+
 humansCollapseButton.click(
 
   function() {
     collapseSlider(humansContainer, humansExpandButton, humansplayer0, humansglueplayer0, humansslider);
+  }
+
+);
+
+//
+
+birdsCollapseButton.click(
+
+  function() {
+    collapseSlider(birdsContainer, birdsExpandButton, birdsplayer0, birdsglueplayer0, birdsslider);
   }
 
 );
@@ -348,8 +398,13 @@ loadAudible(cicadaplayer0, cicadaplayer);
 
 //
 
-  var lastbirdsvol = localStorage.getItem("lsbirds");
+ var lastbirdsvol = localStorage.getItem("lsbirds");
       if (typeof lastbirdsvol != "object"){ 
+      
+        if (lastbirdsvol > 0.02 && birdsContainer.hasClass("sliders-collapsed")) {
+          expandSliderBirds(); // expand and load audio if localstorage volume > 0.02
+        }
+      
         birdsslider.val(lastbirdsvol);
         birdsslider.slider("refresh");
       }
@@ -359,7 +414,7 @@ loadAudible(cicadaplayer0, cicadaplayer);
   birdsslider.on( 'change', function( event, ui ) {
     slidervol(birdsplayer0, birdsglueplayer0, birdsslider, birdsbackground);
     remembervol(birdsslider, "lsbirds");
-  }) 
+  })
 
 //
 
@@ -885,7 +940,6 @@ $(window).load(function(){
   rainplayer.attr("preload", "auto");
   thunderplayer.attr("preload", "auto");  
   fireplayer.attr("preload", "auto");
-  birdsplayer.attr("preload", "auto");
 
 })
 
@@ -1002,7 +1056,7 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="birds-slider-container" class="sliders sliders-expanded">
+<div id="birds-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="birds-collapse-button"></div>
   <div class="expand-button" id="birds-expand-button"></div>
   <div id="birds-slider-background" class="slider-background"></div>
