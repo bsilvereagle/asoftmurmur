@@ -114,14 +114,23 @@ var humansExpandButton = $('#humans-expand-button');
 
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
   if (container.hasClass( sliderCollapsed )) {
-    container.removeClass( sliderCollapsed );
-    container.addClass( sliderExpanded );
-    if ( mp4.attr('src') == "" )  {
-      mp4.attr('src', mp4src).detach().appendTo(player0);
-      gluemp4.attr('src', gluemp4src).detach().appendTo(glueplayer0);
-    }
     
-    button.hide();
+    container.fadeOut( "400", function() {
+    
+      container.removeClass( sliderCollapsed );
+      container.addClass( sliderExpanded );
+      if ( mp4.attr('src') == "" )  {
+        mp4.attr('src', mp4src).detach().appendTo(player0);
+        gluemp4.attr('src', gluemp4src).detach().appendTo(glueplayer0);
+      }
+      
+      button.hide();
+ 
+      container.insertBefore( $(".sliders-collapsed").first() );
+      container.fadeIn( "400");
+
+    });
+    
     
   }
 }
@@ -158,16 +167,26 @@ function silenceOnCollapse(slider) {
   slider.slider("refresh");
 }
 
+function collapseSlider(container, button, player0, glueplayer0, slider) {
+
+  container.fadeOut( "400", function() {
+  
+    container.removeClass( sliderExpanded );
+    container.addClass( sliderCollapsed );
+    button.show();
+    pauseOnCollapse(player0, glueplayer0);
+    silenceOnCollapse(slider);
+    
+    container.insertAfter( $(".sliders-expanded").last()  );
+    container.fadeIn( "400" );    
+  });
+
+}
+
 cicadaCollapseButton.click(
 
   function() {
-  
-    cicadaContainer.removeClass( sliderExpanded );
-    cicadaContainer.addClass( sliderCollapsed );
-    cicadaExpandButton.show();
-    pauseOnCollapse(cicadaplayer0, cicadaglueplayer0);
-    silenceOnCollapse(cicadaslider);
-  
+    collapseSlider(cicadaContainer, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0, cicadaslider);
   }
 
 );
@@ -175,13 +194,7 @@ cicadaCollapseButton.click(
 humansCollapseButton.click(
 
   function() {
-  
-    humansContainer.removeClass( sliderExpanded );
-    humansContainer.addClass( sliderCollapsed );
-    humansExpandButton.show();
-    pauseOnCollapse(humansplayer0, humansglueplayer0);
-    silenceOnCollapse(humansslider);
-  
+    collapseSlider(humansContainer, humansExpandButton, humansplayer0, humansglueplayer0, humansslider);
   }
 
 );
