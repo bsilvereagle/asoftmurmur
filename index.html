@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,14 +33,14 @@ var wavesslider = $("#waves-slider");
 var thunderslider = $("#thunder-slider");
 var fireslider = $("#fire-slider");
 var birdsslider = $("#birds-slider");
-
+var humansslider = $("#humans-slider");
 
 var rainbackground = $("#rain-slider-background");
 var wavesbackground = $("#waves-slider-background");
 var thunderbackground = $("#thunder-slider-background");
 var firebackground = $("#fire-slider-background");
 var birdsbackground = $("#birds-slider-background");
-
+var humansbackground = $("#humans-slider-background");
 
 var rainplayer0 = $('#rainplayer')[0]; 
 var rainglueplayer0 = $('#rainglueplayer')[0];
@@ -53,7 +52,8 @@ var fireplayer0 = $('#fireplayer')[0];
 var fireglueplayer0 = $('#fireglueplayer')[0];
 var birdsplayer0 = $('#birdsplayer')[0];
 var birdsglueplayer0 = $('#birdsglueplayer')[0];
-
+var humansplayer0 = $('#humansplayer')[0];
+var humansglueplayer0 = $('#humansglueplayer')[0];
 
 var rainplayer = $('#rainplayer'); 
 var rainglueplayer = $('#rainglueplayer');
@@ -65,7 +65,8 @@ var fireplayer = $('#fireplayer');
 var fireglueplayer = $('#fireglueplayer');
 var birdsplayer = $('#birdsplayer');
 var birdsglueplayer = $('#birdsglueplayer');
-
+var humansplayer = $('#humansplayer');
+var humansglueplayer = $('#humansglueplayer');
 
 var reset = $('#reset');
 var silence = $('#silence');
@@ -97,7 +98,17 @@ var cicadaExpandButton = $('#cicada-expand-button');
 var sliderCollapsed= 'sliders-collapsed';
 var sliderExpanded = 'sliders-expanded';
 
-
+var humansContainer = $('#humans-slider-container');
+var humansMp4 = $('#humansmp4');
+var humansMp4Src = 'audio/humans.fade.mp4';
+var humansGlueMp4 =$('#humansgluemp4');
+var humansGlueMp4Src = 'audio/humans.glue.mp4';
+var humansOgg = $('#humansogg');
+var humansOggSrc = 'audio/humans.fade.ogg';
+var humansGlueOgg =$('#humansglueogg');
+var humansGlueOggSrc = 'audio/humans.glue.ogg';
+var humansCollapseButton = $('#humans-collapse-button');
+var humansExpandButton = $('#humans-expand-button');
 
 
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
@@ -127,7 +138,9 @@ function expandSliderCicada() {
   expandSlider(cicadaContainer, cicadaMp4, cicadaMp4Src, cicadaglueMp4, cicadaglueMp4Src, 0 ,0, 0, 0, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0)
 }
 
-
+function expandSliderHumans() {
+  expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0)
+}
 
 cicadaExpandButton.click( 
 
@@ -136,7 +149,12 @@ cicadaExpandButton.click(
   }
 );
 
+humansExpandButton.click( 
 
+  function() {
+    expandSliderHumans();
+  }
+);
 
 function pauseOnCollapse(player, glueplayer) {
   player.pause();
@@ -172,7 +190,13 @@ cicadaCollapseButton.click(
 
 );
 
+humansCollapseButton.click(
 
+  function() {
+    collapseSlider(humansContainer, humansExpandButton, humansplayer0, humansglueplayer0, humansslider);
+  }
+
+);
 
 // Get slider working
 
@@ -197,7 +221,7 @@ loadAudible(thunderplayer0, thunderplayer);
 loadAudible(fireplayer0, fireplayer);
 loadAudible(wavesplayer0, wavesplayer);
 loadAudible(birdsplayer0, birdsplayer);
-
+loadAudible(humansplayer0, humansplayer);
 loadAudible(cicadaplayer0, cicadaplayer);
     
   function playif(player, glueplayer){
@@ -339,7 +363,23 @@ loadAudible(cicadaplayer0, cicadaplayer);
 
 //
 
+  var lasthumansvol = localStorage.getItem("lshumans");
+      if (typeof lasthumansvol != "object"){ 
+      
+        if (lasthumansvol > 0.02 && humansContainer.hasClass("sliders-collapsed")) {
+          expandSliderHumans(); // expand and load audio if localstorage volume > 0.02
+        }
+      
+        humansslider.val(lasthumansvol);
+        humansslider.slider("refresh");
+      }
 
+  slidervol(humansplayer0, humansglueplayer0, humansslider, humansbackground);
+  
+  humansslider.on( 'change', function( event, ui ) {
+    slidervol(humansplayer0, humansglueplayer0, humansslider, humansbackground);
+    remembervol(humansslider, "lshumans");
+  })
   
 //
 
@@ -412,7 +452,13 @@ loadAudible(cicadaplayer0, cicadaplayer);
     sloop(birdsglueplayer0, birdsplayer0, 5);
   })    
   
+  humansplayer.bind('timeupdate', function() {
+    sloop(humansplayer0, humansglueplayer0, 141);
+  })
 
+  humansglueplayer.bind('timeupdate', function() {
+    sloop(humansglueplayer0, humansplayer0, 5);
+  })
   
   cicadaplayer.bind('timeupdate', function() {
     sloop(cicadaplayer0, cicadaglueplayer0, 141);
@@ -707,7 +753,14 @@ if(urlvhex !== null){
   birdsslider.val(querybirdsvolume);
   birdsslider.slider("refresh");
   
+  var queryhumansvolume = parseInt(queryvolumes[5], 16) / 100;
 
+  if( queryhumansvolume > 0.02 && humansContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderHumans();
+  }  
+  
+  humansslider.val(queryhumansvolume);
+  humansslider.slider("refresh");   
   
   var querycicadavolume = parseInt(queryvolumes[6], 16) / 100;
   
@@ -766,7 +819,11 @@ share.click( function() {
     birdshex = "0" + birdshex;
   }
   
-       
+  var humansdec = Math.round(humansslider.val() * 100);
+  var humanshex = humansdec.toString(16);
+  if (humanshex.length < 2) {
+    humanshex = "0" + humanshex;
+  }        
   
   var cicadadec = Math.round(cicadaslider.val() * 100);
   var cicadahex = cicadadec.toString(16);
@@ -807,87 +864,6 @@ $(document).bind('keydown', 't', function() {
 });
 
 // keyboard shortcut support
-
-// BEGIN dedicated section for HUMANS
-// Designed to be easy to cut and paste
-// Let's see if it works
-
-var humansslider = $("#humans-slider");
-var humansbackground = $("#humans-slider-background");
-var humansplayer0 = $('#humansplayer')[0];
-var humansglueplayer0 = $('#humansglueplayer')[0];
-var humansplayer = $('#humansplayer');
-var humansglueplayer = $('#humansglueplayer');
-var humansContainer = $('#humans-slider-container');
-var humansMp4 = $('#humansmp4');
-var humansMp4Src = 'audio/humans.fade.mp4';
-var humansGlueMp4 =$('#humansgluemp4');
-var humansGlueMp4Src = 'audio/humans.glue.mp4';
-var humansOgg = $('#humansogg');
-var humansOggSrc = 'audio/humans.fade.ogg';
-var humansGlueOgg =$('#humansglueogg');
-var humansGlueOggSrc = 'audio/humans.glue.ogg';
-var humansCollapseButton = $('#humans-collapse-button');
-var humansExpandButton = $('#humans-expand-button');
-
-function expandSliderHumans() {
-  expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0)
-}
-
-humansExpandButton.click( 
-
-  function() {
-    expandSliderHumans();
-  }
-);
-
-humansCollapseButton.click(
-
-  function() {
-    collapseSlider(humansContainer, humansExpandButton, humansplayer0, humansglueplayer0, humansslider);
-  }
-
-);
-
-loadAudible(humansplayer0, humansplayer);
-
-var lasthumansvol = localStorage.getItem("lshumans");
-
-if (typeof lasthumansvol != "object"){ 
-      
-  if (lasthumansvol > 0.02 && humansContainer.hasClass("sliders-collapsed")) {
-    expandSliderHumans(); // expand and load audio if localstorage volume > 0.02
-  }
-
-  humansslider.val(lasthumansvol);
-  humansslider.slider("refresh");
-}
-
-slidervol(humansplayer0, humansglueplayer0, humansslider, humansbackground);
-  
-humansslider.on( 'change', function( event, ui ) {
-  slidervol(humansplayer0, humansglueplayer0, humansslider, humansbackground);
-  remembervol(humansslider, "lshumans");
-})
-
-var queryhumansvolume = parseInt(queryvolumes[5], 16) / 100;
-
-if( queryhumansvolume > 0.02 && humansContainer.hasClass( 'sliders-collapsed' ) ) { 
-  expandSliderHumans();
-}  
-
-humansslider.val(queryhumansvolume);
-humansslider.slider("refresh");   
-
-var humansdec = Math.round(humansslider.val() * 100);
-var humanshex = humansdec.toString(16);
-if (humanshex.length < 2) {
-  humanshex = "0" + humanshex;
-} 
-
-// END dedicated section for HUMANS
-
-
 
 $(window).load(function(){
 
