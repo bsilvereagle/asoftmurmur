@@ -115,7 +115,7 @@ var humansExpandButton = $('#humans-expand-button');
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
   if (container.hasClass( sliderCollapsed )) {
     
-    container.fadeOut( "400", function() {
+    container.fadeOut( "200", function() {
     
       container.removeClass( sliderCollapsed );
       container.addClass( sliderExpanded );
@@ -127,7 +127,7 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
       button.hide();
  
       container.insertBefore( $(".sliders-collapsed").first() );
-      container.fadeIn( "400");
+      container.fadeIn( "200");
 
     });
     
@@ -169,7 +169,7 @@ function silenceOnCollapse(slider) {
 
 function collapseSlider(container, button, player0, glueplayer0, slider) {
 
-  container.fadeOut( "400", function() {
+  container.fadeOut( "200", function() {
   
     container.removeClass( sliderExpanded );
     container.addClass( sliderCollapsed );
@@ -178,7 +178,7 @@ function collapseSlider(container, button, player0, glueplayer0, slider) {
     silenceOnCollapse(slider);
     
     container.insertAfter( $(".sliders-expanded").last()  );
-    container.fadeIn( "400" );    
+    container.fadeIn( "200" );    
   });
 
 }
@@ -484,7 +484,7 @@ var optionsbutton = $("#optionsbutton");
   $(".sharehidden").hide();
  
   $('.show_hide').click(function(){
-    $(".optionshidden").slideToggle();
+    $(".optionshidden").fadeToggle();
     
     var optionstext = optionsbutton.text()
 
@@ -497,7 +497,7 @@ var optionsbutton = $("#optionsbutton");
   });
 
   $('.sharetoggle').click(function(){
-    $(".sharehidden").slideToggle();
+    $(".sharehidden").fadeToggle();
   }); 
 
 // function to show and hide options menu
