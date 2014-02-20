@@ -99,7 +99,18 @@ var cicadaExpandButton = $('#cicada-expand-button');
 var sliderCollapsed= 'sliders-collapsed';
 var sliderExpanded = 'sliders-expanded';
 
-console.log(cicadaMp4.attr('src'));
+var humansContainer = $('#humans-slider-container');
+var humansMp4 = $('#humansmp4');
+var humansMp4Src = 'audio/humans.fade.mp4';
+var humansGlueMp4 =$('#humansgluemp4');
+var humansGlueMp4Src = 'audio/humans.glue.mp4';
+var humansOgg = $('#humansogg');
+var humansOggSrc = 'audio/humans.fade.ogg';
+var humansGlueOgg =$('#humansglueogg');
+var humansGlueOggSrc = 'audio/humans.glue.ogg';
+var humansCollapseButton = $('#humans-collapse-button');
+var humansExpandButton = $('#humans-expand-button');
+
 
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
   if (container.hasClass( sliderCollapsed )) {
@@ -119,10 +130,21 @@ function expandSliderCicada() {
   expandSlider(cicadaContainer, cicadaMp4, cicadaMp4Src, cicadaglueMp4, cicadaglueMp4Src, 0 ,0, 0, 0, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0)
 }
 
+function expandSliderHumans() {
+  expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0)
+}
+
 cicadaExpandButton.click( 
 
   function() {
     expandSliderCicada();
+  }
+);
+
+humansExpandButton.click( 
+
+  function() {
+    expandSliderHumans();
   }
 );
 
@@ -145,6 +167,20 @@ cicadaCollapseButton.click(
     cicadaExpandButton.show();
     pauseOnCollapse(cicadaplayer0, cicadaglueplayer0);
     silenceOnCollapse(cicadaslider);
+  
+  }
+
+);
+
+humansCollapseButton.click(
+
+  function() {
+  
+    humansContainer.removeClass( sliderExpanded );
+    humansContainer.addClass( sliderCollapsed );
+    humansExpandButton.show();
+    pauseOnCollapse(humansplayer0, humansglueplayer0);
+    silenceOnCollapse(humansslider);
   
   }
 
@@ -317,6 +353,11 @@ loadAudible(cicadaplayer0, cicadaplayer);
 
   var lasthumansvol = localStorage.getItem("lshumans");
       if (typeof lasthumansvol != "object"){ 
+      
+        if (lasthumansvol > 0.02 && humansContainer.hasClass("sliders-collapsed")) {
+          expandSliderHumans(); // expand and load audio if localstorage volume > 0.02
+        }
+      
         humansslider.val(lasthumansvol);
         humansslider.slider("refresh");
       }
@@ -333,7 +374,7 @@ loadAudible(cicadaplayer0, cicadaplayer);
  var lastcicadavol = localStorage.getItem("lscicada");
       if (typeof lastcicadavol != "object"){ 
         
-        if (lastcicadavol > 0.02) {
+        if (lastcicadavol > 0.02 && cicadaContainer.hasClass("sliders-collapsed")) {
           expandSliderCicada(); // expand and load audio if localstorage volume > 0.02
         }
         
@@ -701,12 +742,17 @@ if(urlvhex !== null){
   birdsslider.slider("refresh");
   
   var queryhumansvolume = parseInt(queryvolumes[5], 16) / 100;
+
+  if( queryhumansvolume > 0.02 && humansContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderHumans();
+  }  
+  
   humansslider.val(queryhumansvolume);
   humansslider.slider("refresh");   
   
   var querycicadavolume = parseInt(queryvolumes[6], 16) / 100;
   
-  if( querycicadavolume > 0.02 ) { 
+  if( querycicadavolume > 0.02 && cicadaContainer.hasClass( 'sliders-collapsed' ) ) { 
     expandSliderCicada();
   }
   
@@ -828,7 +874,6 @@ $(window).load(function(){
   thunderplayer.attr("preload", "auto");  
   fireplayer.attr("preload", "auto");
   birdsplayer.attr("preload", "auto");
-  humansplayer.attr("preload", "auto");  
 
 })
 
@@ -955,7 +1000,7 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="humans-slider-container" class="sliders sliders-expanded">
+<div id="humans-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="humans-collapse-button"></div>
   <div class="expand-button" id="humans-expand-button"></div>
   <div id="humans-slider-background" class="slider-background"></div>
@@ -1148,16 +1193,16 @@ $(window).load(function(){
 </div>
 
 <div class="audioplayer">
-  <audio id="humansplayer" loop preload="none">
-    <source src="audio/humans.fade.mp4" type="audio/mp4">
-    <source src="audio/humans.fade.ogg" type="audio/ogg">
+  <audio id="humansplayer" loop controls>
+    <source id="humansmp4" src="" type="audio/mp4">
+    <source id="humansogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="humansglueplayer" preload="auto">
-    <source src="audio/humans.glue.mp4" type="audio/mp4">
-    <source src="audio/humans.glue.ogg" type="audio/ogg">
+  <audio id="humansglueplayer" controls>
+    <source id="humansgluemp4" src="" type="audio/mp4">
+    <source id="humansglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 

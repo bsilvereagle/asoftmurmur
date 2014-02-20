@@ -272,7 +272,7 @@ html {
   cursor: hand;
 }
 
-.sliders-collapsed #cicadatest-slider-background  {
+#page-container #sliders-container .sliders-collapsed .slider-background  {
   background-image: none;
 }
 
