@@ -302,6 +302,10 @@ html {
   z-index: 6;
 }
 
+.sliders-expanded .expand-button {
+  display:none;
+}
+
 .collapse-button {
   height:20px;
   width: 20px;

@@ -96,13 +96,15 @@ var cicadaglueMp4 =$('#cicadatest-gluemp4');
 var cicadaglueMp4Src = 'audio/cicadatest.glue.mp4';
 var cicadaCollapseButton = $('#cicada-collapse-button');
 var cicadaExpandButton = $('#cicada-expand-button');
-var slc = 'sliders-collapsed';
+var sliderCollapsed= 'sliders-collapsed';
+var sliderExpanded = 'sliders-expanded';
 
 console.log(cicadaMp4.attr('src'));
 
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
-  if (container.hasClass( slc )) {
-    container.removeClass( slc);
+  if (container.hasClass( sliderCollapsed )) {
+    container.removeClass( sliderCollapsed );
+    container.addClass( sliderExpanded );
     if ( mp4.attr('src') == "" )  {
       mp4.attr('src', mp4src).detach().appendTo(player0);
       gluemp4.attr('src', gluemp4src).detach().appendTo(glueplayer0);
@@ -138,8 +140,8 @@ cicadaCollapseButton.click(
 
   function() {
   
-    cicadaContainer.addClass( slc );
-//    console.log(cicadaTestContainer.attr('class'));
+    cicadaContainer.removeClass( sliderExpanded );
+    cicadaContainer.addClass( sliderCollapsed );
     cicadaExpandButton.show();
     pauseOnCollapse(cicadaplayer0, cicadaglueplayer0);
     silenceOnCollapse(cicadaslider);
@@ -903,7 +905,9 @@ $(window).load(function(){
 
 <div id="sliders-container">
 
-<div id="rain-slider-container" class="sliders">
+<div id="rain-slider-container" class="sliders sliders-expanded">
+  <div class="collapse-button" id="rain-collapse-button"></div>
+  <div class="expand-button" id="rain-expand-button"></div>
   <div id="rain-slider-background" class="slider-background"></div>
   <div id="rain-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="rain-slider">Rain</label> </div>
@@ -911,7 +915,9 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="thunder-slider-container" class="sliders">
+<div id="thunder-slider-container" class="sliders sliders-expanded">
+  <div class="collapse-button" id="thunder-collapse-button"></div>
+  <div class="expand-button" id="thunder-expand-button"></div>
   <div id="thunder-slider-background" class="slider-background"></div>
   <div id="thunder-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="thunder-slider">Thunder</label> </div>
@@ -919,7 +925,9 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="fire-slider-container" class="sliders">
+<div id="fire-slider-container" class="sliders sliders-expanded">
+  <div class="collapse-button" id="fire-collapse-button"></div>
+  <div class="expand-button" id="fire-expand-button"></div>
   <div id="fire-slider-background" class="slider-background"></div>
   <div id="fire-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="fire-slider">Fire</label> </div>
@@ -927,7 +935,9 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="waves-slider-container" class="sliders">
+<div id="waves-slider-container" class="sliders sliders-expanded">
+  <div class="collapse-button" id="waves-collapse-button"></div>
+  <div class="expand-button" id="waves-expand-button"></div>
   <div id="waves-slider-background" class="slider-background"></div>
   <div id="waves-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="waves-slider">Waves</label> </div>
@@ -935,7 +945,9 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="birds-slider-container" class="sliders">
+<div id="birds-slider-container" class="sliders sliders-expanded">
+  <div class="collapse-button" id="birds-collapse-button"></div>
+  <div class="expand-button" id="birds-expand-button"></div>
   <div id="birds-slider-background" class="slider-background"></div>
   <div id="birds-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="birds-slider">Birds</label> </div>
@@ -943,7 +955,9 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="humans-slider-container" class="sliders">
+<div id="humans-slider-container" class="sliders sliders-expanded">
+  <div class="collapse-button" id="humans-collapse-button"></div>
+  <div class="expand-button" id="humans-expand-button"></div>
   <div id="humans-slider-background" class="slider-background"></div>
   <div id="humans-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="humans-slider">Humans</label> </div>
