@@ -98,6 +98,8 @@ var cicadaExpandButton = $('#cicada-expand-button');
 var sliderCollapsed= 'sliders-collapsed';
 var sliderExpanded = 'sliders-expanded';
 
+//
+
 var humansContainer = $('#humans-slider-container');
 var humansMp4 = $('#humansmp4');
 var humansMp4Src = 'audio/humans.fade.mp4';
@@ -109,6 +111,8 @@ var humansGlueOgg =$('#humansglueogg');
 var humansGlueOggSrc = 'audio/humans.glue.ogg';
 var humansCollapseButton = $('#humans-collapse-button');
 var humansExpandButton = $('#humans-expand-button');
+
+//
 
 var birdsContainer = $('#birds-slider-container');
 var birdsMp4 = $('#birdsmp4');
@@ -122,6 +126,35 @@ var birdsGlueOggSrc = 'audio/birds.glue.ogg';
 var birdsCollapseButton = $('#birds-collapse-button');
 var birdsExpandButton = $('#birds-expand-button');
 
+//
+
+var rainContainer = $('#rain-slider-container');
+var rainMp4 = $('#rainmp4');
+var rainMp4Src = 'audio/rain.fade.mp4';
+var rainGlueMp4 =$('#raingluemp4');
+var rainGlueMp4Src = 'audio/rain.glue.mp4';
+var rainOgg = $('#rainogg');
+var rainOggSrc = 'audio/rain.fade.ogg';
+var rainGlueOgg =$('#rainglueogg');
+var rainGlueOggSrc = 'audio/rain.glue.ogg';
+var rainCollapseButton = $('#rain-collapse-button');
+var rainExpandButton = $('#rain-expand-button');
+
+//
+
+var thunderContainer = $('#thunder-slider-container');
+var thunderMp4 = $('#thundermp4');
+var thunderMp4Src = 'audio/thunder.fade.mp4';
+var thunderGlueMp4 =$('#thundergluemp4');
+var thunderGlueMp4Src = 'audio/thunder.glue.mp4';
+var thunderOgg = $('#thunderogg');
+var thunderOggSrc = 'audio/thunder.fade.ogg';
+var thunderGlueOgg =$('#thunderglueogg');
+var thunderGlueOggSrc = 'audio/thunder.glue.ogg';
+var thunderCollapseButton = $('#thunder-collapse-button');
+var thunderExpandButton = $('#thunder-expand-button');
+
+//
 
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
   if (container.hasClass( sliderCollapsed )) {
@@ -164,6 +197,19 @@ function expandSliderBirds() {
 
 //
 
+function expandSliderRain() {
+  expandSlider(rainContainer, rainMp4, rainMp4Src, rainGlueMp4, rainGlueMp4Src, rainOgg, rainOggSrc, rainGlueOgg, rainGlueOggSrc, rainExpandButton, rainplayer0, rainglueplayer0)
+}
+
+//
+
+function expandSliderThunder() {
+  expandSlider(thunderContainer, thunderMp4, thunderMp4Src, thunderGlueMp4, thunderGlueMp4Src, thunderOgg, thunderOggSrc, thunderGlueOgg, thunderGlueOggSrc, thunderExpandButton, thunderplayer0, thunderglueplayer0)
+}
+
+//
+
+
 cicadaExpandButton.click( 
 
   function() {
@@ -186,6 +232,24 @@ birdsExpandButton.click(
 
   function() {
     expandSliderBirds();
+  }
+);
+
+//
+
+rainExpandButton.click( 
+
+  function() {
+    expandSliderRain();
+  }
+);
+
+//
+
+thunderExpandButton.click( 
+
+  function() {
+    expandSliderThunder();
   }
 );
 
@@ -230,23 +294,60 @@ cicadaCollapseButton.click(
 
 //
 
+function collapseSliderHumans() {
+    collapseSlider(humansContainer, humansExpandButton, humansplayer0, humansglueplayer0, humansslider);
+}
+
 humansCollapseButton.click(
 
   function() {
-    collapseSlider(humansContainer, humansExpandButton, humansplayer0, humansglueplayer0, humansslider);
+  collapseSliderHumans();
   }
 
 );
 
 //
 
+function collapseSliderBirds() {
+    collapseSlider(birdsContainer, birdsExpandButton, birdsplayer0, birdsglueplayer0, birdsslider);
+}
+
 birdsCollapseButton.click(
 
   function() {
-    collapseSlider(birdsContainer, birdsExpandButton, birdsplayer0, birdsglueplayer0, birdsslider);
+  collapseSliderBirds();
   }
 
 );
+
+//
+
+function collapseSliderRain() {
+    collapseSlider(rainContainer, rainExpandButton, rainplayer0, rainglueplayer0, rainslider);
+}
+
+rainCollapseButton.click(
+
+  function() {
+  collapseSliderRain();
+  }
+
+);
+
+//
+
+function collapseSliderThunder() {
+    collapseSlider(thunderContainer, thunderExpandButton, thunderplayer0, thunderglueplayer0, thunderslider);
+}
+
+thunderCollapseButton.click(
+
+  function() {
+  collapseSliderThunder();
+  }
+
+);
+
 
 // Get slider working
 
@@ -336,22 +437,42 @@ loadAudible(cicadaplayer0, cicadaplayer);
   }
   
 // function updates volume at load and when slider moves and sets localstorage
-  
 
+
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+var urlvhex = getParameterByName("v");
+
+// get query strings from url
+  
   var lastrainvol = localStorage.getItem("lsrain");
-      if (typeof lastrainvol != "object"){           // if the volume is in localstorage, this will be a string
+      if (typeof lastrainvol != "object"){ 
+      
+        if (lastrainvol > 0.02 && rainContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
+          expandSliderRain(); // expand and load audio if localstorage volume > 0.02
+        }
+        
+        console.log(urlvhex);
+        
+        if( lastrainvol <= 0.02 && rainContainer.hasClass("sliders-expanded") && urlvhex === null ) {
+          collapseSliderRain();
+        }
+      
         rainslider.val(lastrainvol);
         rainslider.slider("refresh");
       }
-      
+
   slidervol(rainplayer0, rainglueplayer0, rainslider, rainbackground);
-    
+  
   rainslider.on( 'change', function( event, ui ) {
     slidervol(rainplayer0, rainglueplayer0, rainslider, rainbackground);
     remembervol(rainslider, "lsrain");
   })
   
-//  
+// 
   
   var lastwavesvol = localStorage.getItem("lswaves");
       if (typeof lastwavesvol != "object"){ 
@@ -367,20 +488,29 @@ loadAudible(cicadaplayer0, cicadaplayer);
   })
   
 //    
-
+  
   var lastthundervol = localStorage.getItem("lsthunder");
       if (typeof lastthundervol != "object"){ 
+      
+        if (lastthundervol > 0.02 && thunderContainer.hasClass("sliders-collapsed")  && urlvhex === null ) {
+          expandSliderThunder(); // expand and load audio if localstorage volume > 0.02
+        }
+        
+        if( lastthundervol <= 0.02 && thunderContainer.hasClass("sliders-expanded")  && urlvhex === null ) {
+          collapseSliderThunder();
+        }
+      
         thunderslider.val(lastthundervol);
         thunderslider.slider("refresh");
       }
-  
+
   slidervol(thunderplayer0, thunderglueplayer0, thunderslider, thunderbackground);
   
   thunderslider.on( 'change', function( event, ui ) {
     slidervol(thunderplayer0, thunderglueplayer0, thunderslider, thunderbackground);
     remembervol(thunderslider, "lsthunder");
-  })  
-
+  })
+  
 //
 
   var lastfirevol = localStorage.getItem("lsfire");
@@ -401,9 +531,13 @@ loadAudible(cicadaplayer0, cicadaplayer);
  var lastbirdsvol = localStorage.getItem("lsbirds");
       if (typeof lastbirdsvol != "object"){ 
       
-        if (lastbirdsvol > 0.02 && birdsContainer.hasClass("sliders-collapsed")) {
+        if (lastbirdsvol > 0.02 && birdsContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
           expandSliderBirds(); // expand and load audio if localstorage volume > 0.02
         }
+        
+        if( lastbirdsvol <= 0.02 && birdsContainer.hasClass("sliders-expanded") && urlvhex === null  ) {
+          collapseSliderBirds();
+        }        
       
         birdsslider.val(lastbirdsvol);
         birdsslider.slider("refresh");
@@ -421,9 +555,13 @@ loadAudible(cicadaplayer0, cicadaplayer);
   var lasthumansvol = localStorage.getItem("lshumans");
       if (typeof lasthumansvol != "object"){ 
       
-        if (lasthumansvol > 0.02 && humansContainer.hasClass("sliders-collapsed")) {
+        if (lasthumansvol > 0.02 && humansContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
           expandSliderHumans(); // expand and load audio if localstorage volume > 0.02
         }
+        
+        if( lasthumansvol <= 0.02 && humansContainer.hasClass("sliders-expanded") && urlvhex === null ) {
+          collapseSliderHumans();
+        }         
       
         humansslider.val(lasthumansvol);
         humansslider.slider("refresh");
@@ -774,39 +912,70 @@ tfbutton.click(function(){
 // timed fade: fade all to silence over x minutes
 // end of code for options menu
 
-function getParameterByName(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-// get query strings from url
-
-var urlvhex = getParameterByName("v");
-
 if(urlvhex !== null){
 
   var queryvolumes = urlvhex.match(/.{1,2}/g) // split query string into array of 2char values
 // note to self: this is what an array is
   
-  var queryrainvolume = parseInt(queryvolumes[0], 16) / 100; // convert value 0 to decimal, divide by 100
+  var queryrainvolume = parseInt(queryvolumes[0], 16) / 100;
+
+  if( queryrainvolume > 0.02 && rainContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderRain();
+  }  
+  
+ if( queryrainvolume <= 0.02 && rainContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderRain();
+  }
+  
   rainslider.val(queryrainvolume);
-  rainslider.slider("refresh");
+  rainslider.slider("refresh");   
+  
+  
+//  
+  
   
   var querythundervolume = parseInt(queryvolumes[1], 16) / 100;
+
+  if( querythundervolume > 0.02 && thunderContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderThunder();
+  }  
+  
+  if( querythundervolume <= 0.02 && thunderContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderThunder();
+  }
+  
   thunderslider.val(querythundervolume);
-  thunderslider.slider("refresh");
+  thunderslider.slider("refresh");   
+  
+  
+//  
   
   var queryfirevolume = parseInt(queryvolumes[2], 16) / 100;
   fireslider.val(queryfirevolume);
   fireslider.slider("refresh");
   
+//  
+  
   var querywavesvolume = parseInt(queryvolumes[3], 16) / 100;
   wavesslider.val(querywavesvolume);
   wavesslider.slider("refresh");
   
+//  
+  
   var querybirdsvolume = parseInt(queryvolumes[4], 16) / 100;
+
+  if( querybirdsvolume > 0.02 && birdsContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderBirds();
+  }  
+  
+  if( querybirdsvolume <= 0.02 && birdsContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderBirds();
+  }
+  
   birdsslider.val(querybirdsvolume);
-  birdsslider.slider("refresh");
+  birdsslider.slider("refresh");   
+   
+//  
   
   var queryhumansvolume = parseInt(queryvolumes[5], 16) / 100;
 
@@ -814,8 +983,14 @@ if(urlvhex !== null){
     expandSliderHumans();
   }  
   
+  if( queryhumansvolume <= 0.02 && humansContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderHumans();
+  }
+  
   humansslider.val(queryhumansvolume);
   humansslider.slider("refresh");   
+  
+//  
   
   var querycicadavolume = parseInt(queryvolumes[6], 16) / 100;
   
@@ -1018,7 +1193,7 @@ $(window).load(function(){
 
 <div id="rain-slider-container" class="sliders sliders-expanded">
   <div class="collapse-button" id="rain-collapse-button"></div>
-  <div class="expand-button" id="rain-expand-button"></div>
+  <div class="expand-button" id="rain-expand-button"><div class="expand-icon"></div></div>
   <div id="rain-slider-background" class="slider-background"></div>
   <div id="rain-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="rain-slider">Rain</label> </div>
@@ -1028,7 +1203,7 @@ $(window).load(function(){
 
 <div id="thunder-slider-container" class="sliders sliders-expanded">
   <div class="collapse-button" id="thunder-collapse-button"></div>
-  <div class="expand-button" id="thunder-expand-button"></div>
+  <div class="expand-button" id="thunder-expand-button"><div class="expand-icon"></div></div>
   <div id="thunder-slider-background" class="slider-background"></div>
   <div id="thunder-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="thunder-slider">Thunder</label> </div>
@@ -1038,7 +1213,7 @@ $(window).load(function(){
 
 <div id="fire-slider-container" class="sliders sliders-expanded">
   <div class="collapse-button" id="fire-collapse-button"></div>
-  <div class="expand-button" id="fire-expand-button"></div>
+  <div class="expand-button" id="fire-expand-button"><div class="expand-icon"></div></div>
   <div id="fire-slider-background" class="slider-background"></div>
   <div id="fire-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="fire-slider">Fire</label> </div>
@@ -1048,7 +1223,7 @@ $(window).load(function(){
 
 <div id="waves-slider-container" class="sliders sliders-expanded">
   <div class="collapse-button" id="waves-collapse-button"></div>
-  <div class="expand-button" id="waves-expand-button"></div>
+  <div class="expand-button" id="waves-expand-button"><div class="expand-icon"></div></div>
   <div id="waves-slider-background" class="slider-background"></div>
   <div id="waves-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="waves-slider">Waves</label> </div>
@@ -1058,7 +1233,7 @@ $(window).load(function(){
 
 <div id="birds-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="birds-collapse-button"></div>
-  <div class="expand-button" id="birds-expand-button"></div>
+  <div class="expand-button" id="birds-expand-button"><div class="expand-icon"></div></div>
   <div id="birds-slider-background" class="slider-background"></div>
   <div id="birds-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="birds-slider">Birds</label> </div>
@@ -1068,7 +1243,7 @@ $(window).load(function(){
 
 <div id="humans-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="humans-collapse-button"></div>
-  <div class="expand-button" id="humans-expand-button"></div>
+  <div class="expand-button" id="humans-expand-button"><div class="expand-icon"></div></div>
   <div id="humans-slider-background" class="slider-background"></div>
   <div id="humans-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="humans-slider">Humans</label> </div>
@@ -1078,7 +1253,7 @@ $(window).load(function(){
 
 <div id="cicadatest-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="cicada-collapse-button"></div>
-  <div class="expand-button" id="cicada-expand-button"></div>
+  <div class="expand-button" id="cicada-expand-button"><div class="expand-icon"></div></div>
   <div id="cicadatest-slider-background" class="slider-background"></div> 
   <div id="cicadatest-slider-container-inner" class="slider-inner">
     <div class="labelfix"> <label for="cicadatest-slider">Cicadas</label> </div>
