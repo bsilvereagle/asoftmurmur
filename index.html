@@ -1365,7 +1365,80 @@ ppbutton.click(function(){
 //  })
 // 
 
+// TEST MEANDER CODE BELOW HERE
 
+var meanderButton = $("#meander");
+
+meanderButton.click( function() { 
+
+  var rainStart = Math.round(rainslider.val() * 100) / 100;
+  console.log("rainStart = " + rainStart);
+
+  var rainHigh =  Math.round( ((1 + rainStart) / 2) * 100) / 100;
+  console.log("rainHigh = " + rainHigh);
+
+  var rainLow = Math.round( (rainStart / 2) * 100) / 100 ;
+  console.log("rainLow = " + rainLow);
+
+  var flip = 0
+
+  var rainMeander = setInterval( function() { meander(rainStart, rainHigh, rainLow, rainslider) }, 1000);
+
+  function meander (start, high, low, slider) {
+    
+    var currentVol = Math.round(rainslider.val() * 100) / 100;
+    console.log("flip = " + flip);
+    
+    if ( currentVol == start ) {
+      flip = 0;
+      var coin = Math.random();
+      console.log("coin is " + coin);
+      if ( coin >= 0.5 ) {
+        slider.val(currentVol - 0.01);
+        slider.slider("refresh"); 
+      }
+      else {
+        slider.val(currentVol + 0.01);
+        slider.slider("refresh");
+      }
+    }
+    
+    else if ( currentVol <= low ) {
+      flip = 1;
+      slider.val(currentVol + 0.01);
+      slider.slider("refresh");
+    }
+    
+    else if ( currentVol >= high ) {
+      flip = 1;
+      slider.val(currentVol - 0.01);
+      slider.slider("refresh");
+    }  
+    
+    else if ( currentVol < start && flip == 0 ) {
+      slider.val(currentVol - 0.01)
+      slider.slider("refresh");      
+    }
+    
+    else if ( currentVol < start && flip == 1 ) {
+      slider.val(currentVol + 0.01)
+      slider.slider("refresh");      
+    }
+    
+    else if ( currentVol > start && flip == 0 ) {
+      slider.val(currentVol + 0.01)
+      slider.slider("refresh");      
+    }
+    
+    else if ( currentVol > start && flip == 1 ) {
+      slider.val(currentVol - 0.01)
+      slider.slider("refresh");      
+    }      
+    
+    console.log(currentVol);
+  }
+
+});
 
 })
 </script>
@@ -1416,6 +1489,7 @@ ppbutton.click(function(){
   <div id ="buttonoptions" class="linkbuttons">
         <div id="resetdiv"><p>All sounds to default: <a href="#" id="reset">Go</a></p></div>
         <p>Silence all: <a href="#" id="silence">Go</a></p>
+        <p>Meander <a href="#" id="meander">Go</a></p>
   </div>
     <div id="timedpausepre" class="linkbuttons">
     <p>Pause in <input type="text" id="minutestillpause" value="10" size ="1" data-role="none" /> mins: <a href="#" id="timedpausebutton">Go</a></p>
