@@ -156,6 +156,34 @@ var thunderExpandButton = $('#thunder-expand-button');
 
 //
 
+var fireContainer = $('#fire-slider-container');
+var fireMp4 = $('#firemp4');
+var fireMp4Src = 'audio/fire.fade.mp4';
+var fireGlueMp4 =$('#firegluemp4');
+var fireGlueMp4Src = 'audio/fire.glue.mp4';
+var fireOgg = $('#fireogg');
+var fireOggSrc = 'audio/fire.fade.ogg';
+var fireGlueOgg =$('#fireglueogg');
+var fireGlueOggSrc = 'audio/fire.glue.ogg';
+var fireCollapseButton = $('#fire-collapse-button');
+var fireExpandButton = $('#fire-expand-button');
+
+//
+
+var wavesContainer = $('#waves-slider-container');
+var wavesMp4 = $('#wavesmp4');
+var wavesMp4Src = 'audio/waves.fade.mp4';
+var wavesGlueMp4 =$('#wavesgluemp4');
+var wavesGlueMp4Src = 'audio/waves.glue.mp4';
+var wavesOgg = $('#wavesogg');
+var wavesOggSrc = 'audio/waves.fade.ogg';
+var wavesGlueOgg =$('#wavesglueogg');
+var wavesGlueOggSrc = 'audio/waves.glue.ogg';
+var wavesCollapseButton = $('#waves-collapse-button');
+var wavesExpandButton = $('#waves-expand-button');
+
+//
+
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
   if (container.hasClass( sliderCollapsed )) {
     
@@ -209,6 +237,18 @@ function expandSliderThunder() {
 
 //
 
+function expandSliderFire() {
+  expandSlider(fireContainer, fireMp4, fireMp4Src, fireGlueMp4, fireGlueMp4Src, fireOgg, fireOggSrc, fireGlueOgg, fireGlueOggSrc, fireExpandButton, fireplayer0, fireglueplayer0)
+}
+
+//
+
+function expandSliderWaves() {
+  expandSlider(wavesContainer, wavesMp4, wavesMp4Src, wavesGlueMp4, wavesGlueMp4Src, wavesOgg, wavesOggSrc, wavesGlueOgg, wavesGlueOggSrc, wavesExpandButton, wavesplayer0, wavesglueplayer0)
+}
+
+//
+
 
 cicadaExpandButton.click( 
 
@@ -254,6 +294,25 @@ thunderExpandButton.click(
 );
 
 //
+
+fireExpandButton.click( 
+
+  function() {
+    expandSliderFire();
+  }
+);
+
+//
+
+wavesExpandButton.click( 
+
+  function() {
+    expandSliderWaves();
+  }
+);
+
+//
+
 
 function pauseOnCollapse(player, glueplayer) {
   player.pause();
@@ -348,6 +407,35 @@ thunderCollapseButton.click(
 
 );
 
+//
+
+function collapseSliderFire() {
+    collapseSlider(fireContainer, fireExpandButton, fireplayer0, fireglueplayer0, fireslider);
+}
+
+fireCollapseButton.click(
+
+  function() {
+  collapseSliderFire();
+  }
+
+);
+
+//
+
+function collapseSliderWaves() {
+    collapseSlider(wavesContainer, wavesExpandButton, wavesplayer0, wavesglueplayer0, wavesslider);
+}
+
+wavesCollapseButton.click(
+
+  function() {
+  collapseSliderWaves();
+  }
+
+);
+
+
 
 // Get slider working
 
@@ -432,8 +520,8 @@ loadAudible(cicadaplayer0, cicadaplayer);
         } 
   }
   
-  function remembervol(slider, lsvol) {
-    localStorage.setItem(lsvol, slider.val());
+  function remembervol( slider, lsvol ) {
+    localStorage.setItem( lsvol, slider.val() );
   }
   
 // function updates volume at load and when slider moves and sets localstorage
@@ -455,7 +543,6 @@ var urlvhex = getParameterByName("v");
           expandSliderRain(); // expand and load audio if localstorage volume > 0.02
         }
         
-        console.log(urlvhex);
         
         if( lastrainvol <= 0.02 && rainContainer.hasClass("sliders-expanded") && urlvhex === null ) {
           collapseSliderRain();
@@ -474,17 +561,28 @@ var urlvhex = getParameterByName("v");
   
 // 
   
+   
   var lastwavesvol = localStorage.getItem("lswaves");
       if (typeof lastwavesvol != "object"){ 
+      
+        if (lastwavesvol > 0.02 && wavesContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
+          expandSliderWaves(); // expand and load audio if localstorage volume > 0.02
+        }
+        
+        
+        if( lastwavesvol <= 0.02 && wavesContainer.hasClass("sliders-expanded") && urlvhex === null ) {
+          collapseSliderWaves();
+        }
+      
         wavesslider.val(lastwavesvol);
         wavesslider.slider("refresh");
-      }  
+      }
 
   slidervol(wavesplayer0, wavesglueplayer0, wavesslider, wavesbackground);
-
+  
   wavesslider.on( 'change', function( event, ui ) {
     slidervol(wavesplayer0, wavesglueplayer0, wavesslider, wavesbackground);
-    remembervol(wavesslider, "lswaves");    
+    remembervol(wavesslider, "lswaves");
   })
   
 //    
@@ -512,9 +610,17 @@ var urlvhex = getParameterByName("v");
   })
   
 //
-
   var lastfirevol = localStorage.getItem("lsfire");
       if (typeof lastfirevol != "object"){ 
+      
+        if (lastfirevol > 0.02 && fireContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
+          expandSliderFire(); // expand and load audio if localstorage volume > 0.02
+        }
+        
+        if( lastfirevol <= 0.02 && fireContainer.hasClass("sliders-expanded") && urlvhex === null ) {
+          collapseSliderFire();
+        }
+      
         fireslider.val(lastfirevol);
         fireslider.slider("refresh");
       }
@@ -524,8 +630,7 @@ var urlvhex = getParameterByName("v");
   fireslider.on( 'change', function( event, ui ) {
     slidervol(fireplayer0, fireglueplayer0, fireslider, firebackground);
     remembervol(fireslider, "lsfire");
-  }) 
-
+  })
 //
 
  var lastbirdsvol = localStorage.getItem("lsbirds");
@@ -950,15 +1055,33 @@ if(urlvhex !== null){
   
 //  
   
-  var queryfirevolume = parseInt(queryvolumes[2], 16) / 100;
+  var queryfirevolume = parseInt(queryvolumes[0], 16) / 100;
+
+  if( queryfirevolume > 0.02 && fireContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderFire();
+  }  
+  
+ if( queryfirevolume <= 0.02 && fireContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderFire();
+  }
+  
   fireslider.val(queryfirevolume);
-  fireslider.slider("refresh");
+  fireslider.slider("refresh");   
   
 //  
   
-  var querywavesvolume = parseInt(queryvolumes[3], 16) / 100;
+  var querywavesvolume = parseInt(queryvolumes[0], 16) / 100;
+
+  if( querywavesvolume > 0.02 && wavesContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderWaves();
+  }  
+  
+ if( querywavesvolume <= 0.02 && wavesContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderWaves();
+  }
+  
   wavesslider.val(querywavesvolume);
-  wavesslider.slider("refresh");
+  wavesslider.slider("refresh");   
   
 //  
   
@@ -1110,12 +1233,19 @@ $(window).load(function(){
         $(this).attr("class", "play-all");
       }
   })
-
-  wavesplayer.attr("preload", "auto");
-  rainplayer.attr("preload", "auto");
-  thunderplayer.attr("preload", "auto");  
-  fireplayer.attr("preload", "auto");
-
+  
+  if( urlvhex == null && typeof lastrainvol == "object" ){
+  
+    expandSliderRain();
+    expandSliderThunder();
+    expandSliderFire();
+  
+  }
+  
+  remembervol(rainslider, "lsrain"); // set on load to tell if visitor has been before
+  remembervol(thunderslider, "lsthunder");
+  remembervol(fireslider, "lsfire");
+  
 })
 
 })
@@ -1191,7 +1321,7 @@ $(window).load(function(){
 
 <div id="sliders-container">
 
-<div id="rain-slider-container" class="sliders sliders-expanded">
+<div id="rain-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="rain-collapse-button"></div>
   <div class="expand-button" id="rain-expand-button"><div class="expand-icon"></div></div>
   <div id="rain-slider-background" class="slider-background"></div>
@@ -1201,7 +1331,7 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="thunder-slider-container" class="sliders sliders-expanded">
+<div id="thunder-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="thunder-collapse-button"></div>
   <div class="expand-button" id="thunder-expand-button"><div class="expand-icon"></div></div>
   <div id="thunder-slider-background" class="slider-background"></div>
@@ -1211,7 +1341,7 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="fire-slider-container" class="sliders sliders-expanded">
+<div id="fire-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="fire-collapse-button"></div>
   <div class="expand-button" id="fire-expand-button"><div class="expand-icon"></div></div>
   <div id="fire-slider-background" class="slider-background"></div>
@@ -1221,7 +1351,7 @@ $(window).load(function(){
   </div>
 </div>
 
-<div id="waves-slider-container" class="sliders sliders-expanded">
+<div id="waves-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="waves-collapse-button"></div>
   <div class="expand-button" id="waves-expand-button"><div class="expand-icon"></div></div>
   <div id="waves-slider-background" class="slider-background"></div>
@@ -1364,72 +1494,72 @@ $(window).load(function(){
 -->
 
 <div class="audioplayer">
-  <audio id="wavesplayer" loop preload="none">
-    <source src="audio/waves.fade.mp4" type="audio/mp4" />
-    <source src="audio/waves.fade.ogg" type="audio/ogg" />
+  <audio id="rainplayer" loop controls>
+    <source id="rainmp4" src="" type="audio/mp4">
+    <source id="rainogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="wavesglueplayer" preload="auto">
-    <source src="audio/waves.glue.mp4" type="audio/mp4" />
-    <source src="audio/waves.glue.ogg" type="audio/ogg" />
+  <audio id="rainglueplayer" controls>
+    <source id="raingluemp4" src="" type="audio/mp4">
+    <source id="rainglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="rainplayer" loop preload="none">
-    <source src="audio/rain.fade.mp4" type="audio/mp4">
-    <source src="audio/rain.fade.ogg" type="audio/ogg">
+  <audio id="thunderplayer" loop controls>
+    <source id="thundermp4" src="" type="audio/mp4">
+    <source id="thunderogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="rainglueplayer" preload="auto">
-    <source src="audio/rain.glue.mp4" type="audio/mp4">
-    <source src="audio/rain.glue.ogg" type="audio/ogg">
+  <audio id="thunderglueplayer" controls>
+    <source id="thundergluemp4" src="" type="audio/mp4">
+    <source id="thunderglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="thunderplayer" loop preload="none">
-    <source src="audio/thunder.fade.mp4" type="audio/mp4">
-    <source src="audio/thunder.fade.ogg" type="audio/ogg">
+  <audio id="fireplayer" loop controls>
+    <source id="firemp4" src="" type="audio/mp4">
+    <source id="fireogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="thunderglueplayer" preload="auto">
-    <source src="audio/thunder.glue.mp4" type="audio/mp4">
-    <source src="audio/thunder.glue.ogg" type="audio/ogg">
+  <audio id="fireglueplayer" controls>
+    <source id="firegluemp4" src="" type="audio/mp4">
+    <source id="fireglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="fireplayer" loop preload="none">
-    <source src="audio/fire.fade.mp4" type="audio/mp4">
-    <source src="audio/fire.fade.ogg" type="audio/ogg">
+  <audio id="wavesplayer" loop controls>
+    <source id="wavesmp4" src="" type="audio/mp4">
+    <source id="wavesogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="fireglueplayer" preload="auto">
-    <source src="audio/fire.glue.mp4" type="audio/mp4">
-    <source src="audio/fire.glue.ogg" type="audio/ogg">
+  <audio id="wavesglueplayer" controls>
+    <source id="wavesgluemp4" src="" type="audio/mp4">
+    <source id="wavesglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="birdsplayer" loop preload="none">
-    <source src="audio/birds.fade.mp4" type="audio/mp4">
-    <source src="audio/birds.fade.ogg" type="audio/ogg">
+  <audio id="birdsplayer" loop controls>
+    <source id="birdsmp4" src="" type="audio/mp4">
+    <source id="birdsogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="birdsglueplayer" preload="auto">
-    <source src="audio/birds.glue.mp4" type="audio/mp4">
-    <source src="audio/birds.glue.ogg" type="audio/ogg">
+  <audio id="birdsglueplayer" controls>
+    <source id="birdsgluemp4" src="" type="audio/mp4">
+    <source id="birdsglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
