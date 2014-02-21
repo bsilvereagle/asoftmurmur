@@ -97,6 +97,7 @@ var cicadaCollapseButton = $('#cicada-collapse-button');
 var cicadaExpandButton = $('#cicada-expand-button');
 var sliderCollapsed= 'sliders-collapsed';
 var sliderExpanded = 'sliders-expanded';
+var cicadaLoaded = 0;
 
 //
 
@@ -111,6 +112,7 @@ var humansGlueOgg =$('#humansglueogg');
 var humansGlueOggSrc = 'audio/humans.glue.ogg';
 var humansCollapseButton = $('#humans-collapse-button');
 var humansExpandButton = $('#humans-expand-button');
+var humansLoaded = 0;
 
 //
 
@@ -125,6 +127,7 @@ var birdsGlueOgg =$('#birdsglueogg');
 var birdsGlueOggSrc = 'audio/birds.glue.ogg';
 var birdsCollapseButton = $('#birds-collapse-button');
 var birdsExpandButton = $('#birds-expand-button');
+var birdsLoaded = 0;
 
 //
 
@@ -139,6 +142,7 @@ var rainGlueOgg =$('#rainglueogg');
 var rainGlueOggSrc = 'audio/rain.glue.ogg';
 var rainCollapseButton = $('#rain-collapse-button');
 var rainExpandButton = $('#rain-expand-button');
+var rainLoaded = 0;
 
 //
 
@@ -153,6 +157,7 @@ var thunderGlueOgg =$('#thunderglueogg');
 var thunderGlueOggSrc = 'audio/thunder.glue.ogg';
 var thunderCollapseButton = $('#thunder-collapse-button');
 var thunderExpandButton = $('#thunder-expand-button');
+var thunderLoaded = 0;
 
 //
 
@@ -167,6 +172,7 @@ var fireGlueOgg =$('#fireglueogg');
 var fireGlueOggSrc = 'audio/fire.glue.ogg';
 var fireCollapseButton = $('#fire-collapse-button');
 var fireExpandButton = $('#fire-expand-button');
+var fireLoaded = 0;
 
 //
 
@@ -181,70 +187,83 @@ var wavesGlueOgg =$('#wavesglueogg');
 var wavesGlueOggSrc = 'audio/waves.glue.ogg';
 var wavesCollapseButton = $('#waves-collapse-button');
 var wavesExpandButton = $('#waves-expand-button');
+var wavesLoaded = 0;
 
 //
 
-function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0) {
-  if (container.hasClass( sliderCollapsed )) {
-    
+function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0, loadingId) {
+  if (container.hasClass( sliderCollapsed ) ) {
+    container.addClass( "excount" );
     container.fadeOut( "200", function() {
+      
     
       container.removeClass( sliderCollapsed );
       container.addClass( sliderExpanded );
+      
       if ( mp4.attr('src') == "" )  {
-        mp4.attr('src', mp4src).detach().appendTo(player0);
         gluemp4.attr('src', gluemp4src).detach().appendTo(glueplayer0);
+        mp4.attr('src', mp4src).detach().appendTo(player0);
+        container.append('<div class="loading-element" id="' + loadingId + '"><p class="dtext">Loading</p></div>')
+        button.hide();
+        container.insertBefore( $(".sliders-collapsed").first() );
+        container.fadeIn( "200");
+
+        glueplayer0.addEventListener("canplaythrough", function() { 
+         $("#" + loadingId).remove();
+        });
       }
       
-      button.hide();
- 
-      container.insertBefore( $(".sliders-collapsed").first() );
-      container.fadeIn( "200");
+      else {
 
-    });
-    
-    
+        button.hide();
+        container.insertBefore( $(".sliders-collapsed").first() );
+        container.fadeIn( "200");
+      
+      }
+  });
+  
+  
   }
 }
 
 function expandSliderCicada() {
-  expandSlider(cicadaContainer, cicadaMp4, cicadaMp4Src, cicadaglueMp4, cicadaglueMp4Src, 0 ,0, 0, 0, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0)
+  expandSlider(cicadaContainer, cicadaMp4, cicadaMp4Src, cicadaglueMp4, cicadaglueMp4Src, 0 ,0, 0, 0, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0, "loading-cicada")
 }
 
 //
 
 function expandSliderHumans() {
-  expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0)
+  expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0, "loading-humans")
 }
 
 //
 
 function expandSliderBirds() {
-  expandSlider(birdsContainer, birdsMp4, birdsMp4Src, birdsGlueMp4, birdsGlueMp4Src, birdsOgg, birdsOggSrc, birdsGlueOgg, birdsGlueOggSrc, birdsExpandButton, birdsplayer0, birdsglueplayer0)
+  expandSlider(birdsContainer, birdsMp4, birdsMp4Src, birdsGlueMp4, birdsGlueMp4Src, birdsOgg, birdsOggSrc, birdsGlueOgg, birdsGlueOggSrc, birdsExpandButton, birdsplayer0, birdsglueplayer0, "loading-birds")
 }
 
 //
 
 function expandSliderRain() {
-  expandSlider(rainContainer, rainMp4, rainMp4Src, rainGlueMp4, rainGlueMp4Src, rainOgg, rainOggSrc, rainGlueOgg, rainGlueOggSrc, rainExpandButton, rainplayer0, rainglueplayer0)
+  expandSlider(rainContainer, rainMp4, rainMp4Src, rainGlueMp4, rainGlueMp4Src, rainOgg, rainOggSrc, rainGlueOgg, rainGlueOggSrc, rainExpandButton, rainplayer0, rainglueplayer0, "loading-rain")
 }
 
 //
 
 function expandSliderThunder() {
-  expandSlider(thunderContainer, thunderMp4, thunderMp4Src, thunderGlueMp4, thunderGlueMp4Src, thunderOgg, thunderOggSrc, thunderGlueOgg, thunderGlueOggSrc, thunderExpandButton, thunderplayer0, thunderglueplayer0)
+  expandSlider(thunderContainer, thunderMp4, thunderMp4Src, thunderGlueMp4, thunderGlueMp4Src, thunderOgg, thunderOggSrc, thunderGlueOgg, thunderGlueOggSrc, thunderExpandButton, thunderplayer0, thunderglueplayer0, "loading-thunder")
 }
 
 //
 
 function expandSliderFire() {
-  expandSlider(fireContainer, fireMp4, fireMp4Src, fireGlueMp4, fireGlueMp4Src, fireOgg, fireOggSrc, fireGlueOgg, fireGlueOggSrc, fireExpandButton, fireplayer0, fireglueplayer0)
+  expandSlider(fireContainer, fireMp4, fireMp4Src, fireGlueMp4, fireGlueMp4Src, fireOgg, fireOggSrc, fireGlueOgg, fireGlueOggSrc, fireExpandButton, fireplayer0, fireglueplayer0, "loading-fire")
 }
 
 //
 
 function expandSliderWaves() {
-  expandSlider(wavesContainer, wavesMp4, wavesMp4Src, wavesGlueMp4, wavesGlueMp4Src, wavesOgg, wavesOggSrc, wavesGlueOgg, wavesGlueOggSrc, wavesExpandButton, wavesplayer0, wavesglueplayer0)
+  expandSlider(wavesContainer, wavesMp4, wavesMp4Src, wavesGlueMp4, wavesGlueMp4Src, wavesOgg, wavesOggSrc, wavesGlueOgg, wavesGlueOggSrc, wavesExpandButton, wavesplayer0, wavesglueplayer0, "loading-waves")
 }
 
 //
@@ -326,7 +345,7 @@ function silenceOnCollapse(slider) {
 }
 
 function collapseSlider(container, button, player0, glueplayer0, slider) {
-
+  container.removeClass( "excount" );
   container.fadeOut( "200", function() {
   
     container.removeClass( sliderExpanded );
@@ -1215,25 +1234,11 @@ $(document).bind('keydown', 't', function() {
   optionsbutton.trigger( "click" );
 
 });
+      
 
 // keyboard shortcut support
 
-$(window).load(function(){
 
-  $("#loading").css("display", "none"); 
-  $("#all-controls").css("display", "inline");
-
-  ppbutton.click(function(){
-      if($(this).hasClass('play-all')) {
-        playall();               
-        $(this).attr("class", "pause-all");
-      }
-      else {
-        pauseall();            
-        $(this).attr("class", "play-all");
-      }
-  })
-  
   if( urlvhex == null && typeof lastrainvol == "object" ){
   
     expandSliderRain();
@@ -1242,11 +1247,125 @@ $(window).load(function(){
   
   }
   
-  remembervol(rainslider, "lsrain"); // set on load to tell if visitor has been before
+  else {
+  }
+  
+// load default sounds if there's no query string and no local storage  
+  
+  remembervol(rainslider, "lsrain");
   remembervol(thunderslider, "lsthunder");
   remembervol(fireslider, "lsfire");
   
+// set localstorage immediately so we'll know user has been before, 
+// even if they don't touch the sliders
+
+
+
+
+
+rainglueplayer0.addEventListener("canplaythrough", function() {
+    rainLoaded = 1;
+});
+
+//
+
+thunderglueplayer0.addEventListener("canplaythrough", function() {
+    thunderLoaded = 1;
+});
+
+//
+
+fireglueplayer0.addEventListener("canplaythrough", function() {
+    fireLoaded = 1;
+});
+
+//
+
+wavesglueplayer0.addEventListener("canplaythrough", function() {
+    wavesLoaded = 1;
+});
+
+//
+
+birdsglueplayer0.addEventListener("canplaythrough", function() {
+    birdsLoaded = 1;
+});
+
+//
+
+humansglueplayer0.addEventListener("canplaythrough", function() {
+    humansLoaded = 1;
+});
+
+
+//
+
+cicadaglueplayer0.addEventListener("canplaythrough", function() {
+    cicadaLoaded = 1;
+});
+
+
+
+
+//
+
+var numItems = $('.excount').length;
+
+var loadtimeout = setInterval(function(){timedloadfunction()}, 100);
+var loadCounter=0;
+
+function timedloadfunction() {
+
+  if ( rainLoaded + thunderLoaded + fireLoaded + wavesLoaded + birdsLoaded + humansLoaded + cicadaLoaded == numItems ) {
+    
+    $("#loading").css("display", "none"); 
+    $("#all-controls").css("display", "inline");   
+    clearInterval(loadtimeout);   
+  }
+  
+  ++loadCounter;
+  console.log(loadCounter);
+  
+  if (loadCounter >= 100) {
+    $("#loading").css("display", "none"); 
+    $("#all-controls").css("display", "inline");   
+    clearInterval(loadtimeout);
+  }
+}
+
+
+ppbutton.click(function(){
+    if($(this).hasClass('play-all')) {
+      playall();               
+      $(this).attr("class", "pause-all");
+    }
+    else {
+      pauseall();            
+      $(this).attr("class", "play-all");
+    }
 })
+
+
+
+
+
+//
+//  $("#loading").css("display", "none"); 
+//  $("#all-controls").css("display", "inline");
+//
+//  ppbutton.click(function(){
+//     if($(this).hasClass('play-all')) {
+//       playall();               
+//        $(this).attr("class", "pause-all");
+//      }
+//      else {
+//        pauseall();            
+//        $(this).attr("class", "play-all");
+//      }
+//  })
+// 
+
+
 
 })
 </script>
@@ -1287,7 +1406,7 @@ $(window).load(function(){
   </div>
 </div>
 <div id="loading" class="dtext">
-  <p>Loading...</p>
+  <p>Loading</p>
 </div>
 
 <div id="options" class="otext">

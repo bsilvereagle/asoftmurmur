@@ -95,7 +95,8 @@ html {
 /**  text-shadow: 0 0 0.5px rgba(0,0,0,1) !important; **/
 }
 
-#loading {
+#loading,
+.loading-element .dtext {
   animation: fade 2.5s infinite;
   -webkit-animation: fade 2.5s infinite;
   -moz-animation: fade 2.5s infinite;
@@ -332,6 +333,22 @@ html {
 .sliders-collapsed .collapse-button {
   display: none;
 }
+
+/* Cover slider with loading element when loading glue file */
+
+.loading-element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 2;
+}
+
+.loading-element .dtext {
+  font-size: 1.3em;
+}
+
+
 
 /* end */
 
