@@ -1470,105 +1470,120 @@ meanderButton.click( function() {
     timedpausepost.css("display", "none");
     timedfadepre.css("display", "inline");
     buttonoptions.css("display", "inline");
+    meanderpost.css("display", "none");
+    meanderSlider.val(500);
+    meanderSlider.slider("refresh");    
+    
   });   
 
-  if (rainStart >= 0.03) { var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
+  var MeanderFunction = setInterval( function() {
+    if ( $("#play-pause-button").hasClass('pause-all') ) {
+    
+      if ( rainContainer.hasClass( 'sliders-expanded' ) ) {
+      
+        var rainCurrentVol = rainslider.val();
+        var rainCurrentVolNum = parseFloat( rainCurrentVol );
+        
+        if ( rainCurrentVolNum == rainStart ) {
+          rainFlip = 0;
+          var coin = Math.random();
+          console.log("coin is " + coin);
+          if ( coin <= 0.5 ) {
+            rainslider.val(rainCurrentVolNum - rainLowInterval);
+            rainslider.slider("refresh");
+          }
+          else {
+            rainslider.val(rainCurrentVolNum + rainHighInterval);
+            rainslider.slider("refresh");
+          }
+        } 
+        
+        else if ( rainCurrentVolNum <= (rainLowHalf + (rainLowInterval/2) ) && rainCurrentVolNum >= (rainLowHalf - rainLowInterval/2) && rainFlip == 0) {
+          var rainLowHalfCoin = Math.random();
+          console.log ("halfway and rainLowhalfcoin is " + rainLowHalfCoin);
+          if ( rainLowHalfCoin <= 0.5 ) {
+            rainFlip = 1;
+            console.log("back up from halfway point");
+          }
+          else {
+            rainslider.val(rainCurrentVolNum - rainLowInterval)
+            rainslider.slider("refresh");   
+          }
+        }
+               
+        else if ( rainCurrentVolNum <= rainLow) {
+          rainFlip = 1;
+          rainslider.val(rainLow + rainLowInterval);
+          rainslider.slider("refresh");
+          console.log("reached rainLow point");
+          console.log( rainslider.val() );
+        }
+        
+        else if ( rainCurrentVolNum <= (rainHighHalf + (rainHighInterval/2) ) && rainCurrentVolNum >= (rainHighHalf - rainHighInterval/2) && rainFlip == 0) {
+          var rainHighHalfCoin = Math.random();
+          console.log ("halfway and rainHighhalfcoin is " + rainHighHalfCoin);
+          if ( rainHighHalfCoin >= 0.5 ) {
+            rainFlip = 1;
+            console.log("back down from halfway point");
+          }
+          else {
+            rainslider.val(rainCurrentVolNum + rainHighInterval)
+            rainslider.slider("refresh");   
+          }
+        }    
+        
+        else if ( rainCurrentVolNum >= rainHigh ) {
+          rainFlip = 1;
+          rainslider.val(rainCurrentVolNum - rainHighInterval);
+          rainslider.slider("refresh");
+        }  
+        
+        else if ( rainCurrentVolNum < rainStart && rainCurrentVolNum > rainLow && rainFlip == 0 ) {
+          rainslider.val(rainCurrentVolNum - rainLowInterval)
+          rainslider.slider("refresh");   
+        }
+        
+        else if ( rainCurrentVolNum < rainStart && rainCurrentVolNum > rainLow && rainFlip == 1 ) {
+          rainslider.val(rainCurrentVolNum + rainLowInterval)
+          rainslider.slider("refresh");    
+        }
+        
+        else if ( rainCurrentVolNum > rainStart && rainFlip == 0 ) {
+          rainslider.val(rainCurrentVolNum + rainHighInterval)
+          rainslider.slider("refresh");      
+        }
+        
+        else if ( rainCurrentVolNum > rainStart && rainFlip == 1 ) {
+          rainslider.val(rainCurrentVolNum - rainHighInterval)
+          rainslider.slider("refresh");      
+        }
+  
+      }
 
-  function rainMeanderFunc (start, high, highHalf, low, lowHalf, slider) {
-  
-    if ( $("#play-pause-button").hasClass('pause-all') && rainContainer.hasClass( 'sliders-expanded' ) ) {
-      
-      var currentVol = rainslider.val();
-      var currentVolNum = parseFloat( currentVol );
-      
-      if ( currentVolNum == start ) {
-        rainFlip = 0;
-        var coin = Math.random();
-        console.log("coin is " + coin);
-        if ( coin <= 0.5 ) {
-          slider.val(currentVolNum - rainLowInterval);
-          slider.slider("refresh");
-        }
-        else {
-          slider.val(currentVolNum + rainHighInterval);
-          slider.slider("refresh");
-        }
-      } 
-      
-      else if ( currentVolNum <= (lowHalf + (rainLowInterval/2) ) && currentVolNum >= (lowHalf - rainLowInterval/2) && rainFlip == 0) {
-        var lowHalfCoin = Math.random();
-        console.log ("halfway and lowhalfcoin is " + lowHalfCoin);
-        if ( lowHalfCoin <= 0.5 ) {
-          rainFlip = 1;
-          console.log("back up from halfway point");
-        }
-        else {
-          slider.val(currentVolNum - rainLowInterval)
-          slider.slider("refresh");   
-        }
-      }
-             
-      else if ( currentVolNum <= low) {
-        rainFlip = 1;
-        slider.val(low + rainLowInterval);
-        slider.slider("refresh");
-        console.log("reached low point");
-        console.log( rainslider.val() );
-      }
-      
-      else if ( currentVolNum <= (highHalf + (rainHighInterval/2) ) && currentVolNum >= (highHalf - rainHighInterval/2) && rainFlip == 0) {
-        var highHalfCoin = Math.random();
-        console.log ("halfway and highhalfcoin is " + highHalfCoin);
-        if ( highHalfCoin >= 0.5 ) {
-          rainFlip = 1;
-          console.log("back down from halfway point");
-        }
-        else {
-          slider.val(currentVolNum + rainHighInterval)
-          slider.slider("refresh");   
-        }
-      }    
-      
-      else if ( currentVolNum >= high ) {
-        rainFlip = 1;
-        slider.val(currentVolNum - rainHighInterval);
-        slider.slider("refresh");
-      }  
-      
-      else if ( currentVolNum < start && currentVolNum > low && rainFlip == 0 ) {
-        slider.val(currentVolNum - rainLowInterval)
-        slider.slider("refresh");   
-      }
-      
-      else if ( currentVolNum < start && currentVolNum > low && rainFlip == 1 ) {
-        slider.val(currentVolNum + rainLowInterval)
-        slider.slider("refresh");    
-      }
-      
-      else if ( currentVolNum > start && rainFlip == 0 ) {
-        slider.val(currentVolNum + rainHighInterval)
-        slider.slider("refresh");      
-      }
-      
-      else if ( currentVolNum > start && rainFlip == 1 ) {
-        slider.val(currentVolNum - rainHighInterval)
-        slider.slider("refresh");      
-      }
-      
     }
+  }, meanderSliderValue);
+
+
+//  var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
+
+//  function rainMeanderFunc (rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, slider) {
+      
+     
   
-  clearInterval(rainMeander)
-  meanderSliderValue = (1000 - meanderSlider.val() );
-  rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
+//  clearInterval(rainMeander)
+//  meanderSliderValue = (1000 - meanderSlider.val() );
+//  rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
 //  console.log("meander interval = " + meanderSliderValue);
           
-  }
-  }
+//  }
+  
 // 
+
+//});
 
 });
 
-})
+});
 </script>
 </head>
 
