@@ -452,9 +452,13 @@ html {
 #optionsbutton,
 .linkbuttons a {
   text-decoration: none;
-  padding: 2px 10px 2px 10px;
+  padding: 4px 15px;
   background-color: #000;
   color: #FFF;
+}
+
+#optionsbutton {
+  text-transform: uppercase;
 }
 
 #timedpausepost,
@@ -464,8 +468,12 @@ html {
 }
 
 #optionscontainer {
-  margin-right: 30%;
-  text-align: right;
+  margin: 0 auto;
+}
+
+#optionscontainer p {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #post-container {
