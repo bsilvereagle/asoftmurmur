@@ -1373,80 +1373,124 @@ meanderButton.click( function() {
 
 //
 
-  var rainStart = Math.round(rainslider.val() * 100) / 100;
+  var rainStart = Math.round(rainslider.val() * 1000) / 1000;
   console.log("rainStart = " + rainStart);
 
-  var rainHigh =  Math.round( ((1 + rainStart) / 2) * 100) / 100;
+  var rainHigh =  Math.round( ((1 + rainStart) / 2) * 1000) / 1000;
   console.log("rainHigh = " + rainHigh);
+  
+  var rainHighHalf = Math.round( ((rainStart + rainHigh) / 2) * 1000) / 1000;
+  
+  var rainHighInterval = Math.round( ((rainHigh - rainStart) / 100) * 1000) / 1000;
+  console.log("high interval = " + rainHighInterval);
 
-  var rainLow = Math.round( (rainStart / 2) * 100) / 100 ;
+  var rainLow = Math.round( (rainStart / 2) * 1000) / 1000 ;
   console.log("rainLow = " + rainLow);
+  
+  var rainLowHalf = Math.round( ((rainStart + rainLow) / 2) * 1000) / 1000;
+  console.log("rainLowHalf = " + rainLowHalf);
+  
+  var rainLowInterval = Math.round( ((rainStart - rainLow) / 100) * 1000) / 1000;
+  console.log("low interval = " + rainLowInterval);
 
   var rainFlip = 0
 
-  if (rainStart >= 0.03) { var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainLow, rainslider) }, 1000);
+  if (rainStart >= 0.03) { var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, 50);
 
-  function rainMeanderFunc (start, high, low, slider) {
-    
-    var currentVol = Math.round(rainslider.val() * 100) / 100;
-    
-    if ( currentVol == start ) {
-      rainFlip = 0;
-      var coin = Math.random();
-      console.log("coin is " + coin);
-      if ( coin >= 0.5 ) {
-        slider.val(currentVol - 0.01);
-        slider.slider("refresh"); 
+  function rainMeanderFunc (start, high, highHalf, low, lowHalf, slider) {
+  
+    if ( $("#play-pause-button").hasClass('pause-all') && rainContainer.hasClass( 'sliders-expanded' ) ) {
+      
+      var currentVol = rainslider.val();
+      var currentVolNum = parseFloat( currentVol );
+      
+      if ( currentVolNum == start ) {
+        rainFlip = 0;
+        var coin = Math.random();
+        console.log("coin is " + coin);
+        if ( coin <= 0.5 ) {
+          slider.val(currentVolNum - rainLowInterval);
+          slider.slider("refresh");
+        }
+        else {
+          slider.val(currentVolNum + rainHighInterval);
+          slider.slider("refresh");
+        }
+      } 
+      
+      else if ( currentVolNum <= (lowHalf + (rainLowInterval/2) ) && currentVolNum >= (lowHalf - rainLowInterval/2) && rainFlip == 0) {
+        var lowHalfCoin = Math.random();
+        console.log ("halfway and lowhalfcoin is " + lowHalfCoin);
+        if ( lowHalfCoin <= 0.5 ) {
+          rainFlip = 1;
+          console.log("back up from halfway point");
+        }
+        else {
+          slider.val(currentVolNum - rainLowInterval)
+          slider.slider("refresh");   
+        }
       }
-      else {
-        slider.val(currentVol + 0.01);
+             
+      else if ( currentVolNum <= low) {
+        rainFlip = 1;
+        slider.val(low + rainLowInterval);
         slider.slider("refresh");
+        console.log("reached low point");
+        console.log( rainslider.val() );
       }
-    }
-    
-    else if ( currentVol <= low ) {
-      rainFlip = 1;
-      slider.val(currentVol + 0.01);
-      slider.slider("refresh");
-    }
-    
-    else if ( currentVol >= high ) {
-      rainFlip = 1;
-      slider.val(currentVol - 0.01);
-      slider.slider("refresh");
-    }  
-    
-    else if ( currentVol < start && rainFlip == 0 ) {
-      slider.val(currentVol - 0.01)
-      slider.slider("refresh");      
-    }
-    
-    else if ( currentVol < start && rainFlip == 1 ) {
-      slider.val(currentVol + 0.01)
-      slider.slider("refresh");      
-    }
-    
-    else if ( currentVol > start && rainFlip == 0 ) {
-      slider.val(currentVol + 0.01)
-      slider.slider("refresh");      
-    }
-    
-    else if ( currentVol > start && rainFlip == 1 ) {
-      slider.val(currentVol - 0.01)
-      slider.slider("refresh");      
+      
+      else if ( currentVolNum <= (highHalf + (rainHighInterval/2) ) && currentVolNum >= (highHalf - rainHighInterval/2) && rainFlip == 0) {
+        var highHalfCoin = Math.random();
+        console.log ("halfway and highhalfcoin is " + highHalfCoin);
+        if ( highHalfCoin >= 0.5 ) {
+          rainFlip = 1;
+          console.log("back down from halfway point");
+        }
+        else {
+          slider.val(currentVolNum + rainHighInterval)
+          slider.slider("refresh");   
+        }
+      }    
+      
+      else if ( currentVolNum >= high ) {
+        rainFlip = 1;
+        slider.val(currentVolNum - rainHighInterval);
+        slider.slider("refresh");
+      }  
+      
+      else if ( currentVolNum < start && currentVolNum > low && rainFlip == 0 ) {
+        slider.val(currentVolNum - rainLowInterval)
+        slider.slider("refresh");   
+      }
+      
+      else if ( currentVolNum < start && currentVolNum > low && rainFlip == 1 ) {
+        slider.val(currentVolNum + rainLowInterval)
+        slider.slider("refresh");    
+      }
+      
+      else if ( currentVolNum > start && rainFlip == 0 ) {
+        slider.val(currentVolNum + rainHighInterval)
+        slider.slider("refresh");      
+      }
+      
+      else if ( currentVolNum > start && rainFlip == 1 ) {
+        slider.val(currentVolNum - rainHighInterval)
+        slider.slider("refresh");      
+      }
+      
     }      
   }
   }
 // 
 
   var thunderStart = Math.round(thunderslider.val() * 100) / 100;
-  console.log("thunderStart = " + thunderStart);
+  //  console.log("thunderStart = " + thunderStart);
 
   var thunderHigh =  Math.round( ((1 + thunderStart) / 2) * 100) / 100;
-  console.log("thunderHigh = " + thunderHigh);
+  //  console.log("thunderHigh = " + thunderHigh);
 
   var thunderLow = Math.round( (thunderStart / 2) * 100) / 100 ;
-  console.log("thunderLow = " + thunderLow);
+  //  console.log("thunderLow = " + thunderLow);
 
   var thunderFlip = 0
 
@@ -1459,7 +1503,7 @@ meanderButton.click( function() {
     if ( currentVol == start ) {
       thunderFlip = 0;
       var coin = Math.random();
-      console.log("coin is " + coin);
+      //  console.log("coin is " + coin);
       if ( coin >= 0.5 ) {
         slider.val(currentVol - 0.01);
         slider.slider("refresh"); 
@@ -1506,13 +1550,13 @@ meanderButton.click( function() {
 //
 
   var fireStart = Math.round(fireslider.val() * 100) / 100;
-  console.log("fireStart = " + fireStart);
+  //  console.log("fireStart = " + fireStart);
 
   var fireHigh =  Math.round( ((1 + fireStart) / 2) * 100) / 100;
-  console.log("fireHigh = " + fireHigh);
+  //  console.log("fireHigh = " + fireHigh);
 
   var fireLow = Math.round( (fireStart / 2) * 100) / 100 ;
-  console.log("fireLow = " + fireLow);
+  //  console.log("fireLow = " + fireLow);
 
   var fireFlip = 0
 
@@ -1525,7 +1569,7 @@ meanderButton.click( function() {
     if ( currentVol == start ) {
       fireFlip = 0;
       var coin = Math.random();
-      console.log("coin is " + coin);
+      //  console.log("coin is " + coin);
       if ( coin >= 0.5 ) {
         slider.val(currentVol - 0.01);
         slider.slider("refresh"); 
@@ -1572,13 +1616,13 @@ meanderButton.click( function() {
 // 
 
   var wavesStart = Math.round(wavesslider.val() * 100) / 100;
-  console.log("wavesStart = " + wavesStart);
+  //  console.log("wavesStart = " + wavesStart);
 
   var wavesHigh =  Math.round( ((1 + wavesStart) / 2) * 100) / 100;
-  console.log("wavesHigh = " + wavesHigh);
+  //  console.log("wavesHigh = " + wavesHigh);
 
   var wavesLow = Math.round( (wavesStart / 2) * 100) / 100 ;
-  console.log("wavesLow = " + wavesLow);
+  //  console.log("wavesLow = " + wavesLow);
 
   var wavesFlip = 0
 
@@ -1591,7 +1635,7 @@ meanderButton.click( function() {
     if ( currentVol == start ) {
       wavesFlip = 0;
       var coin = Math.random();
-      console.log("coin is " + coin);
+      //  console.log("coin is " + coin);
       if ( coin >= 0.5 ) {
         slider.val(currentVol - 0.01);
         slider.slider("refresh"); 
@@ -1638,13 +1682,13 @@ meanderButton.click( function() {
 //
 
   var birdsStart = Math.round(birdsslider.val() * 100) / 100;
-  console.log("birdsStart = " + birdsStart);
+  //  console.log("birdsStart = " + birdsStart);
 
   var birdsHigh =  Math.round( ((1 + birdsStart) / 2) * 100) / 100;
-  console.log("birdsHigh = " + birdsHigh);
+  //  console.log("birdsHigh = " + birdsHigh);
 
   var birdsLow = Math.round( (birdsStart / 2) * 100) / 100 ;
-  console.log("birdsLow = " + birdsLow);
+  //  console.log("birdsLow = " + birdsLow);
 
   var birdsFlip = 0
 
@@ -1657,7 +1701,7 @@ meanderButton.click( function() {
     if ( currentVol == start ) {
       birdsFlip = 0;
       var coin = Math.random();
-      console.log("coin is " + coin);
+      //  console.log("coin is " + coin);
       if ( coin >= 0.5 ) {
         slider.val(currentVol - 0.01);
         slider.slider("refresh"); 
@@ -1704,13 +1748,13 @@ meanderButton.click( function() {
 //
 
   var humansStart = Math.round(humansslider.val() * 100) / 100;
-  console.log("humansStart = " + humansStart);
+  //  console.log("humansStart = " + humansStart);
 
   var humansHigh =  Math.round( ((1 + humansStart) / 2) * 100) / 100;
-  console.log("humansHigh = " + humansHigh);
+  //  console.log("humansHigh = " + humansHigh);
 
   var humansLow = Math.round( (humansStart / 2) * 100) / 100 ;
-  console.log("humansLow = " + humansLow);
+  //  console.log("humansLow = " + humansLow);
 
   var humansFlip = 0
 
@@ -1723,7 +1767,7 @@ meanderButton.click( function() {
     if ( currentVol == start ) {
       humansFlip = 0;
       var coin = Math.random();
-      console.log("coin is " + coin);
+      //  console.log("coin is " + coin);
       if ( coin >= 0.5 ) {
         slider.val(currentVol - 0.01);
         slider.slider("refresh"); 
@@ -1770,13 +1814,13 @@ meanderButton.click( function() {
 //
 
   var cicadaStart = Math.round(cicadaslider.val() * 100) / 100;
-  console.log("cicadaStart = " + cicadaStart);
+  //  console.log("cicadaStart = " + cicadaStart);
 
   var cicadaHigh =  Math.round( ((1 + cicadaStart) / 2) * 100) / 100;
-  console.log("cicadaHigh = " + cicadaHigh);
+  //  console.log("cicadaHigh = " + cicadaHigh);
 
   var cicadaLow = Math.round( (cicadaStart / 2) * 100) / 100 ;
-  console.log("cicadaLow = " + cicadaLow);
+  //  console.log("cicadaLow = " + cicadaLow);
 
   var cicadaFlip = 0
 
@@ -1789,7 +1833,7 @@ meanderButton.click( function() {
     if ( currentVol == start ) {
       cicadaFlip = 0;
       var coin = Math.random();
-      console.log("coin is " + coin);
+      //  console.log("coin is " + coin);
       if ( coin >= 0.5 ) {
         slider.val(currentVol - 0.01);
         slider.slider("refresh"); 
