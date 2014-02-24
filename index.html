@@ -84,6 +84,8 @@ var tfbutton = $('#timedfadebutton');
 var canceltf = $('#canceltf');
 var fademinutesinput = $('#minutestillfade');
 
+var meanderpost = $('#meanderpost');
+
 var ppbutton = $("#play-pause-button");
 
 // Expand collapsed sounds on click or tap test function
@@ -1368,8 +1370,93 @@ ppbutton.click(function(){
 // TEST MEANDER CODE BELOW HERE
 
 var meanderButton = $("#meander");
+var cancelmeander = $("#cancelmeander"); 
+var meanderSlider = $("#meander-slider");
+var meanderSliderValue = (1000 - meanderSlider.val() );
+var meanderSliderValueStart = meanderSliderValue;
+var meanderSpeedText = $("#meander-speed")
+
+meanderSlider.on( 'change', function( event, ui ) {
+  meanderSliderValue = (1000 - meanderSlider.val() );
+  if (meanderSliderValue != meanderSliderValueStart) {
+  
+    console.log("meanderSliderValue = " + meanderSliderValue);
+    if (meanderSliderValue == 500) {
+      var coin500 = Math.random();
+      if ( coin500 > 0.666 ) {
+        meanderSpeedText.text("steadily");
+      }
+      else if ( coin500 <= 0.666 && coin500 > 0.333 ) {
+        meanderSpeedText.text("at a relaxed pace");
+      }
+      else if ( coin500 <= 0.333 ) {
+        meanderSpeedText.text("evenly");
+      }
+    }
+    
+    else if (meanderSliderValue == 300) {
+      var coin300 = Math.random();
+      if ( coin300 > 0.666 ) {
+        meanderSpeedText.text("swiftly");
+      }
+      else if ( coin300 <= 0.666 && coin300 > 0.333) {
+        meanderSpeedText.text("quickly");
+      }
+      else if ( coin300 <= 0.333 ) {
+        meanderSpeedText.text("briskly");
+      }
+    }
+    
+    else if (meanderSliderValue == 100) {
+      var coin100 = Math.random();
+      if ( coin100 > 0.666 ) {
+        meanderSpeedText.text("at great speed");
+      }
+      else if ( coin100 <= 0.666 && coin100 > 0.333) {
+        meanderSpeedText.text("with haste");
+      }
+      else if ( coin100 <= 0.333 ) {
+        meanderSpeedText.text("most rapidly");
+      }
+    }
+    
+     else if (meanderSliderValue == 700) {
+      var coin700 = Math.random();
+      if ( coin700 > 0.666 ) {
+        meanderSpeedText.text("gently");
+      }
+      else if ( coin700 <= 0.666 && coin700 > 0.333) {
+        meanderSpeedText.text("easily");
+      }
+      else if ( coin700 <= 0.333 ) {
+        meanderSpeedText.text("softly");
+      }
+    }
+    
+     else if (meanderSliderValue == 900) {
+      var coin900 = Math.random();
+      if ( coin900 > 0.666 ) {
+        meanderSpeedText.text("ever so slightly");
+      }
+      else if ( coin900 <= 0.666 && coin900 > 0.333) {
+        meanderSpeedText.text("in a slow arc");
+      }
+      else if ( coin900 <= 0.333 ) {
+        meanderSpeedText.text("in sedate curves");
+      }
+    }
+  }
+  
+  meanderSliderValueStart = meanderSliderValue;
+  
+});
 
 meanderButton.click( function() { 
+
+  timedpausepre.css("display", "none");
+  timedfadepre.css("display", "none");
+  buttonoptions.css("display", "none");
+  meanderpost.css("display", "inline");
 
 //
 
@@ -1395,7 +1482,15 @@ meanderButton.click( function() {
 
   var rainFlip = 0
 
-  if (rainStart >= 0.03) { var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, 50);
+  if (rainStart >= 0.03) { var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
+  
+  cancelmeander.click(function(){
+    clearInterval(rainMeander);
+    timedpausepre.css("display", "inline");
+    timedpausepost.css("display", "none");
+    timedfadepre.css("display", "inline");
+    buttonoptions.css("display", "inline");
+  }); 
 
   function rainMeanderFunc (start, high, highHalf, low, lowHalf, slider) {
   
@@ -1478,7 +1573,13 @@ meanderButton.click( function() {
         slider.slider("refresh");      
       }
       
-    }      
+    }
+  
+  clearInterval(rainMeander)
+  meanderSliderValue = (1000 - meanderSlider.val() );
+  rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
+//  console.log("meander interval = " + meanderSliderValue);
+          
   }
   }
 // 
@@ -1947,6 +2048,20 @@ meanderButton.click( function() {
     </div>
     <div id="timedfadepost" class="linkbuttons">
     <p>Sounds will fade to silence in <span id="timedfademinutesleft"></span>.</p><p> <a href="#" id="canceltf">Cancel</a></p>  
+    </div>
+    <div id="meanderpost">
+    <p id="meander-description">Meandering <span id="meander-speed">steadily</span></p> 
+    
+    <div id="meander-slider-container">
+      <div class="labelfix">
+        <label for="meander-slider">Speed</label>
+      </div>
+      
+      <input type="range" id="meander-slider" value="500" min="100" max="900" step="200" class="ui-hidden-accessible"/>
+
+    </div> 
+       
+    <p class="linkbuttons"><a href="#" id="cancelmeander">Cancel</a></p>  
     </div>
     </div>
   
