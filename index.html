@@ -1533,37 +1533,10 @@ meanderSlider.on( 'change', function( event, ui ) {
   
 });
 
+   
+
 meanderButton.click( function() { 
 
-  timedpausepre.hide();
-  timedfadepre.hide();
-  buttonoptions.hide();
-  meanderpost.fadeIn( fadeInOutMs );
-
-//
-
-  var rainStart = Math.round(rainslider.val() * 1000) / 1000;
-  console.log("rainStart = " + rainStart);
-
-  var rainHigh =  Math.round( ((1 + rainStart) / 2) * 1000) / 1000;
-  console.log("rainHigh = " + rainHigh);
-  
-  var rainHighHalf = Math.round( ((rainStart + rainHigh) / 2) * 1000) / 1000;
-  
-  var rainHighInterval = Math.round( ((rainHigh - rainStart) / 100) * 1000) / 1000;
-  console.log("high interval = " + rainHighInterval);
-
-  var rainLow = Math.round( (rainStart / 2) * 1000) / 1000 ;
-  console.log("rainLow = " + rainLow);
-  
-  var rainLowHalf = Math.round( ((rainStart + rainLow) / 2) * 1000) / 1000;
-  console.log("rainLowHalf = " + rainLowHalf);
-  
-  var rainLowInterval = Math.round( ((rainStart - rainLow) / 100) * 1000) / 1000;
-  console.log("low interval = " + rainLowInterval);
-
-  var rainFlip = 0
-  
   cancelmeander.click(function(){
     clearInterval(meanderFunction);
     timedpausepre.fadeIn( fadeInOutMs )
@@ -1574,7 +1547,160 @@ meanderButton.click( function() {
     meanderSlider.val(500);
     meanderSlider.slider("refresh");    
     
-  });   
+  });
+
+  timedpausepre.hide();
+  timedfadepre.hide();
+  buttonoptions.hide();
+  meanderpost.fadeIn( fadeInOutMs );
+  
+//  
+
+  var rainStart = Math.round(rainslider.val() * 1000) / 1000;
+  // console.log("rainStart = " + rainStart);
+
+  var rainHigh =  Math.round( ((1 + rainStart) / 2) * 1000) / 1000;
+  // console.log("rainHigh = " + rainHigh);
+  
+  var rainHighHalf = Math.round( ((rainStart + rainHigh) / 2) * 1000) / 1000;
+  
+  var rainHighInterval = Math.round( ((rainHigh - rainStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + rainHighInterval);
+
+  var rainLow = Math.round( (rainStart / 2) * 1000) / 1000 ;
+  // console.log("rainLow = " + rainLow);
+  
+  var rainLowHalf = Math.round( ((rainStart + rainLow) / 2) * 1000) / 1000;
+  // console.log("rainLowHalf = " + rainLowHalf);
+  
+  var rainLowInterval = Math.round( ((rainStart - rainLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + rainLowInterval);
+
+  var rainFlip = 0;
+  
+//
+
+  var thunderStart = Math.round(thunderslider.val() * 1000) / 1000;
+  // console.log("thunderStart = " + thunderStart);
+
+  var thunderHigh =  Math.round( ((1 + thunderStart) / 2) * 1000) / 1000;
+  // console.log("thunderHigh = " + thunderHigh);
+  
+  var thunderHighHalf = Math.round( ((thunderStart + thunderHigh) / 2) * 1000) / 1000;
+  
+  var thunderHighInterval = Math.round( ((thunderHigh - thunderStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + thunderHighInterval);
+
+  var thunderLow = Math.round( (thunderStart / 2) * 1000) / 1000 ;
+  // console.log("thunderLow = " + thunderLow);
+  
+  var thunderLowHalf = Math.round( ((thunderStart + thunderLow) / 2) * 1000) / 1000;
+  // console.log("thunderLowHalf = " + thunderLowHalf);
+  
+  var thunderLowInterval = Math.round( ((thunderStart - thunderLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + thunderLowInterval);
+
+  var thunderFlip = 0;
+  
+//
+
+  var fireStart = Math.round(fireslider.val() * 1000) / 1000;
+  // console.log("fireStart = " + fireStart);
+
+  var fireHigh =  Math.round( ((1 + fireStart) / 2) * 1000) / 1000;
+  // console.log("fireHigh = " + fireHigh);
+  
+  var fireHighHalf = Math.round( ((fireStart + fireHigh) / 2) * 1000) / 1000;
+  
+  var fireHighInterval = Math.round( ((fireHigh - fireStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + fireHighInterval);
+
+  var fireLow = Math.round( (fireStart / 2) * 1000) / 1000 ;
+  // console.log("fireLow = " + fireLow);
+  
+  var fireLowHalf = Math.round( ((fireStart + fireLow) / 2) * 1000) / 1000;
+  // console.log("fireLowHalf = " + fireLowHalf);
+  
+  var fireLowInterval = Math.round( ((fireStart - fireLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + fireLowInterval);
+
+  var fireFlip = 0;
+  
+//
+
+  var wavesStart = Math.round(wavesslider.val() * 1000) / 1000;
+  // console.log("wavesStart = " + wavesStart);
+
+  var wavesHigh =  Math.round( ((1 + wavesStart) / 2) * 1000) / 1000;
+  // console.log("wavesHigh = " + wavesHigh);
+  
+  var wavesHighHalf = Math.round( ((wavesStart + wavesHigh) / 2) * 1000) / 1000;
+  
+  var wavesHighInterval = Math.round( ((wavesHigh - wavesStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + wavesHighInterval);
+
+  var wavesLow = Math.round( (wavesStart / 2) * 1000) / 1000 ;
+  // console.log("wavesLow = " + wavesLow);
+  
+  var wavesLowHalf = Math.round( ((wavesStart + wavesLow) / 2) * 1000) / 1000;
+  // console.log("wavesLowHalf = " + wavesLowHalf);
+  
+  var wavesLowInterval = Math.round( ((wavesStart - wavesLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + wavesLowInterval);
+
+  var wavesFlip = 0;
+  
+//
+
+  var birdsStart = Math.round(birdsslider.val() * 1000) / 1000;
+  // console.log("birdsStart = " + birdsStart);
+
+  var birdsHigh =  Math.round( ((1 + birdsStart) / 2) * 1000) / 1000;
+  // console.log("birdsHigh = " + birdsHigh);
+  
+  var birdsHighHalf = Math.round( ((birdsStart + birdsHigh) / 2) * 1000) / 1000;
+  
+  var birdsHighInterval = Math.round( ((birdsHigh - birdsStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + birdsHighInterval);
+
+  var birdsLow = Math.round( (birdsStart / 2) * 1000) / 1000 ;
+  // console.log("birdsLow = " + birdsLow);
+  
+  var birdsLowHalf = Math.round( ((birdsStart + birdsLow) / 2) * 1000) / 1000;
+  // console.log("birdsLowHalf = " + birdsLowHalf);
+  
+  var birdsLowInterval = Math.round( ((birdsStart - birdsLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + birdsLowInterval);
+
+  var birdsFlip = 0;
+  
+//
+
+  var humansStart = Math.round(humansslider.val() * 1000) / 1000;
+  // console.log("humansStart = " + humansStart);
+
+  var humansHigh =  Math.round( ((1 + humansStart) / 2) * 1000) / 1000;
+  // console.log("humansHigh = " + humansHigh);
+  
+  var humansHighHalf = Math.round( ((humansStart + humansHigh) / 2) * 1000) / 1000;
+  
+  var humansHighInterval = Math.round( ((humansHigh - humansStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + humansHighInterval);
+
+  var humansLow = Math.round( (humansStart / 2) * 1000) / 1000 ;
+  // console.log("humansLow = " + humansLow);
+  
+  var humansLowHalf = Math.round( ((humansStart + humansLow) / 2) * 1000) / 1000;
+  // console.log("humansLowHalf = " + humansLowHalf);
+  
+  var humansLowInterval = Math.round( ((humansStart - humansLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + humansLowInterval);
+
+  var humansFlip = 0;
+  
+//                 
+  
+
 
   var meanderFunction = setInterval( meanderActualFunction, meanderSliderValue);
   
@@ -1582,6 +1708,8 @@ meanderButton.click( function() {
   
   function meanderActualFunction() {
     if ( $("#play-pause-button").hasClass('pause-all') ) {
+    
+    //
     
       if ( rainContainer.hasClass( 'sliders-expanded' ) ) {
       
@@ -1663,7 +1791,506 @@ meanderButton.click( function() {
         }
   
       }
-
+      
+    //
+       
+      if ( thunderContainer.hasClass( 'sliders-expanded' ) ) {
+      
+        var thunderCurrentVol = thunderslider.val();
+        var thunderCurrentVolNum = parseFloat( thunderCurrentVol );
+        
+        if ( thunderCurrentVolNum == thunderStart ) {
+          thunderFlip = 0;
+          var coin = Math.random();
+          console.log("coin is " + coin);
+          if ( coin <= 0.5 ) {
+            thunderslider.val(thunderCurrentVolNum - thunderLowInterval);
+            thunderslider.slider("refresh");
+          }
+          else {
+            thunderslider.val(thunderCurrentVolNum + thunderHighInterval);
+            thunderslider.slider("refresh");
+          }
+        } 
+        
+        else if ( thunderCurrentVolNum <= (thunderLowHalf + (thunderLowInterval/2) ) && thunderCurrentVolNum >= (thunderLowHalf - thunderLowInterval/2) && thunderFlip == 0) {
+          var thunderLowHalfCoin = Math.random();
+          console.log ("halfway and thunderLowhalfcoin is " + thunderLowHalfCoin);
+          if ( thunderLowHalfCoin <= 0.5 ) {
+            thunderFlip = 1;
+            console.log("back up from halfway point");
+          }
+          else {
+            thunderslider.val(thunderCurrentVolNum - thunderLowInterval)
+            thunderslider.slider("refresh");   
+          }
+        }
+               
+        else if ( thunderCurrentVolNum <= thunderLow) {
+          thunderFlip = 1;
+          thunderslider.val(thunderLow + thunderLowInterval);
+          thunderslider.slider("refresh");
+          console.log("reached thunderLow point");
+          console.log( thunderslider.val() );
+        }
+        
+        else if ( thunderCurrentVolNum <= (thunderHighHalf + (thunderHighInterval/2) ) && thunderCurrentVolNum >= (thunderHighHalf - thunderHighInterval/2) && thunderFlip == 0) {
+          var thunderHighHalfCoin = Math.random();
+          console.log ("halfway and thunderHighhalfcoin is " + thunderHighHalfCoin);
+          if ( thunderHighHalfCoin >= 0.5 ) {
+            thunderFlip = 1;
+            console.log("back down from halfway point");
+          }
+          else {
+            thunderslider.val(thunderCurrentVolNum + thunderHighInterval)
+            thunderslider.slider("refresh");   
+          }
+        }    
+        
+        else if ( thunderCurrentVolNum >= thunderHigh ) {
+          thunderFlip = 1;
+          thunderslider.val(thunderCurrentVolNum - thunderHighInterval);
+          thunderslider.slider("refresh");
+        }  
+        
+        else if ( thunderCurrentVolNum < thunderStart && thunderCurrentVolNum > thunderLow && thunderFlip == 0 ) {
+          thunderslider.val(thunderCurrentVolNum - thunderLowInterval)
+          thunderslider.slider("refresh");   
+        }
+        
+        else if ( thunderCurrentVolNum < thunderStart && thunderCurrentVolNum > thunderLow && thunderFlip == 1 ) {
+          thunderslider.val(thunderCurrentVolNum + thunderLowInterval)
+          thunderslider.slider("refresh");    
+        }
+        
+        else if ( thunderCurrentVolNum > thunderStart && thunderFlip == 0 ) {
+          thunderslider.val(thunderCurrentVolNum + thunderHighInterval)
+          thunderslider.slider("refresh");      
+        }
+        
+        else if ( thunderCurrentVolNum > thunderStart && thunderFlip == 1 ) {
+          thunderslider.val(thunderCurrentVolNum - thunderHighInterval)
+          thunderslider.slider("refresh");      
+        }
+  
+      }
+      
+    //
+       
+      if ( fireContainer.hasClass( 'sliders-expanded' ) ) {
+      
+        var fireCurrentVol = fireslider.val();
+        var fireCurrentVolNum = parseFloat( fireCurrentVol );
+        
+        if ( fireCurrentVolNum == fireStart ) {
+          fireFlip = 0;
+          var coin = Math.random();
+          console.log("coin is " + coin);
+          if ( coin <= 0.5 ) {
+            fireslider.val(fireCurrentVolNum - fireLowInterval);
+            fireslider.slider("refresh");
+          }
+          else {
+            fireslider.val(fireCurrentVolNum + fireHighInterval);
+            fireslider.slider("refresh");
+          }
+        } 
+        
+        else if ( fireCurrentVolNum <= (fireLowHalf + (fireLowInterval/2) ) && fireCurrentVolNum >= (fireLowHalf - fireLowInterval/2) && fireFlip == 0) {
+          var fireLowHalfCoin = Math.random();
+          console.log ("halfway and fireLowhalfcoin is " + fireLowHalfCoin);
+          if ( fireLowHalfCoin <= 0.5 ) {
+            fireFlip = 1;
+            console.log("back up from halfway point");
+          }
+          else {
+            fireslider.val(fireCurrentVolNum - fireLowInterval)
+            fireslider.slider("refresh");   
+          }
+        }
+               
+        else if ( fireCurrentVolNum <= fireLow) {
+          fireFlip = 1;
+          fireslider.val(fireLow + fireLowInterval);
+          fireslider.slider("refresh");
+          console.log("reached fireLow point");
+          console.log( fireslider.val() );
+        }
+        
+        else if ( fireCurrentVolNum <= (fireHighHalf + (fireHighInterval/2) ) && fireCurrentVolNum >= (fireHighHalf - fireHighInterval/2) && fireFlip == 0) {
+          var fireHighHalfCoin = Math.random();
+          console.log ("halfway and fireHighhalfcoin is " + fireHighHalfCoin);
+          if ( fireHighHalfCoin >= 0.5 ) {
+            fireFlip = 1;
+            console.log("back down from halfway point");
+          }
+          else {
+            fireslider.val(fireCurrentVolNum + fireHighInterval)
+            fireslider.slider("refresh");   
+          }
+        }    
+        
+        else if ( fireCurrentVolNum >= fireHigh ) {
+          fireFlip = 1;
+          fireslider.val(fireCurrentVolNum - fireHighInterval);
+          fireslider.slider("refresh");
+        }  
+        
+        else if ( fireCurrentVolNum < fireStart && fireCurrentVolNum > fireLow && fireFlip == 0 ) {
+          fireslider.val(fireCurrentVolNum - fireLowInterval)
+          fireslider.slider("refresh");   
+        }
+        
+        else if ( fireCurrentVolNum < fireStart && fireCurrentVolNum > fireLow && fireFlip == 1 ) {
+          fireslider.val(fireCurrentVolNum + fireLowInterval)
+          fireslider.slider("refresh");    
+        }
+        
+        else if ( fireCurrentVolNum > fireStart && fireFlip == 0 ) {
+          fireslider.val(fireCurrentVolNum + fireHighInterval)
+          fireslider.slider("refresh");      
+        }
+        
+        else if ( fireCurrentVolNum > fireStart && fireFlip == 1 ) {
+          fireslider.val(fireCurrentVolNum - fireHighInterval)
+          fireslider.slider("refresh");      
+        }
+  
+      }
+      
+    //        
+       
+      if ( wavesContainer.hasClass( 'sliders-expanded' ) ) {
+      
+        var wavesCurrentVol = wavesslider.val();
+        var wavesCurrentVolNum = parseFloat( wavesCurrentVol );
+        
+        if ( wavesCurrentVolNum == wavesStart ) {
+          wavesFlip = 0;
+          var coin = Math.random();
+          console.log("coin is " + coin);
+          if ( coin <= 0.5 ) {
+            wavesslider.val(wavesCurrentVolNum - wavesLowInterval);
+            wavesslider.slider("refresh");
+          }
+          else {
+            wavesslider.val(wavesCurrentVolNum + wavesHighInterval);
+            wavesslider.slider("refresh");
+          }
+        } 
+        
+        else if ( wavesCurrentVolNum <= (wavesLowHalf + (wavesLowInterval/2) ) && wavesCurrentVolNum >= (wavesLowHalf - wavesLowInterval/2) && wavesFlip == 0) {
+          var wavesLowHalfCoin = Math.random();
+          console.log ("halfway and wavesLowhalfcoin is " + wavesLowHalfCoin);
+          if ( wavesLowHalfCoin <= 0.5 ) {
+            wavesFlip = 1;
+            console.log("back up from halfway point");
+          }
+          else {
+            wavesslider.val(wavesCurrentVolNum - wavesLowInterval)
+            wavesslider.slider("refresh");   
+          }
+        }
+               
+        else if ( wavesCurrentVolNum <= wavesLow) {
+          wavesFlip = 1;
+          wavesslider.val(wavesLow + wavesLowInterval);
+          wavesslider.slider("refresh");
+          console.log("reached wavesLow point");
+          console.log( wavesslider.val() );
+        }
+        
+        else if ( wavesCurrentVolNum <= (wavesHighHalf + (wavesHighInterval/2) ) && wavesCurrentVolNum >= (wavesHighHalf - wavesHighInterval/2) && wavesFlip == 0) {
+          var wavesHighHalfCoin = Math.random();
+          console.log ("halfway and wavesHighhalfcoin is " + wavesHighHalfCoin);
+          if ( wavesHighHalfCoin >= 0.5 ) {
+            wavesFlip = 1;
+            console.log("back down from halfway point");
+          }
+          else {
+            wavesslider.val(wavesCurrentVolNum + wavesHighInterval)
+            wavesslider.slider("refresh");   
+          }
+        }    
+        
+        else if ( wavesCurrentVolNum >= wavesHigh ) {
+          wavesFlip = 1;
+          wavesslider.val(wavesCurrentVolNum - wavesHighInterval);
+          wavesslider.slider("refresh");
+        }  
+        
+        else if ( wavesCurrentVolNum < wavesStart && wavesCurrentVolNum > wavesLow && wavesFlip == 0 ) {
+          wavesslider.val(wavesCurrentVolNum - wavesLowInterval)
+          wavesslider.slider("refresh");   
+        }
+        
+        else if ( wavesCurrentVolNum < wavesStart && wavesCurrentVolNum > wavesLow && wavesFlip == 1 ) {
+          wavesslider.val(wavesCurrentVolNum + wavesLowInterval)
+          wavesslider.slider("refresh");    
+        }
+        
+        else if ( wavesCurrentVolNum > wavesStart && wavesFlip == 0 ) {
+          wavesslider.val(wavesCurrentVolNum + wavesHighInterval)
+          wavesslider.slider("refresh");      
+        }
+        
+        else if ( wavesCurrentVolNum > wavesStart && wavesFlip == 1 ) {
+          wavesslider.val(wavesCurrentVolNum - wavesHighInterval)
+          wavesslider.slider("refresh");      
+        }
+  
+      }
+      
+    //        
+      
+      if ( wavesContainer.hasClass( 'sliders-expanded' ) ) {
+      
+        var wavesCurrentVol = wavesslider.val();
+        var wavesCurrentVolNum = parseFloat( wavesCurrentVol );
+        
+        if ( wavesCurrentVolNum == wavesStart ) {
+          wavesFlip = 0;
+          var coin = Math.random();
+          console.log("coin is " + coin);
+          if ( coin <= 0.5 ) {
+            wavesslider.val(wavesCurrentVolNum - wavesLowInterval);
+            wavesslider.slider("refresh");
+          }
+          else {
+            wavesslider.val(wavesCurrentVolNum + wavesHighInterval);
+            wavesslider.slider("refresh");
+          }
+        } 
+        
+        else if ( wavesCurrentVolNum <= (wavesLowHalf + (wavesLowInterval/2) ) && wavesCurrentVolNum >= (wavesLowHalf - wavesLowInterval/2) && wavesFlip == 0) {
+          var wavesLowHalfCoin = Math.random();
+          console.log ("halfway and wavesLowhalfcoin is " + wavesLowHalfCoin);
+          if ( wavesLowHalfCoin <= 0.5 ) {
+            wavesFlip = 1;
+            console.log("back up from halfway point");
+          }
+          else {
+            wavesslider.val(wavesCurrentVolNum - wavesLowInterval)
+            wavesslider.slider("refresh");   
+          }
+        }
+               
+        else if ( wavesCurrentVolNum <= wavesLow) {
+          wavesFlip = 1;
+          wavesslider.val(wavesLow + wavesLowInterval);
+          wavesslider.slider("refresh");
+          console.log("reached wavesLow point");
+          console.log( wavesslider.val() );
+        }
+        
+        else if ( wavesCurrentVolNum <= (wavesHighHalf + (wavesHighInterval/2) ) && wavesCurrentVolNum >= (wavesHighHalf - wavesHighInterval/2) && wavesFlip == 0) {
+          var wavesHighHalfCoin = Math.random();
+          console.log ("halfway and wavesHighhalfcoin is " + wavesHighHalfCoin);
+          if ( wavesHighHalfCoin >= 0.5 ) {
+            wavesFlip = 1;
+            console.log("back down from halfway point");
+          }
+          else {
+            wavesslider.val(wavesCurrentVolNum + wavesHighInterval)
+            wavesslider.slider("refresh");   
+          }
+        }    
+        
+        else if ( wavesCurrentVolNum >= wavesHigh ) {
+          wavesFlip = 1;
+          wavesslider.val(wavesCurrentVolNum - wavesHighInterval);
+          wavesslider.slider("refresh");
+        }  
+        
+        else if ( wavesCurrentVolNum < wavesStart && wavesCurrentVolNum > wavesLow && wavesFlip == 0 ) {
+          wavesslider.val(wavesCurrentVolNum - wavesLowInterval)
+          wavesslider.slider("refresh");   
+        }
+        
+        else if ( wavesCurrentVolNum < wavesStart && wavesCurrentVolNum > wavesLow && wavesFlip == 1 ) {
+          wavesslider.val(wavesCurrentVolNum + wavesLowInterval)
+          wavesslider.slider("refresh");    
+        }
+        
+        else if ( wavesCurrentVolNum > wavesStart && wavesFlip == 0 ) {
+          wavesslider.val(wavesCurrentVolNum + wavesHighInterval)
+          wavesslider.slider("refresh");      
+        }
+        
+        else if ( wavesCurrentVolNum > wavesStart && wavesFlip == 1 ) {
+          wavesslider.val(wavesCurrentVolNum - wavesHighInterval)
+          wavesslider.slider("refresh");      
+        }
+  
+      }
+      
+   //        
+       
+      if ( birdsContainer.hasClass( 'sliders-expanded' ) ) {
+      
+        var birdsCurrentVol = birdsslider.val();
+        var birdsCurrentVolNum = parseFloat( birdsCurrentVol );
+        
+        if ( birdsCurrentVolNum == birdsStart ) {
+          birdsFlip = 0;
+          var coin = Math.random();
+          console.log("coin is " + coin);
+          if ( coin <= 0.5 ) {
+            birdsslider.val(birdsCurrentVolNum - birdsLowInterval);
+            birdsslider.slider("refresh");
+          }
+          else {
+            birdsslider.val(birdsCurrentVolNum + birdsHighInterval);
+            birdsslider.slider("refresh");
+          }
+        } 
+        
+        else if ( birdsCurrentVolNum <= (birdsLowHalf + (birdsLowInterval/2) ) && birdsCurrentVolNum >= (birdsLowHalf - birdsLowInterval/2) && birdsFlip == 0) {
+          var birdsLowHalfCoin = Math.random();
+          console.log ("halfway and birdsLowhalfcoin is " + birdsLowHalfCoin);
+          if ( birdsLowHalfCoin <= 0.5 ) {
+            birdsFlip = 1;
+            console.log("back up from halfway point");
+          }
+          else {
+            birdsslider.val(birdsCurrentVolNum - birdsLowInterval)
+            birdsslider.slider("refresh");   
+          }
+        }
+               
+        else if ( birdsCurrentVolNum <= birdsLow) {
+          birdsFlip = 1;
+          birdsslider.val(birdsLow + birdsLowInterval);
+          birdsslider.slider("refresh");
+          console.log("reached birdsLow point");
+          console.log( birdsslider.val() );
+        }
+        
+        else if ( birdsCurrentVolNum <= (birdsHighHalf + (birdsHighInterval/2) ) && birdsCurrentVolNum >= (birdsHighHalf - birdsHighInterval/2) && birdsFlip == 0) {
+          var birdsHighHalfCoin = Math.random();
+          console.log ("halfway and birdsHighhalfcoin is " + birdsHighHalfCoin);
+          if ( birdsHighHalfCoin >= 0.5 ) {
+            birdsFlip = 1;
+            console.log("back down from halfway point");
+          }
+          else {
+            birdsslider.val(birdsCurrentVolNum + birdsHighInterval)
+            birdsslider.slider("refresh");   
+          }
+        }    
+        
+        else if ( birdsCurrentVolNum >= birdsHigh ) {
+          birdsFlip = 1;
+          birdsslider.val(birdsCurrentVolNum - birdsHighInterval);
+          birdsslider.slider("refresh");
+        }  
+        
+        else if ( birdsCurrentVolNum < birdsStart && birdsCurrentVolNum > birdsLow && birdsFlip == 0 ) {
+          birdsslider.val(birdsCurrentVolNum - birdsLowInterval)
+          birdsslider.slider("refresh");   
+        }
+        
+        else if ( birdsCurrentVolNum < birdsStart && birdsCurrentVolNum > birdsLow && birdsFlip == 1 ) {
+          birdsslider.val(birdsCurrentVolNum + birdsLowInterval)
+          birdsslider.slider("refresh");    
+        }
+        
+        else if ( birdsCurrentVolNum > birdsStart && birdsFlip == 0 ) {
+          birdsslider.val(birdsCurrentVolNum + birdsHighInterval)
+          birdsslider.slider("refresh");      
+        }
+        
+        else if ( birdsCurrentVolNum > birdsStart && birdsFlip == 1 ) {
+          birdsslider.val(birdsCurrentVolNum - birdsHighInterval)
+          birdsslider.slider("refresh");      
+        }
+  
+      }
+      
+    //            
+      
+      if ( humansContainer.hasClass( 'sliders-expanded' ) ) {
+      
+        var humansCurrentVol = humansslider.val();
+        var humansCurrentVolNum = parseFloat( humansCurrentVol );
+        
+        if ( humansCurrentVolNum == humansStart ) {
+          humansFlip = 0;
+          var coin = Math.random();
+          console.log("coin is " + coin);
+          if ( coin <= 0.5 ) {
+            humansslider.val(humansCurrentVolNum - humansLowInterval);
+            humansslider.slider("refresh");
+          }
+          else {
+            humansslider.val(humansCurrentVolNum + humansHighInterval);
+            humansslider.slider("refresh");
+          }
+        } 
+        
+        else if ( humansCurrentVolNum <= (humansLowHalf + (humansLowInterval/2) ) && humansCurrentVolNum >= (humansLowHalf - humansLowInterval/2) && humansFlip == 0) {
+          var humansLowHalfCoin = Math.random();
+          console.log ("halfway and humansLowhalfcoin is " + humansLowHalfCoin);
+          if ( humansLowHalfCoin <= 0.5 ) {
+            humansFlip = 1;
+            console.log("back up from halfway point");
+          }
+          else {
+            humansslider.val(humansCurrentVolNum - humansLowInterval)
+            humansslider.slider("refresh");   
+          }
+        }
+               
+        else if ( humansCurrentVolNum <= humansLow) {
+          humansFlip = 1;
+          humansslider.val(humansLow + humansLowInterval);
+          humansslider.slider("refresh");
+          console.log("reached humansLow point");
+          console.log( humansslider.val() );
+        }
+        
+        else if ( humansCurrentVolNum <= (humansHighHalf + (humansHighInterval/2) ) && humansCurrentVolNum >= (humansHighHalf - humansHighInterval/2) && humansFlip == 0) {
+          var humansHighHalfCoin = Math.random();
+          console.log ("halfway and humansHighhalfcoin is " + humansHighHalfCoin);
+          if ( humansHighHalfCoin >= 0.5 ) {
+            humansFlip = 1;
+            console.log("back down from halfway point");
+          }
+          else {
+            humansslider.val(humansCurrentVolNum + humansHighInterval)
+            humansslider.slider("refresh");   
+          }
+        }    
+        
+        else if ( humansCurrentVolNum >= humansHigh ) {
+          humansFlip = 1;
+          humansslider.val(humansCurrentVolNum - humansHighInterval);
+          humansslider.slider("refresh");
+        }  
+        
+        else if ( humansCurrentVolNum < humansStart && humansCurrentVolNum > humansLow && humansFlip == 0 ) {
+          humansslider.val(humansCurrentVolNum - humansLowInterval)
+          humansslider.slider("refresh");   
+        }
+        
+        else if ( humansCurrentVolNum < humansStart && humansCurrentVolNum > humansLow && humansFlip == 1 ) {
+          humansslider.val(humansCurrentVolNum + humansLowInterval)
+          humansslider.slider("refresh");    
+        }
+        
+        else if ( humansCurrentVolNum > humansStart && humansFlip == 0 ) {
+          humansslider.val(humansCurrentVolNum + humansHighInterval)
+          humansslider.slider("refresh");      
+        }
+        
+        else if ( humansCurrentVolNum > humansStart && humansFlip == 1 ) {
+          humansslider.val(humansCurrentVolNum - humansHighInterval)
+          humansslider.slider("refresh");      
+        }
+  
+      }
+      
+    //
     }
   clearInterval(meanderFunction);  
   meanderSliderValue = (1000 - meanderSlider.val() );
