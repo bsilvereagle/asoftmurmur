@@ -962,6 +962,35 @@ tpbutton.click(function(){
 
 // timed pause: pauses after x minutes
 
+var timedfadeprompt = $("#timedfadeprompt");
+var timedfadenumberentry = $("#timedfadenumberentry");
+var timedfadeentry = $("#timedfadeentry");
+
+timedfadeprompt.click( function() {
+
+  if ( $(this).hasClass("wait-for-input") ) {
+    timedfadenumberentry.css("display", "none");
+    timedfadeentry.css("display", "none");
+    $(this).removeClass("wait-for-input");
+    timedfadepre.css("display", "block");
+    buttonoptions.css("display", "block");
+    $(this).text("Timed fade");
+    optionsbutton.show();
+  }
+  else {
+    timedfadenumberentry.css("display", "block");
+    timedfadeentry.css("display", "block");
+    $(this).addClass("wait-for-input");
+   
+    timedpausepre.css("display", "none");
+    buttonoptions.css("display", "none");
+    $(this).text("Cancel");
+    optionsbutton.hide();
+    $("#minutestillfade").focus();
+  }
+
+});
+
 tfbutton.click(function(){
 
   var fademinutes = $("input#minutestillfade").val();
@@ -996,6 +1025,9 @@ tfbutton.click(function(){
   buttonoptions.css("display", "none");
   $("#timedfademinutesleft").text(fadestarttime); // set the start time for the first second
   timedfadepost.css("display", "inline");
+  timedfadenumberentry.css("display", "none");
+  timedfadeentry.css("display", "none");
+  timedfadeprompt.removeClass("wait-for-input");  
  
  if(ppbutton.hasClass('play-all')) {
      playall();               
@@ -1044,6 +1076,8 @@ tfbutton.click(function(){
       timedfadepre.css("display", "inline");
       buttonoptions.css("display", "inline");
       timedfadepost.css("display", "none");
+      timedfadeprompt.text("Timed fade to silence");
+      optionsbutton.show();      
     }
   }
   
@@ -1053,6 +1087,8 @@ tfbutton.click(function(){
   timedfadepost.css("display", "none");
   timedfadepre.css("display", "inline");
   buttonoptions.css("display", "inline");
+  timedfadeprompt.text("Timed fade to silence");
+  optionsbutton.show();  
   })
       
 })
@@ -1680,15 +1716,17 @@ meanderButton.click( function() {
         <p><a href="#" id="silence">Silence all</a></p>
         <p><a href="#" id="meander">Meander</a></p>
   </div>
+  
     <div id="timedpausepre" class="linkbuttons">
     <p><a href="#" id="timedpauseprompt">Timed pause</a></p>
     <div id="timedpausenumberentry">Pause in <input type="number" id="minutestillpause" value="10" size ="1" data-role="none" /> minutes</div>
-    <div id="timedpauseentry"><a href="#" id="timedpausebutton">Start timer</a>
+    <div id="timedpauseentry"><a href="#" id="timedpausebutton">Start timer</a></div>
     </div>
     
     <div id="timedfadepre" class="linkbuttons">
-    <p><a href="#" id="timedfadebutton">Timed fade to silent</a> <input type="text" id="minutestillfade" value="10" size ="1" data-role="none" /> mins</p>
-    </div>
+    <p><a href="#" id="timedfadeprompt">Timed fade to silence</a></p>
+    <div id="timedfadenumberentry">Fade to silence over</a> <input type="number" id="minutestillfade" value="10" size ="1" data-role="none" /> minutes</div>
+    <div id="timedfadeentry"><a href="#" id="timedfadebutton">Start timer</a></div>
     </div>
     
     <div id="post-container">
