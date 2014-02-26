@@ -805,14 +805,14 @@ var optionsbutton = $("#optionsbutton");
   $('.show_hide').click(function(){
     $(".optionshidden").fadeToggle();
     
-    var optionstext = optionsbutton.text()
+    var optionstext = optionsbutton.text();
 
     if( optionstext.indexOf( "Tools" ) !== -1 ) {
-      optionsbutton.text("Hide tools");
+      optionsbutton.html('Hide <span class="hotkey">t</span>ools');
       optionsbutton.addClass("options-active");
     }
     else {
-      optionsbutton.text("Tools");
+      optionsbutton.html('<span class="hotkey">T</span>ools');
       optionsbutton.removeClass("options-active");
     }
   });
@@ -895,9 +895,18 @@ timedpauseprompt.click( function() {
    
     timedfadepre.hide();
     buttonoptions.hide();
-    $(this).text("Cancel");
+    $(this).html("<span id='tp-cancel-shortcut'>C</span>ancel");
     optionsbutton.hide();
     $("#minutestillpause").focus();
+    
+    var timedPausePromptStart = function () {
+                                  tpbutton.trigger( "click" ); 
+                                  $(document).unbind('keydown', timedPausePromptStart );                            
+                                };
+    
+    $(document).bind('keydown', 'return', timedPausePromptStart);
+    $('#minutestillpause').bind('keydown', 'return', timedPausePromptStart);
+   
   }
   
   
@@ -991,6 +1000,15 @@ timedfadeprompt.click( function() {
     $(this).text("Cancel");
     optionsbutton.hide();
     $("#minutestillfade").focus();
+    
+    var timedFadePromptStart = function () {
+                                  tfbutton.trigger( "click" ); 
+                                  $(document).unbind('keydown', timedFadePromptStart );
+                                  console.log("pressed return");                            
+                                };
+                                
+    $(document).bind('keydown', 'return', timedFadePromptStart);
+    $('#minutestillfade').bind('keydown', 'return', timedFadePromptStart);
   }
 
 });
@@ -1715,12 +1733,12 @@ meanderButton.click( function() {
 </div>
 
 <div id="options" class="otext">
-  <p><a href="#" id="optionsbutton" class="show_hide">Tools</a></p>
+  <p id="tools-p"><a href="#" id="optionsbutton" class="show_hide"><span class="hotkey">T</span>ools</a></p>
   <div class="optionshidden">
   <div id="optionscontainer">
   <div id ="buttonoptions" class="linkbuttons">
-        <p><a href="#" id="silence">Silence all</a></p>
-        <p><a href="#" id="meander">Meander</a></p>
+        <p id="silence-p" class="key-shortcut"><a href="#" id="silence">Silence all</a></p>
+        <p id="meander-p" class="key-shortcut"><a href="#" id="meander">Meander</a></p>
   </div>
   
     <div id="timedpausepre" class="linkbuttons">

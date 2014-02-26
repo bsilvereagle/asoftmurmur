@@ -452,9 +452,13 @@ html {
 #optionsbutton,
 .linkbuttons a {
   text-decoration: none;
-  padding: 4px 15px;
+  padding: 4px 30px;
   background-color: #000;
   color: #FFF;
+}
+
+.hotkey {
+  text-decoration: underline;
 }
 
 #optionsbutton:hover,
