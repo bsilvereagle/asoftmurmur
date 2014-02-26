@@ -28,6 +28,8 @@
 
 $(document).ready(function() {
 
+var fadeInOutMs = 150; // Probably a good idea if everything fades at the same speed
+
 var rainslider = $("#rain-slider");
 var wavesslider = $("#waves-slider");
 var thunderslider = $("#thunder-slider");
@@ -195,7 +197,7 @@ var wavesLoaded = 0;
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0, loadingId) {
   if (container.hasClass( sliderCollapsed ) ) {
     container.addClass( "excount" );
-    container.fadeOut( "200", function() {
+    container.fadeOut( fadeInOutMs, function() {
       
     
       container.removeClass( sliderCollapsed );
@@ -207,7 +209,7 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
         container.append('<div class="loading-element" id="' + loadingId + '"><p class="dtext">Loading</p></div>')
         button.hide();
         container.insertBefore( $(".sliders-collapsed").first() );
-        container.fadeIn( "200");
+        container.fadeIn( fadeInOutMs );
 
         glueplayer0.addEventListener("canplaythrough", function() { 
          $("#" + loadingId).remove();
@@ -218,7 +220,7 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
 
         button.hide();
         container.insertBefore( $(".sliders-collapsed").first() );
-        container.fadeIn( "200");
+        container.fadeIn( fadeInOutMs );
       
       }
   });
@@ -347,7 +349,7 @@ function silenceOnCollapse(slider) {
 
 function collapseSlider(container, button, player0, glueplayer0, slider) {
   container.removeClass( "excount" );
-  container.fadeOut( "200", function() {
+  container.fadeOut( fadeInOutMs, function() {
   
     container.removeClass( sliderExpanded );
     container.addClass( sliderCollapsed );
@@ -356,7 +358,7 @@ function collapseSlider(container, button, player0, glueplayer0, slider) {
     silenceOnCollapse(slider);
     
     container.insertAfter( $(".sliders-expanded").last()  );
-    container.fadeIn( "200" );    
+    container.fadeIn( fadeInOutMs );    
   });
 
 }
@@ -878,21 +880,21 @@ var timedpauseentry = $("#timedpauseentry");
 timedpauseprompt.click( function() {
   
   if ( $(this).hasClass("wait-for-input") ) {
-    timedpausenumberentry.css("display", "none");
-    timedpauseentry.css("display", "none");
+    timedpausenumberentry.hide();
+    timedpauseentry.hide();
     $(this).removeClass("wait-for-input");
-    timedfadepre.css("display", "block");
-    buttonoptions.css("display", "block");
+    timedfadepre.fadeIn( fadeInOutMs )
+    buttonoptions.fadeIn( fadeInOutMs )
     $(this).text("Timed pause");
-    optionsbutton.show();
+    optionsbutton.fadeIn( fadeInOutMs )
   }
   else {
-    timedpausenumberentry.css("display", "block");
-    timedpauseentry.css("display", "block");
+    timedpausenumberentry.fadeIn( fadeInOutMs )
+    timedpauseentry.fadeIn( fadeInOutMs )
     $(this).addClass("wait-for-input");
    
-    timedfadepre.css("display", "none");
-    buttonoptions.css("display", "none");
+    timedfadepre.hide();
+    buttonoptions.hide();
     $(this).text("Cancel");
     optionsbutton.hide();
     $("#minutestillpause").focus();
@@ -903,19 +905,21 @@ timedpauseprompt.click( function() {
 
 tpbutton.click(function(){
 
+  optionsbutton.fadeIn( fadeInOutMs );
+  
   var pauseminutes = $("input#minutestillpause").val();
   var pausems = pauseminutes * 60000;
   var starttime = mstotime(pausems);
  
-  timedpausepre.css("display", "none");
-  timedfadepre.css("display", "none");
-  buttonoptions.css("display", "none");
-  timedpausenumberentry.css("display", "none");
-  timedpauseentry.css("display", "none");
+  timedpausepre.hide();
+  timedfadepre.hide();
+  buttonoptions.hide();
+  timedpausenumberentry.hide();
+  timedpauseentry.hide();
   timedpauseprompt.removeClass("wait-for-input");
   
   $("#timedpauseminutesleft").text(starttime); // set the start time for the first second
-  timedpausepost.css("display", "inline");
+  timedpausepost.fadeIn( fadeInOutMs );
  
  if(ppbutton.hasClass('play-all')) {
      playall();               
@@ -927,10 +931,10 @@ tpbutton.click(function(){
   function timedpausefunction(){
     pauseall();
     ppbutton.attr("class", "play-all");
-    timedpausepre.css("display", "inline");
-    timedpausepost.css("display", "none");
-    timedfadepre.css("display", "inline");
-    buttonoptions.css ("display", "inline");
+    timedpausepre.fadeIn( fadeInOutMs );
+    timedpausepost.hide();
+    timedfadepre.fadeIn( fadeInOutMs );
+    buttonoptions.fadeIn( fadeInOutMs );
  }
   
   var timeupdate = setInterval(function(){timerupdate()},1000);
@@ -949,12 +953,12 @@ tpbutton.click(function(){
  canceltp.click(function(){
   clearTimeout(pausetimeout);
   clearInterval(timeupdate);
-  timedpausepre.css("display", "inline");
-  timedpausepost.css("display", "none");
-  timedfadepre.css("display", "inline");
-  buttonoptions.css("display", "inline");
+  timedpausepre.fadeIn( fadeInOutMs );
+  timedpausepost.hide();
+  timedfadepre.fadeIn( fadeInOutMs );
+  buttonoptions.fadeIn( fadeInOutMs );
   timedpauseprompt.text("Timed pause");
-  optionsbutton.show();
+  optionsbutton.fadeIn( fadeInOutMs );
  })
 
 })
@@ -969,21 +973,21 @@ var timedfadeentry = $("#timedfadeentry");
 timedfadeprompt.click( function() {
 
   if ( $(this).hasClass("wait-for-input") ) {
-    timedfadenumberentry.css("display", "none");
-    timedfadeentry.css("display", "none");
+    timedfadenumberentry.hide();
+    timedfadeentry.hide();
     $(this).removeClass("wait-for-input");
-    timedfadepre.css("display", "block");
-    buttonoptions.css("display", "block");
+    timedfadepre.fadeIn( fadeInOutMs );
+    buttonoptions.fadeIn( fadeInOutMs );
     $(this).text("Timed fade");
-    optionsbutton.show();
+    optionsbutton.fadeIn( fadeInOutMs );
   }
   else {
-    timedfadenumberentry.css("display", "block");
-    timedfadeentry.css("display", "block");
+    timedfadenumberentry.fadeIn( fadeInOutMs );
+    timedfadeentry.fadeIn( fadeInOutMs );
     $(this).addClass("wait-for-input");
    
-    timedpausepre.css("display", "none");
-    buttonoptions.css("display", "none");
+    timedpausepre.hide();
+    buttonoptions.hide();
     $(this).text("Cancel");
     optionsbutton.hide();
     $("#minutestillfade").focus();
@@ -992,6 +996,8 @@ timedfadeprompt.click( function() {
 });
 
 tfbutton.click(function(){
+
+  optionsbutton.fadeIn( fadeInOutMs );
 
   var fademinutes = $("input#minutestillfade").val();
   var fadems = fademinutes * 60000;
@@ -1020,13 +1026,13 @@ tfbutton.click(function(){
   var cicadaval = cicadaslider.val();
   var cicadaco = cicadaslider.val() / fadedecisecs;  
  
-  timedpausepre.css("display", "none");
-  timedfadepre.css("display", "none");
-  buttonoptions.css("display", "none");
+  timedpausepre.hide();
+  timedfadepre.hide();
+  buttonoptions.hide();
   $("#timedfademinutesleft").text(fadestarttime); // set the start time for the first second
-  timedfadepost.css("display", "inline");
-  timedfadenumberentry.css("display", "none");
-  timedfadeentry.css("display", "none");
+  timedfadepost.fadeIn( fadeInOutMs );
+  timedfadenumberentry.hide();
+  timedfadeentry.hide();
   timedfadeprompt.removeClass("wait-for-input");  
  
  if(ppbutton.hasClass('play-all')) {
@@ -1072,21 +1078,21 @@ tfbutton.click(function(){
     
     if (fadems <= 0){
       clearInterval(fadetimeout);
-      timedpausepre.css("display", "inline");
-      timedfadepre.css("display", "inline");
-      buttonoptions.css("display", "inline");
-      timedfadepost.css("display", "none");
+      timedpausepre.fadeIn( fadeInOutMs );
+      timedfadepre.fadeIn( fadeInOutMs );
+      buttonoptions.fadeIn( fadeInOutMs );
+      timedfadepost.hide();
       timedfadeprompt.text("Timed fade to silence");
-      optionsbutton.show();      
+      optionsbutton.fadeIn( fadeInOutMs );    
     }
   }
   
   canceltf.click(function(){
   clearInterval(fadetimeout);
-  timedpausepre.css("display", "inline");
-  timedfadepost.css("display", "none");
-  timedfadepre.css("display", "inline");
-  buttonoptions.css("display", "inline");
+  timedpausepre.fadeIn( fadeInOutMs );
+  timedfadepost.hide();
+  timedfadepre.fadeIn( fadeInOutMs );
+  buttonoptions.fadeIn( fadeInOutMs );
   timedfadeprompt.text("Timed fade to silence");
   optionsbutton.show();  
   })
@@ -1378,8 +1384,8 @@ function timedloadfunction() {
 
   if ( rainLoaded + thunderLoaded + fireLoaded + wavesLoaded + birdsLoaded + humansLoaded + cicadaLoaded == numItems ) {
     
-    $("#loading").css("display", "none"); 
-    $("#all-controls").css("display", "inline");   
+    $("#loading").hide(); 
+    $("#all-controls").fadeIn( fadeInOutMs ); 
     clearInterval(loadtimeout);   
   }
   
@@ -1387,8 +1393,8 @@ function timedloadfunction() {
   console.log(loadCounter);
   
   if (loadCounter >= 100) {
-    $("#loading").css("display", "none"); 
-    $("#all-controls").css("display", "inline");   
+    $("#loading").hide(); 
+    $("#all-controls").fadeIn( fadeInOutMs );
     clearInterval(loadtimeout);
   }
 }
@@ -1410,7 +1416,7 @@ ppbutton.click(function(){
 
 
 //
-//  $("#loading").css("display", "none"); 
+//  $("#loading").hide(); 
 //  $("#all-controls").css("display", "inline");
 //
 //  ppbutton.click(function(){
@@ -1511,10 +1517,10 @@ meanderSlider.on( 'change', function( event, ui ) {
 
 meanderButton.click( function() { 
 
-  timedpausepre.css("display", "none");
-  timedfadepre.css("display", "none");
-  buttonoptions.css("display", "none");
-  meanderpost.css("display", "inline");
+  timedpausepre.hide();
+  timedfadepre.hide();
+  buttonoptions.hide();
+  meanderpost.fadeIn( fadeInOutMs );
 
 //
 
@@ -1542,11 +1548,11 @@ meanderButton.click( function() {
   
   cancelmeander.click(function(){
     clearInterval(meanderFunction);
-    timedpausepre.css("display", "inline");
-    timedpausepost.css("display", "none");
-    timedfadepre.css("display", "inline");
-    buttonoptions.css("display", "inline");
-    meanderpost.css("display", "none");
+    timedpausepre.fadeIn( fadeInOutMs )
+    timedpausepost.hide();
+    timedfadepre.fadeIn( fadeInOutMs )
+    buttonoptions.fadeIn( fadeInOutMs )
+    meanderpost.hide();
     meanderSlider.val(500);
     meanderSlider.slider("refresh");    
     
