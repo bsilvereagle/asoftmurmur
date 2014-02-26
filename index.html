@@ -807,9 +807,11 @@ var optionsbutton = $("#optionsbutton");
 
     if( optionstext.indexOf( "Tools" ) !== -1 ) {
       optionsbutton.text("Hide tools");
+      optionsbutton.addClass("options-active");
     }
     else {
       optionsbutton.text("Tools");
+      optionsbutton.removeClass("options-active");
     }
   });
 
@@ -939,6 +941,8 @@ tpbutton.click(function(){
     $("#timedpauseminutesleft").text(timeleft);
       if (pausems <= 0){
         clearInterval(timeupdate);
+        timedpauseprompt.text("Timed pause");
+        optionsbutton.show();
       }
   }
   

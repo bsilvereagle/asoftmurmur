@@ -461,7 +461,8 @@ html {
 #optionsbutton:active,
 .linkbuttons a:hover,
 .linkbuttons a:active,
-#timedpauseprompt.wait-for-input {
+#timedpauseprompt.wait-for-input,
+#optionsbutton.options-active {
   background-color: #FFF;
   color: #000;
   border: 2px solid black;
