@@ -869,6 +869,36 @@ silence.click(function(){
 
 // convert ms to time for functions below
 
+var timedpauseprompt = $("#timedpauseprompt");
+var timedpausenumberentry = $("#timedpausenumberentry");
+var timedpauseentry = $("#timedpauseentry");
+
+timedpauseprompt.click( function() {
+  
+  if ( $(this).hasClass("wait-for-input") ) {
+    timedpausenumberentry.css("display", "none");
+    timedpauseentry.css("display", "none");
+    $(this).removeClass("wait-for-input");
+    timedfadepre.css("display", "block");
+    buttonoptions.css("display", "block");
+    $(this).text("Timed pause");
+    optionsbutton.show();
+  }
+  else {
+    timedpausenumberentry.css("display", "block");
+    timedpauseentry.css("display", "block");
+    $(this).addClass("wait-for-input");
+   
+    timedfadepre.css("display", "none");
+    buttonoptions.css("display", "none");
+    $(this).text("Cancel");
+    optionsbutton.hide();
+    $("#minutestillpause").focus();
+  }
+  
+  
+});
+
 tpbutton.click(function(){
 
   var pauseminutes = $("input#minutestillpause").val();
@@ -878,6 +908,10 @@ tpbutton.click(function(){
   timedpausepre.css("display", "none");
   timedfadepre.css("display", "none");
   buttonoptions.css("display", "none");
+  timedpausenumberentry.css("display", "none");
+  timedpauseentry.css("display", "none");
+  timedpauseprompt.removeClass("wait-for-input");
+  
   $("#timedpauseminutesleft").text(starttime); // set the start time for the first second
   timedpausepost.css("display", "inline");
  
@@ -915,6 +949,8 @@ tpbutton.click(function(){
   timedpausepost.css("display", "none");
   timedfadepre.css("display", "inline");
   buttonoptions.css("display", "inline");
+  timedpauseprompt.text("Timed pause");
+  optionsbutton.show();
  })
 
 })
@@ -1295,8 +1331,8 @@ cicadaglueplayer0.addEventListener("canplaythrough", function() {
 
 var numItems = $('.excount').length;
 
-var loadtimeout = setInterval(function(){timedloadfunction()}, 100);
-var loadCounter=0;
+var loadtimeout = setInterval(function(){timedloadfunction()}, 50);
+var loadCounter= 0;
 
 function timedloadfunction() {
 
@@ -1465,7 +1501,7 @@ meanderButton.click( function() {
   var rainFlip = 0
   
   cancelmeander.click(function(){
-    clearInterval(rainMeander);
+    clearInterval(meanderFunction);
     timedpausepre.css("display", "inline");
     timedpausepost.css("display", "none");
     timedfadepre.css("display", "inline");
@@ -1476,7 +1512,11 @@ meanderButton.click( function() {
     
   });   
 
-  var MeanderFunction = setInterval( function() {
+  var meanderFunction = setInterval( meanderActualFunction, meanderSliderValue);
+  
+  
+  
+  function meanderActualFunction() {
     if ( $("#play-pause-button").hasClass('pause-all') ) {
     
       if ( rainContainer.hasClass( 'sliders-expanded' ) ) {
@@ -1561,7 +1601,10 @@ meanderButton.click( function() {
       }
 
     }
-  }, meanderSliderValue);
+  clearInterval(meanderFunction);  
+  meanderSliderValue = (1000 - meanderSlider.val() );
+  meanderFunction = setInterval( meanderActualFunction, meanderSliderValue);
+  };
 
 
 //  var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
@@ -1634,11 +1677,13 @@ meanderButton.click( function() {
         <p><a href="#" id="meander">Meander</a></p>
   </div>
     <div id="timedpausepre" class="linkbuttons">
-    <p><a href="#" id="timedpausebutton">Pause</a> in <input type="text" id="minutestillpause" value="10" size ="1" data-role="none" /> mins</p>
+    <p><a href="#" id="timedpauseprompt">Timed pause</a></p>
+    <div id="timedpausenumberentry">Pause in <input type="number" id="minutestillpause" value="10" size ="1" data-role="none" /> minutes</div>
+    <div id="timedpauseentry"><a href="#" id="timedpausebutton">Start timer</a>
     </div>
     
     <div id="timedfadepre" class="linkbuttons">
-    <p><a href="#" id="timedfadebutton">Fade to silent in</a> <input type="text" id="minutestillfade" value="10" size ="1" data-role="none" /> mins</p>
+    <p><a href="#" id="timedfadebutton">Timed fade to silent</a> <input type="text" id="minutestillfade" value="10" size ="1" data-role="none" /> mins</p>
     </div>
     </div>
     
