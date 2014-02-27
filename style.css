@@ -466,6 +466,7 @@ html {
 .linkbuttons a:hover,
 .linkbuttons a:active,
 #timedpauseprompt.wait-for-input,
+#timedstartprompt.wait-for-input,
 #timedfadeprompt.wait-for-input,
 #optionsbutton.options-active {
   background-color: #FFF;
@@ -474,17 +475,20 @@ html {
 }
 
 #timedpauseentry,
+#timedstartentry,
 #timedfadeentry {
   margin: 15px auto;
 }
 
 #timedpausebutton,
+#timedstartbutton,
 #timedfadebutton {
   font-size: 1.5em;
 }
 
 #minutestillpause,
-#minutestillfade {
+#minutestillfade,
+#minutestillstart {
   width: 5em;
   height: 1.5em;
   font-size: 1.5em;
@@ -497,6 +501,7 @@ html {
 }
 
 #timedpausepost,
+#timedstartpost,
 #timedfadepost,
 #meanderpost {
   display:none;
@@ -504,6 +509,8 @@ html {
 
 #timedpausenumberentry,
 #timedpauseentry,
+#timedstartnumberentry,
+#timedstartentry,
 #timedfadenumberentry,
 #timedfadeentry {
   display: none;

@@ -94,6 +94,12 @@ var timedpausepre = $('#timedpausepre');
 var timedpausepost = $('#timedpausepost');
 var tpbutton = $('#timedpausebutton');
 var canceltp = $('#canceltp');
+var startminutesinput = $('#minutestillstart');
+
+var timedstartpre = $('#timedstartpre');
+var timedstartpost = $('#timedstartpost');
+var tsbutton = $('#timedstartbutton');
+var cancelts = $('#cancelts');
 var pauseminutesinput = $('#minutestillpause');
 
 var timedfadepre = $('#timedfadepre');
@@ -901,6 +907,7 @@ timedpauseprompt.click( function() {
     timedpauseentry.hide();
     $(this).removeClass("wait-for-input");
     timedfadepre.fadeIn( fadeInOutMs )
+    timedstartpre.fadeIn( fadeInOutMs )
     buttonoptions.fadeIn( fadeInOutMs )
     $(this).text("Timed pause");
     optionsbutton.fadeIn( fadeInOutMs )
@@ -911,6 +918,7 @@ timedpauseprompt.click( function() {
     $(this).addClass("wait-for-input");
    
     timedfadepre.hide();
+    timedstartpre.hide();    
     buttonoptions.hide();
     $(this).html("<span id='tp-cancel-shortcut'>C</span>ancel");
     optionsbutton.hide();
@@ -939,6 +947,7 @@ tpbutton.click(function(){
  
   timedpausepre.hide();
   timedfadepre.hide();
+  timedstartpre.hide();  
   buttonoptions.hide();
   timedpausenumberentry.hide();
   timedpauseentry.hide();
@@ -960,6 +969,7 @@ tpbutton.click(function(){
     timedpausepre.fadeIn( fadeInOutMs );
     timedpausepost.hide();
     timedfadepre.fadeIn( fadeInOutMs );
+    timedstartpre.fadeIn( fadeInOutMs );
     buttonoptions.fadeIn( fadeInOutMs );
  }
   
@@ -982,8 +992,117 @@ tpbutton.click(function(){
   timedpausepre.fadeIn( fadeInOutMs );
   timedpausepost.hide();
   timedfadepre.fadeIn( fadeInOutMs );
+  timedstartpre.fadeIn( fadeInOutMs );  
   buttonoptions.fadeIn( fadeInOutMs );
   timedpauseprompt.text("Timed pause");
+  optionsbutton.fadeIn( fadeInOutMs );
+ })
+
+})
+
+
+// timed pause: pauses after x minutes
+
+
+var timedstartprompt = $("#timedstartprompt");
+var timedstartnumberentry = $("#timedstartnumberentry");
+var timedstartentry = $("#timedstartentry");
+
+timedstartprompt.click( function() {
+  
+  if ( $(this).hasClass("wait-for-input") ) {
+    timedstartnumberentry.hide();
+    timedstartentry.hide();
+    $(this).removeClass("wait-for-input");
+    timedfadepre.fadeIn( fadeInOutMs )
+    timedpausepre.fadeIn( fadeInOutMs )
+    buttonoptions.fadeIn( fadeInOutMs )
+    $(this).text("Timed start");
+    optionsbutton.fadeIn( fadeInOutMs )
+  }
+  else {
+    timedstartnumberentry.fadeIn( fadeInOutMs )
+    timedstartentry.fadeIn( fadeInOutMs )
+    $(this).addClass("wait-for-input");
+   
+    timedfadepre.hide();
+    timedpausepre.hide();    
+    buttonoptions.hide();
+    $(this).html("<span id='tp-cancel-shortcut'>C</span>ancel");
+    optionsbutton.hide();
+    $("#minutestillstart").focus();
+    
+    var timedstartPromptStart = function () {
+                                  tsbutton.trigger( "click" ); 
+                                  $(document).unbind('keydown', timedstartPromptStart );                            
+                                };
+    
+    $(document).bind('keydown', 'return', timedstartPromptStart);
+    $('#minutestillstart').bind('keydown', 'return', timedstartPromptStart);
+   
+  }
+  
+  
+});
+
+tsbutton.click(function(){
+
+  optionsbutton.fadeIn( fadeInOutMs );
+  
+  var startminutes = $("input#minutestillstart").val();
+  var startms = startminutes * 60000;
+  var starttime = mstotime(startms);
+ 
+  timedstartpre.hide();
+  timedfadepre.hide();
+  timedpausepre.hide();  
+  buttonoptions.hide();
+  timedstartnumberentry.hide();
+  timedstartentry.hide();
+  timedstartprompt.removeClass("wait-for-input");
+  
+  $("#timedstartminutesleft").text(starttime); // set the start time for the first second
+  timedstartpost.fadeIn( fadeInOutMs );
+ 
+ if(ppbutton.hasClass('pause-all')) {
+     pauseall();               
+     ppbutton.attr("class", "play-all");
+  }
+ 
+  var starttimeout = setTimeout(function(){timedstartfunction()}, startms);
+ 
+  function timedstartfunction(){
+    playall();
+    ppbutton.attr("class", "pause-all");
+    timedstartpre.fadeIn( fadeInOutMs );
+    timedstartpost.hide();
+    timedfadepre.fadeIn( fadeInOutMs );
+    timedpausepre.fadeIn( fadeInOutMs );
+    buttonoptions.fadeIn( fadeInOutMs );
+ }
+  
+  var timeupdate = setInterval(function(){timerupdate()},1000);
+  
+  function timerupdate(){
+    startms = startms - 1000;
+    var timeleft = mstotime(startms);
+    $("#timedstartminutesleft").text(timeleft);
+      if (startms <= 0){
+        clearInterval(timeupdate);
+        timedstartprompt.text("Alarm");
+        optionsbutton.show();
+      }
+  }
+  
+ cancelts.click(function(){
+  clearTimeout(starttimeout);
+  clearInterval(timeupdate);
+  timedstartpre.fadeIn( fadeInOutMs );
+  timedstartpost.hide();
+  timedfadepre.fadeIn( fadeInOutMs );
+  timedpausepre.fadeIn( fadeInOutMs );  
+  buttonoptions.fadeIn( fadeInOutMs );
+  timedstartprompt.text("Alarm");
   optionsbutton.fadeIn( fadeInOutMs );
  })
 
@@ -1003,8 +1122,10 @@ timedfadeprompt.click( function() {
     timedfadeentry.hide();
     $(this).removeClass("wait-for-input");
     timedfadepre.fadeIn( fadeInOutMs );
+    timedpausepre.fadeIn( fadeInOutMs );
+    timedstartpre.fadeIn( fadeInOutMs );
     buttonoptions.fadeIn( fadeInOutMs );
-    $(this).text("Timed fade");
+    $(this).text("Timed fade to silence");
     optionsbutton.fadeIn( fadeInOutMs );
   }
   else {
@@ -1013,6 +1134,7 @@ timedfadeprompt.click( function() {
     $(this).addClass("wait-for-input");
    
     timedpausepre.hide();
+    timedstartpre.hide();
     buttonoptions.hide();
     $(this).text("Cancel");
     optionsbutton.hide();
@@ -1062,6 +1184,7 @@ tfbutton.click(function(){
   var cicadaco = cicadaslider.val() / fadedecisecs;  
  
   timedpausepre.hide();
+  timedstartpre.hide();
   timedfadepre.hide();
   buttonoptions.hide();
   $("#timedfademinutesleft").text(fadestarttime); // set the start time for the first second
@@ -1114,6 +1237,7 @@ tfbutton.click(function(){
     if (fadems <= 0){
       clearInterval(fadetimeout);
       timedpausepre.fadeIn( fadeInOutMs );
+      timedstartpre.fadeIn( fadeInOutMs );
       timedfadepre.fadeIn( fadeInOutMs );
       buttonoptions.fadeIn( fadeInOutMs );
       timedfadepost.hide();
@@ -1125,6 +1249,7 @@ tfbutton.click(function(){
   canceltf.click(function(){
   clearInterval(fadetimeout);
   timedpausepre.fadeIn( fadeInOutMs );
+  timedstartpre.fadeIn( fadeInOutMs );
   timedfadepost.hide();
   timedfadepre.fadeIn( fadeInOutMs );
   buttonoptions.fadeIn( fadeInOutMs );
@@ -1558,6 +1683,8 @@ meanderButton.click( function() {
     clearInterval(meanderFunction);
     timedpausepre.fadeIn( fadeInOutMs )
     timedpausepost.hide();
+    timedstartpre.fadeIn( fadeInOutMs )
+    timedstartpost.hide();
     timedfadepre.fadeIn( fadeInOutMs )
     buttonoptions.fadeIn( fadeInOutMs )
     meanderpost.hide();
@@ -1567,6 +1694,7 @@ meanderButton.click( function() {
   });
 
   timedpausepre.hide();
+  timedstartpre.hide();
   timedfadepre.hide();
   buttonoptions.hide();
   meanderpost.fadeIn( fadeInOutMs );
@@ -2102,6 +2230,12 @@ meanderButton.click( function() {
     <div id="timedpauseentry"><a href="#" id="timedpausebutton">Start timer</a></div>
     </div>
     
+    <div id="timedstartpre" class="linkbuttons">
+    <p><a href="#" id="timedstartprompt">Alarm</a></p>
+    <div id="timedstartnumberentry">Start playing in <input type="number" id="minutestillstart" value="10" size ="1" data-role="none" /> minutes</div>
+    <div id="timedstartentry"><a href="#" id="timedstartbutton">Start timer</a></div>
+    </div>    
+    
     <div id="timedfadepre" class="linkbuttons">
     <p><a href="#" id="timedfadeprompt">Timed fade to silence</a></p>
     <div id="timedfadenumberentry">Fade to silence over</a> <input type="number" id="minutestillfade" value="10" size ="1" data-role="none" /> minutes</div>
@@ -2112,6 +2246,9 @@ meanderButton.click( function() {
     <div id="timedpausepost" class="linkbuttons">
     <p>Sounds will pause in <span id="timedpauseminutesleft"></span>.</p><p> <a href="#" id="canceltp">Cancel</a></p>
     </div>
+    <div id="timedstartpost" class="linkbuttons">
+    <p>Sounds will start in <span id="timedstartminutesleft"></span>.</p><p> <a href="#" id="cancelts">Cancel</a></p>
+    </div>    
     <div id="timedfadepost" class="linkbuttons">
     <p>Sounds will fade to silence in <span id="timedfademinutesleft"></span>.</p><p> <a href="#" id="canceltf">Cancel</a></p>  
     </div>
@@ -2309,97 +2446,97 @@ meanderButton.click( function() {
 -->
 
 <div class="audioplayer">
-  <audio id="rainplayer" loop controls>
+  <audio id="rainplayer" loop>
     <source id="rainmp4" src="" type="audio/mp4">
     <source id="rainogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="rainglueplayer" controls>
+  <audio id="rainglueplayer">
     <source id="raingluemp4" src="" type="audio/mp4">
     <source id="rainglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="thunderplayer" loop controls>
+  <audio id="thunderplayer" loop>
     <source id="thundermp4" src="" type="audio/mp4">
     <source id="thunderogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="thunderglueplayer" controls>
+  <audio id="thunderglueplayer">
     <source id="thundergluemp4" src="" type="audio/mp4">
     <source id="thunderglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="fireplayer" loop controls>
+  <audio id="fireplayer" loop>
     <source id="firemp4" src="" type="audio/mp4">
     <source id="fireogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="fireglueplayer" controls>
+  <audio id="fireglueplayer">
     <source id="firegluemp4" src="" type="audio/mp4">
     <source id="fireglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="wavesplayer" loop controls>
+  <audio id="wavesplayer" loop>
     <source id="wavesmp4" src="" type="audio/mp4">
     <source id="wavesogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="wavesglueplayer" controls>
+  <audio id="wavesglueplayer">
     <source id="wavesgluemp4" src="" type="audio/mp4">
     <source id="wavesglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="birdsplayer" loop controls>
+  <audio id="birdsplayer" loop>
     <source id="birdsmp4" src="" type="audio/mp4">
     <source id="birdsogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="birdsglueplayer" controls>
+  <audio id="birdsglueplayer">
     <source id="birdsgluemp4" src="" type="audio/mp4">
     <source id="birdsglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="humansplayer" loop controls>
+  <audio id="humansplayer" loop>
     <source id="humansmp4" src="" type="audio/mp4">
     <source id="humansogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="humansglueplayer" controls>
+  <audio id="humansglueplayer">
     <source id="humansgluemp4" src="" type="audio/mp4">
     <source id="humansglueogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="cicadatest" controls>
+  <audio id="cicadatest">
     <source id="cicadatestmp4" src="" type="audio/mp4">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="cicadatest-glue" controls>
+  <audio id="cicadatest-glue">
     <source id="cicadatest-gluemp4" src="" type="audio/mp4">
   </audio>
 </div>
