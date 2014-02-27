@@ -145,6 +145,14 @@ html {
 
 /* Share stuff */
 
+#about-top {
+  text-align: left;
+}
+
+#updates {
+  text-align: right;
+}
+
 #share-buttons,
 #footer {
   font-family: Montserrat;
@@ -156,17 +164,24 @@ html {
   text-shadow: none;
 }
 
+.top-buttons,
 .sharetoggle,
 .sharelink {
-  text-decoration: none;
+  text-decoration: underline;
   color: #FFF;
-  border: 2px solid #FFF;
-  padding: 2px 10px 2px 10px;
-  margin: 0px 20px 0px 20px;
+  border: none;
+  padding: 2px 0px;
+  margin: 0;
+}
+
+.top-buttons,
+.sharetoggle {
+  display: inline-block;
+  width: 30%;
 }
 
 #share-buttons {
-  padding: 10px;
+  padding: 5px 0 5px 0;
 }
 
 #socialbuttons p {

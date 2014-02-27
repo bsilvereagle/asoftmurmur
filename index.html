@@ -826,7 +826,7 @@ var optionsbutton = $("#optionsbutton");
   $(".sharehidden").hide();
  
   $('.show_hide').click(function(){
-    $(".optionshidden").fadeToggle();
+    $(".optionshidden").fadeToggle( fadeInOutMs );
     
     var optionstext = optionsbutton.text();
 
@@ -841,7 +841,7 @@ var optionsbutton = $("#optionsbutton");
   });
 
   $('.sharetoggle').click(function(){
-    $(".sharehidden").fadeToggle();
+    $(".sharehidden").fadeToggle( fadeInOutMs );
   }); 
 
 // reset: resets volume to defaults
@@ -2181,7 +2181,9 @@ meanderButton.click( function() {
 <div id="page-container">
 
 <div id="share-buttons">
-  <a href="#" id="share" class="sharetoggle">Share your mix</a>
+  <a href="info.html" id="about-top" class="top-buttons" data-ajax="false" target="_blank">About</a>
+  <a href="#" id="share" class="sharetoggle top-buttons">Share your mix</a>
+  <a href="#" id="updates" class="top-buttons">Get updates</a>
     <div class="sharehidden">
       <p>Link for your custom mix:</p>
       <p><span id="showshareurl"></span></p>
@@ -2194,6 +2196,8 @@ meanderButton.click( function() {
       
       </div>  
     </div>
+  
+
 </div>
 
 <div id="site-title">
@@ -2352,7 +2356,6 @@ meanderButton.click( function() {
 </div>
 
 <div id="footer">
-  <p><a href="info.html" data-ajax="false" target="_blank">About</a></p>
 </div>
 
 <!-- Audio players without controls -->
