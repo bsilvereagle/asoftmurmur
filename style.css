@@ -413,12 +413,20 @@ html {
   background-image: url('img/birds.jpg');
 }
 
+#crickets-slider-background {
+  background-image: url('img/crickets.jpg');
+}
+
 #humans-slider-background {
   background-image: url('img/humans.jpg');
 }
 
-#cicadatest-slider-background {
-  background-image: url('img/cicadatest.jpg');
+#singingbowls-slider-background {
+  background-image: url('img/singingbowls.jpg');
+}
+
+#whitenoise-slider-background {
+  background-image: url('img/whitenoise.jpg');
 }
 
 .slider-inner {
@@ -429,8 +437,8 @@ html {
 }
 
 .labelfix {
-  margin-left: 40%;
-  margin-right: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
   background: rgba(255,255,255,0.7);
   margin-top: 10px;
 }

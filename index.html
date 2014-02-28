@@ -53,6 +53,9 @@ var thunderslider = $("#thunder-slider");
 var fireslider = $("#fire-slider");
 var birdsslider = $("#birds-slider");
 var humansslider = $("#humans-slider");
+var cricketsslider = $("#crickets-slider");
+var singingbowlsslider = $("#singingbowls-slider");
+var whitenoiseslider = $("#whitenoise-slider");
 
 var rainbackground = $("#rain-slider-background");
 var wavesbackground = $("#waves-slider-background");
@@ -60,6 +63,9 @@ var thunderbackground = $("#thunder-slider-background");
 var firebackground = $("#fire-slider-background");
 var birdsbackground = $("#birds-slider-background");
 var humansbackground = $("#humans-slider-background");
+var cricketsbackground = $("#crickets-slider-background");
+var singingbowlsbackground = $("#singingbowls-slider-background");
+var whitenoisebackground = $("#whitenoise-slider-background");
 
 var rainplayer0 = $('#rainplayer')[0]; 
 var rainglueplayer0 = $('#rainglueplayer')[0];
@@ -73,6 +79,12 @@ var birdsplayer0 = $('#birdsplayer')[0];
 var birdsglueplayer0 = $('#birdsglueplayer')[0];
 var humansplayer0 = $('#humansplayer')[0];
 var humansglueplayer0 = $('#humansglueplayer')[0];
+var cricketsplayer0 = $('#cricketsplayer')[0];
+var cricketsglueplayer0 = $('#cricketsglueplayer')[0];
+var singingbowlsplayer0 = $('#singingbowlsplayer')[0]; 
+var singingbowlsglueplayer0 = $('#singingbowlsglueplayer')[0];
+var whitenoiseplayer0 = $('#whitenoiseplayer')[0]; 
+var whitenoiseglueplayer0 = $('#whitenoiseglueplayer')[0];
 
 var rainplayer = $('#rainplayer'); 
 var rainglueplayer = $('#rainglueplayer');
@@ -86,6 +98,12 @@ var birdsplayer = $('#birdsplayer');
 var birdsglueplayer = $('#birdsglueplayer');
 var humansplayer = $('#humansplayer');
 var humansglueplayer = $('#humansglueplayer');
+var cricketsplayer = $('#cricketsplayer'); 
+var cricketsglueplayer = $('#cricketsglueplayer');
+var singingbowlsplayer = $('#singingbowlsplayer'); 
+var singingbowlsglueplayer = $('#singingbowlsglueplayer');
+var whitenoiseplayer = $('#whitenoiseplayer'); 
+var whitenoiseglueplayer = $('#whitenoiseglueplayer');
 
 var silence = $('#silence');
 
@@ -114,16 +132,48 @@ var ppbutton = $("#play-pause-button");
 
 // Expand collapsed sounds on click or tap test function
 
-var cicadaContainer = $('#cicadatest-slider-container');
-var cicadaMp4 = $('#cicadatestmp4');
-var cicadaMp4Src = 'audio/cicadatest.mp4';
-var cicadaglueMp4 =$('#cicadatest-gluemp4');
-var cicadaglueMp4Src = 'audio/cicadatest.glue.mp4';
-var cicadaCollapseButton = $('#cicada-collapse-button');
-var cicadaExpandButton = $('#cicada-expand-button');
-var sliderCollapsed= 'sliders-collapsed';
-var sliderExpanded = 'sliders-expanded';
-var cicadaLoaded = 0;
+var cricketsContainer = $('#crickets-slider-container');
+var cricketsMp4 = $('#cricketsmp4');
+var cricketsMp4Src = 'audio/crickets.fade.mp4';
+var cricketsGlueMp4 =$('#cricketsgluemp4');
+var cricketsGlueMp4Src = 'audio/crickets.glue.mp4';
+var cricketsOgg = $('#cricketsogg');
+var cricketsOggSrc = 'audio/crickets.fade.ogg';
+var cricketsGlueOgg =$('#cricketsglueogg');
+var cricketsGlueOggSrc = 'audio/crickets.glue.ogg';
+var cricketsCollapseButton = $('#crickets-collapse-button');
+var cricketsExpandButton = $('#crickets-expand-button');
+var cricketsLoaded = 0;
+
+//
+
+var singingbowlsContainer = $('#singingbowls-slider-container');
+var singingbowlsMp4 = $('#singingbowlsmp4');
+var singingbowlsMp4Src = 'audio/singingbowls.fade.mp4';
+var singingbowlsGlueMp4 =$('#singingbowlsgluemp4');
+var singingbowlsGlueMp4Src = 'audio/singingbowls.glue.mp4';
+var singingbowlsOgg = $('#singingbowlsogg');
+var singingbowlsOggSrc = 'audio/singingbowls.fade.ogg';
+var singingbowlsGlueOgg =$('#singingbowlsglueogg');
+var singingbowlsGlueOggSrc = 'audio/singingbowls.glue.ogg';
+var singingbowlsCollapseButton = $('#singingbowls-collapse-button');
+var singingbowlsExpandButton = $('#singingbowls-expand-button');
+var singingbowlsLoaded = 0;
+
+//
+
+var whitenoiseContainer = $('#whitenoise-slider-container');
+var whitenoiseMp4 = $('#whitenoisemp4');
+var whitenoiseMp4Src = 'audio/whitenoise.fade.mp4';
+var whitenoiseGlueMp4 =$('#whitenoisegluemp4');
+var whitenoiseGlueMp4Src = 'audio/whitenoise.glue.mp4';
+var whitenoiseOgg = $('#whitenoiseogg');
+var whitenoiseOggSrc = 'audio/whitenoise.fade.ogg';
+var whitenoiseGlueOgg =$('#whitenoiseglueogg');
+var whitenoiseGlueOggSrc = 'audio/whitenoise.glue.ogg';
+var whitenoiseCollapseButton = $('#whitenoise-collapse-button');
+var whitenoiseExpandButton = $('#whitenoise-expand-button');
+var whitenoiseLoaded = 0;
 
 //
 
@@ -217,6 +267,10 @@ var wavesLoaded = 0;
 
 //
 
+var sliderCollapsed= 'sliders-collapsed';
+var sliderExpanded = 'sliders-expanded';
+
+
 function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0, loadingId) {
   if (container.hasClass( sliderCollapsed ) ) {
     container.addClass( "excount" );
@@ -246,17 +300,11 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
         container.fadeIn( fadeInOutMs );
       
       }
-  });
+    });
   
   
   }
 }
-
-function expandSliderCicada() {
-  expandSlider(cicadaContainer, cicadaMp4, cicadaMp4Src, cicadaglueMp4, cicadaglueMp4Src, 0 ,0, 0, 0, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0, "loading-cicada")
-}
-
-//
 
 function expandSliderHumans() {
   expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0, "loading-humans")
@@ -294,13 +342,21 @@ function expandSliderWaves() {
 
 //
 
+function expandSliderCrickets() {
+  expandSlider(cricketsContainer, cricketsMp4, cricketsMp4Src, cricketsGlueMp4, cricketsGlueMp4Src, cricketsOgg, cricketsOggSrc, cricketsGlueOgg, cricketsGlueOggSrc, cricketsExpandButton, cricketsplayer0, cricketsglueplayer0, "loading-crickets")
+}
 
-cicadaExpandButton.click( 
+//
 
-  function() {
-    expandSliderCicada();
-  }
-);
+function expandSliderSingingbowls() {
+  expandSlider(singingbowlsContainer, singingbowlsMp4, singingbowlsMp4Src, singingbowlsGlueMp4, singingbowlsGlueMp4Src, singingbowlsOgg, singingbowlsOggSrc, singingbowlsGlueOgg, singingbowlsGlueOggSrc, singingbowlsExpandButton, singingbowlsplayer0, singingbowlsglueplayer0, "loading-singingbowls")
+}
+
+//
+
+function expandSliderWhitenoise() {
+  expandSlider(whitenoiseContainer, whitenoiseMp4, whitenoiseMp4Src, whitenoiseGlueMp4, whitenoiseGlueMp4Src, whitenoiseOgg, whitenoiseOggSrc, whitenoiseGlueOgg, whitenoiseGlueOggSrc, whitenoiseExpandButton, whitenoiseplayer0, whitenoiseglueplayer0, "loading-whitenoise")
+}
 
 //
 
@@ -358,6 +414,34 @@ wavesExpandButton.click(
 
 //
 
+whitenoiseExpandButton.click( 
+
+  function() {
+    expandSliderWhitenoise();
+  }
+);
+
+//
+
+cricketsExpandButton.click( 
+
+  function() {
+    expandSliderCrickets();
+  }
+);
+
+//
+
+singingbowlsExpandButton.click( 
+
+  function() {
+    expandSliderSingingbowls();
+  }
+);
+
+//
+
+
 
 function pauseOnCollapse(player, glueplayer) {
   player.pause();
@@ -385,16 +469,6 @@ function collapseSlider(container, button, player0, glueplayer0, slider) {
   });
 
 }
-
-//
-
-cicadaCollapseButton.click(
-
-  function() {
-    collapseSlider(cicadaContainer, cicadaExpandButton, cicadaplayer0, cicadaglueplayer0, cicadaslider);
-  }
-
-);
 
 //
 
@@ -480,19 +554,49 @@ wavesCollapseButton.click(
 
 );
 
+//
 
+function collapseSliderCrickets() {
+    collapseSlider(cricketsContainer, cricketsExpandButton, cricketsplayer0, cricketsglueplayer0, cricketsslider);
+}
 
-// Get slider working
+cricketsCollapseButton.click(
 
-var cicadaslider = $("#cicadatest-slider");
-var cicadabackground = $("#cicadatest-slider-background");
-var cicadaplayer0 = $('#cicadatest')[0]; 
-var cicadaplayer = $('#cicadatest');
-var cicadaglueplayer0 = $('#cicadatest-glue')[0]; 
-var cicadaglueplayer = $('#cicadatest-glue');  
+  function() {
+  collapseSliderCrickets();
+  }
 
+);
 
-// end test functions
+//
+
+function collapseSliderSingingbowls() {
+    collapseSlider(singingbowlsContainer, singingbowlsExpandButton, singingbowlsplayer0, singingbowlsglueplayer0, singingbowlsslider);
+}
+
+singingbowlsCollapseButton.click(
+
+  function() {
+  collapseSliderSingingbowls();
+  }
+
+);
+
+//
+
+function collapseSliderWhitenoise() {
+    collapseSlider(whitenoiseContainer, whitenoiseExpandButton, whitenoiseplayer0, whitenoiseglueplayer0, whitenoiseslider);
+}
+
+whitenoiseCollapseButton.click(
+
+  function() {
+  collapseSliderWhitenoise();
+  }
+
+);
+
+//
 
 function loadAudible(player0, player){
   if(player0.volume > 0.02) {
@@ -506,7 +610,9 @@ loadAudible(fireplayer0, fireplayer);
 loadAudible(wavesplayer0, wavesplayer);
 loadAudible(birdsplayer0, birdsplayer);
 loadAudible(humansplayer0, humansplayer);
-loadAudible(cicadaplayer0, cicadaplayer);
+loadAudible(cricketsplayer0, cricketsplayer);
+loadAudible(singingbowlsplayer0, singingbowlsplayer);
+loadAudible(whitenoiseplayer0, whitenoiseplayer);
     
   function playif(player, glueplayer){
       if(player.volume > 0.02) {
@@ -526,7 +632,9 @@ loadAudible(cicadaplayer0, cicadaplayer);
     playif(fireplayer0, fireglueplayer0);
     playif(birdsplayer0, birdsglueplayer0);          
     playif(humansplayer0, humansglueplayer0);
-    playif(cicadaplayer0, cicadaglueplayer0);  
+    playif(cricketsplayer0, cricketsglueplayer0);
+    playif(singingbowlsplayer0, singingbowlsglueplayer0);
+    playif(whitenoiseplayer0, whitenoiseglueplayer0); 
   }
   
   function pauseIf(player, glueplayer){
@@ -540,8 +648,11 @@ loadAudible(cicadaplayer0, cicadaplayer);
     pauseIf(thunderplayer0, thunderglueplayer0);
     pauseIf(fireplayer0, fireglueplayer0);
     pauseIf(birdsplayer0, birdsglueplayer0);  
-    pauseIf(humansplayer0, humansglueplayer0);    
-    pauseIf(cicadaplayer0, cicadaglueplayer0);    
+    pauseIf(humansplayer0, humansglueplayer0);
+    pauseIf(cricketsplayer0, cricketsglueplayer0);
+    pauseIf(singingbowlsplayer0, singingbowlsglueplayer0);
+    pauseIf(whitenoiseplayer0, whitenoiseglueplayer0);    
+  
   }  
   
 //play-all and pause-all function
@@ -726,23 +837,77 @@ var urlvhex = getParameterByName("v");
   
 //
 
- var lastcicadavol = localStorage.getItem("lscicada");
-      if (typeof lastcicadavol != "object"){ 
-        
-        if (lastcicadavol > 0.02 && cicadaContainer.hasClass("sliders-collapsed")) {
-          expandSliderCicada(); // expand and load audio if localstorage volume > 0.02
+  var lastcricketsvol = localStorage.getItem("lscrickets");
+      if (typeof lastcricketsvol != "object"){ 
+      
+        if (lastcricketsvol > 0.02 && cricketsContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
+          expandSliderCrickets(); // expand and load audio if localstorage volume > 0.02
         }
         
-        cicadaslider.val(lastcicadavol);
-        cicadaslider.slider("refresh");
-     }
+        if( lastcricketsvol <= 0.02 && cricketsContainer.hasClass("sliders-expanded") && urlvhex === null ) {
+          collapseSliderCrickets();
+        }         
+      
+        cricketsslider.val(lastcricketsvol);
+        cricketsslider.slider("refresh");
+      }
 
-  slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
+  slidervol(cricketsplayer0, cricketsglueplayer0, cricketsslider, cricketsbackground);
   
-  cicadaslider.on( 'change', function( event, ui ) {
-    slidervol(cicadaplayer0, cicadaglueplayer0, cicadaslider, cicadabackground);
-    remembervol(cicadaslider, "lscicada");
-  })     
+  cricketsslider.on( 'change', function( event, ui ) {
+    slidervol(cricketsplayer0, cricketsglueplayer0, cricketsslider, cricketsbackground);
+    remembervol(cricketsslider, "lscrickets");
+  })
+  
+//
+
+  var lastsingingbowlsvol = localStorage.getItem("lssingingbowls");
+      if (typeof lastsingingbowlsvol != "object"){ 
+      
+        if (lastsingingbowlsvol > 0.02 && singingbowlsContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
+          expandSliderSingingbowls(); // expand and load audio if localstorage volume > 0.02
+        }
+        
+        if( lastsingingbowlsvol <= 0.02 && singingbowlsContainer.hasClass("sliders-expanded") && urlvhex === null ) {
+          collapseSliderSingingbowls();
+        }         
+      
+        singingbowlsslider.val(lastsingingbowlsvol);
+        singingbowlsslider.slider("refresh");
+      }
+
+  slidervol(singingbowlsplayer0, singingbowlsglueplayer0, singingbowlsslider, singingbowlsbackground);
+  
+  singingbowlsslider.on( 'change', function( event, ui ) {
+    slidervol(singingbowlsplayer0, singingbowlsglueplayer0, singingbowlsslider, singingbowlsbackground);
+    remembervol(singingbowlsslider, "lssingingbowls");
+  })
+  
+//
+
+  var lastwhitenoisevol = localStorage.getItem("lswhitenoise");
+      if (typeof lastwhitenoisevol != "object"){ 
+      
+        if (lastwhitenoisevol > 0.02 && whitenoiseContainer.hasClass("sliders-collapsed") && urlvhex === null ) {
+          expandSliderWhitenoise(); // expand and load audio if localstorage volume > 0.02
+        }
+        
+        if( lastwhitenoisevol <= 0.02 && whitenoiseContainer.hasClass("sliders-expanded") && urlvhex === null ) {
+          collapseSliderWhitenoise();
+        }         
+      
+        whitenoiseslider.val(lastwhitenoisevol);
+        whitenoiseslider.slider("refresh");
+      }
+
+  slidervol(whitenoiseplayer0, whitenoiseglueplayer0, whitenoiseslider, whitenoisebackground);
+  
+  whitenoiseslider.on( 'change', function( event, ui ) {
+    slidervol(whitenoiseplayer0, whitenoiseglueplayer0, whitenoiseslider, whitenoisebackground);
+    remembervol(whitenoiseslider, "lswhitenoise");
+  })
+  
+//
   
 // parameters to update audio by slider
 
@@ -803,14 +968,29 @@ var urlvhex = getParameterByName("v");
     sloop(humansglueplayer0, humansplayer0, 5);
   })
   
-  cicadaplayer.bind('timeupdate', function() {
-    sloop(cicadaplayer0, cicadaglueplayer0, 141);
+  cricketsplayer.bind('timeupdate', function() {
+    sloop(cricketsplayer0, cricketsglueplayer0, 79);
   })
 
-  cicadaglueplayer.bind('timeupdate', function() {
-    sloop(cicadaglueplayer0, cicadaplayer0, 5);
+  cricketsglueplayer.bind('timeupdate', function() {
+    sloop(cricketsglueplayer0, cricketsplayer0, 5);
+  })    
+  
+  singingbowlsplayer.bind('timeupdate', function() {
+    sloop(singingbowlsplayer0, singingbowlsglueplayer0, 259);
+  })
+
+  singingbowlsglueplayer.bind('timeupdate', function() {
+    sloop(singingbowlsglueplayer0, singingbowlsplayer0, 5);
   })  
-    
+  
+  whitenoiseplayer.bind('timeupdate', function() {
+    sloop(whitenoiseplayer0, whitenoiseglueplayer0, 39);
+  })
+
+  whitenoiseglueplayer.bind('timeupdate', function() {
+    sloop(whitenoiseglueplayer0, whitenoiseplayer0, 5);
+  })  
 
 // looping parameters for each sample
 
@@ -858,7 +1038,10 @@ silence.click(function(){
   silenceall(wavesslider);
   silenceall(birdsslider);  
   silenceall(humansslider);
-  silenceall(cicadaslider);  
+  silenceall(cricketsslider);
+  silenceall(singingbowlsslider);
+  silenceall(whitenoiseslider);
+  
 })
     
 // silence: sets all sliders to 0
@@ -1180,8 +1363,14 @@ tfbutton.click(function(){
   var humansval = humansslider.val();
   var humansco = humansslider.val() / fadedecisecs;
   
-  var cicadaval = cicadaslider.val();
-  var cicadaco = cicadaslider.val() / fadedecisecs;  
+  var cricketsval = cricketsslider.val();
+  var cricketsco = cricketsslider.val() / fadedecisecs;
+  
+  var singingbowlsval = singingbowlsslider.val();
+  var singingbowlsco = singingbowlsslider.val() / fadedecisecs;
+  
+  var whitenoiseval = whitenoiseslider.val();
+  var whitenoiseco = whitenoiseslider.val() / fadedecisecs;    
  
   timedpausepre.hide();
   timedstartpre.hide();
@@ -1230,9 +1419,19 @@ tfbutton.click(function(){
     humansslider.val(humansval);
     humansslider.slider("refresh"); 
     
-    cicadaval = cicadaval - cicadaco;
-    cicadaslider.val(cicadaval);
-    cicadaslider.slider("refresh");     
+    cricketsval = cricketsval - cricketsco;
+    cricketsslider.val(cricketsval);
+    cricketsslider.slider("refresh"); 
+    
+    singingbowlsval = singingbowlsval - singingbowlsco;
+    singingbowlsslider.val(singingbowlsval);
+    singingbowlsslider.slider("refresh"); 
+    
+    whitenoiseval = whitenoiseval - whitenoiseco;
+    whitenoiseslider.val(whitenoiseval);
+    whitenoiseslider.slider("refresh");             
+    
+    
     
     if (fadems <= 0){
       clearInterval(fadetimeout);
@@ -1343,9 +1542,24 @@ if(urlvhex !== null){
   birdsslider.val(querybirdsvolume);
   birdsslider.slider("refresh");   
    
-//  
+// 
   
-  var queryhumansvolume = parseInt(queryvolumes[5], 16) / 100;
+  var querycricketsvolume = parseInt(queryvolumes[5], 16) / 100;
+
+  if( querycricketsvolume > 0.02 && cricketsContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderCrickets();
+  }  
+  
+  if( querycricketsvolume <= 0.02 && cricketsContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderCrickets();
+  }
+  
+  cricketsslider.val(querycricketsvolume);
+  cricketsslider.slider("refresh");   
+   
+//   
+  
+  var queryhumansvolume = parseInt(queryvolumes[6], 16) / 100;
 
   if( queryhumansvolume > 0.02 && humansContainer.hasClass( 'sliders-collapsed' ) ) { 
     expandSliderHumans();
@@ -1358,17 +1572,40 @@ if(urlvhex !== null){
   humansslider.val(queryhumansvolume);
   humansslider.slider("refresh");   
   
-//  
+// 
   
-  var querycicadavolume = parseInt(queryvolumes[6], 16) / 100;
+  var querysingingbowlsvolume = parseInt(queryvolumes[7], 16) / 100;
+
+  if( querysingingbowlsvolume > 0.02 && singingbowlsContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderSingingbowls();
+  }  
   
-  if( querycicadavolume > 0.02 && cicadaContainer.hasClass( 'sliders-collapsed' ) ) { 
-    expandSliderCicada();
+  if( querysingingbowlsvolume <= 0.02 && singingbowlsContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderSingingbowls();
   }
   
-  cicadaslider.val(querycicadavolume);
-  cicadaslider.slider("refresh");    
-}
+  singingbowlsslider.val(querysingingbowlsvolume);
+  singingbowlsslider.slider("refresh");   
+  
+// 
+  
+  var querywhitenoisevolume = parseInt(queryvolumes[7], 16) / 100;
+
+  if( querywhitenoisevolume > 0.02 && whitenoiseContainer.hasClass( 'sliders-collapsed' ) ) { 
+    expandSliderWhitenoise();
+  }  
+  
+  if( querywhitenoisevolume <= 0.02 && whitenoiseContainer.hasClass( 'sliders-expanded' ) ) {
+    collapseSliderWhitenoise();
+  }
+  
+  whitenoiseslider.val(querywhitenoisevolume);
+  whitenoiseslider.slider("refresh");
+  
+}     
+  
+//    
+  
 
 // if query string is present, set sliders to value in string
 // this section will always set the volume using query string, if present.
@@ -1417,19 +1654,33 @@ share.click( function() {
     birdshex = "0" + birdshex;
   }
   
+  var cricketsdec = Math.round(cricketsslider.val() * 100);
+  var cricketshex = cricketsdec.toString(16);
+  if (cricketshex.length < 2) {
+    cricketshex = "0" + cricketshex;
+  }  
+  
   var humansdec = Math.round(humansslider.val() * 100);
   var humanshex = humansdec.toString(16);
   if (humanshex.length < 2) {
     humanshex = "0" + humanshex;
-  }        
+  }   
   
-  var cicadadec = Math.round(cicadaslider.val() * 100);
-  var cicadahex = cicadadec.toString(16);
-  if (cicadahex.length < 2) {
-    cicadahex = "0" + cicadahex;
-  }     
+  var singingbowlsdec = Math.round(singingbowlsslider.val() * 100);
+  var singingbowlshex = singingbowlsdec.toString(16);
+  if (singingbowlshex.length < 2) {
+    singingbowlshex = "0" + singingbowlshex;
+  }  
+  
+  var whitenoisedec = Math.round(whitenoiseslider.val() * 100);
+  var whitenoisehex = whitenoisedec.toString(16);
+  if (whitenoisehex.length < 2) {
+    whitenoisehex = "0" + whitenoisehex;
+  }          
+  
+ 
 
-  var hexquery = rainhex + thunderhex + firehex + waveshex + birdshex + humanshex + cicadahex
+  var hexquery = rainhex + thunderhex + firehex + waveshex + birdshex + cricketshex + humanshex + singingbowlshex + whitenoisehex;
   var hexurl = "http://asoftmurmur.com/?v=" + hexquery
   
   showshareurl.text(hexurl);
@@ -1473,9 +1724,6 @@ $(document).bind('keydown', 't', function() {
   
   }
   
-  else {
-  }
-  
 // load default sounds if there's no query string and no local storage  
   
   remembervol(rainslider, "lsrain");
@@ -1484,10 +1732,6 @@ $(document).bind('keydown', 't', function() {
   
 // set localstorage immediately so we'll know user has been before, 
 // even if they don't touch the sliders
-
-
-
-
 
 rainglueplayer0.addEventListener("canplaythrough", function() {
     rainLoaded = 1;
@@ -1519,19 +1763,28 @@ birdsglueplayer0.addEventListener("canplaythrough", function() {
 
 //
 
-humansglueplayer0.addEventListener("canplaythrough", function() {
-    humansLoaded = 1;
+cricketsglueplayer0.addEventListener("canplaythrough", function() {
+    cricketsLoaded = 1;
 });
 
 
 //
 
-cicadaglueplayer0.addEventListener("canplaythrough", function() {
-    cicadaLoaded = 1;
+humansglueplayer0.addEventListener("canplaythrough", function() {
+    humansLoaded = 1;
 });
 
+//
 
+singingbowlsglueplayer0.addEventListener("canplaythrough", function() {
+    singingbowlsLoaded = 1;
+});
 
+//
+
+whitenoiseglueplayer0.addEventListener("canplaythrough", function() {
+    whitenoiseLoaded = 1;
+});
 
 //
 
@@ -1542,7 +1795,7 @@ var loadCounter= 0;
 
 function timedloadfunction() {
 
-  if ( rainLoaded + thunderLoaded + fireLoaded + wavesLoaded + birdsLoaded + humansLoaded + cicadaLoaded === numItems ) {
+  if ( rainLoaded + thunderLoaded + fireLoaded + wavesLoaded + birdsLoaded + cricketsLoaded + humansLoaded + singingbowlsLoaded + whitenoiseLoaded === numItems ) {
     
     $("#loading").hide(); 
     $("#all-controls").fadeIn( fadeInOutMs ); 
@@ -1552,7 +1805,7 @@ function timedloadfunction() {
   ++loadCounter;
   console.log(loadCounter);
   
-  if (loadCounter >= 100) {
+  if (loadCounter >= 150) {
     $("#loading").hide(); 
     $("#all-controls").fadeIn( fadeInOutMs );
     clearInterval(loadtimeout);
@@ -1843,12 +2096,83 @@ meanderButton.click( function() {
 
   var humansFlip = 0;
   
-//                 
+// 
+
+  var cricketsStart = Math.round(cricketsslider.val() * 1000) / 1000;
+  // console.log("cricketsStart = " + cricketsStart);
+
+  var cricketsHigh =  Math.round( ((1 + cricketsStart) / 2) * 1000) / 1000;
+  // console.log("cricketsHigh = " + cricketsHigh);
+  
+  var cricketsHighHalf = Math.round( ((cricketsStart + cricketsHigh) / 2) * 1000) / 1000;
+  
+  var cricketsHighInterval = Math.round( ((cricketsHigh - cricketsStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + cricketsHighInterval);
+
+  var cricketsLow = Math.round( (cricketsStart / 2) * 1000) / 1000 ;
+  // console.log("cricketsLow = " + cricketsLow);
+  
+  var cricketsLowHalf = Math.round( ((cricketsStart + cricketsLow) / 2) * 1000) / 1000;
+  // console.log("cricketsLowHalf = " + cricketsLowHalf);
+  
+  var cricketsLowInterval = Math.round( ((cricketsStart - cricketsLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + cricketsLowInterval);
+
+  var cricketsFlip = 0;
+  
+//
+
+  var singingbowlsStart = Math.round(singingbowlsslider.val() * 1000) / 1000;
+  // console.log("singingbowlsStart = " + singingbowlsStart);
+
+  var singingbowlsHigh =  Math.round( ((1 + singingbowlsStart) / 2) * 1000) / 1000;
+  // console.log("singingbowlsHigh = " + singingbowlsHigh);
+  
+  var singingbowlsHighHalf = Math.round( ((singingbowlsStart + singingbowlsHigh) / 2) * 1000) / 1000;
+  
+  var singingbowlsHighInterval = Math.round( ((singingbowlsHigh - singingbowlsStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + singingbowlsHighInterval);
+
+  var singingbowlsLow = Math.round( (singingbowlsStart / 2) * 1000) / 1000 ;
+  // console.log("singingbowlsLow = " + singingbowlsLow);
+  
+  var singingbowlsLowHalf = Math.round( ((singingbowlsStart + singingbowlsLow) / 2) * 1000) / 1000;
+  // console.log("singingbowlsLowHalf = " + singingbowlsLowHalf);
+  
+  var singingbowlsLowInterval = Math.round( ((singingbowlsStart - singingbowlsLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + singingbowlsLowInterval);
+
+  var singingbowlsFlip = 0;
+  
+//
+
+  var whitenoiseStart = Math.round(whitenoiseslider.val() * 1000) / 1000;
+  // console.log("whitenoiseStart = " + whitenoiseStart);
+
+  var whitenoiseHigh =  Math.round( ((1 + whitenoiseStart) / 2) * 1000) / 1000;
+  // console.log("whitenoiseHigh = " + whitenoiseHigh);
+  
+  var whitenoiseHighHalf = Math.round( ((whitenoiseStart + whitenoiseHigh) / 2) * 1000) / 1000;
+  
+  var whitenoiseHighInterval = Math.round( ((whitenoiseHigh - whitenoiseStart) / 100) * 1000) / 1000;
+  // console.log("high interval = " + whitenoiseHighInterval);
+
+  var whitenoiseLow = Math.round( (whitenoiseStart / 2) * 1000) / 1000 ;
+  // console.log("whitenoiseLow = " + whitenoiseLow);
+  
+  var whitenoiseLowHalf = Math.round( ((whitenoiseStart + whitenoiseLow) / 2) * 1000) / 1000;
+  // console.log("whitenoiseLowHalf = " + whitenoiseLowHalf);
+  
+  var whitenoiseLowInterval = Math.round( ((whitenoiseStart - whitenoiseLow) / 100) * 1000) / 1000;
+  // console.log("low interval = " + whitenoiseLowInterval);
+
+  var whitenoiseFlip = 0;
+  
+//                     
   
 
 
   var meanderFunction = setInterval( meanderActualFunction, meanderSliderValue);
-  
   
   
   function meanderActualFunction() {
@@ -2147,11 +2471,158 @@ meanderButton.click( function() {
       }
       
       //
+      
+      if ( cricketsContainer.hasClass( 'sliders-expanded' ) && cricketsStart > 0.02 ) {
+
+        var cricketsCurrentVol = cricketsslider.val();
+        var cricketsCurrentVolNum = parseFloat( cricketsCurrentVol );
+        
+        if ( cricketsCurrentVolNum === cricketsStart ) {
+          cricketsFlip = 0;
+          var coin = Math.random();
+          if ( coin <= 0.5 ) {
+            cricketsslider.val(cricketsCurrentVolNum - cricketsLowInterval);
+          } else {
+            cricketsslider.val(cricketsCurrentVolNum + cricketsHighInterval);
+          }
+        } else if ( cricketsCurrentVolNum <= (cricketsLowHalf + (cricketsLowInterval/2) ) && cricketsCurrentVolNum >= (cricketsLowHalf - cricketsLowInterval/2) && cricketsFlip == 0) {
+          var cricketsLowHalfCoin = Math.random();
+          if ( cricketsLowHalfCoin <= 0.5 ) {
+            cricketsFlip = 1;
+          }
+          else {
+            cricketsslider.val(cricketsCurrentVolNum - cricketsLowInterval)  
+          }
+        } else if ( cricketsCurrentVolNum <= cricketsLow) {
+          cricketsFlip = 1;
+          cricketsslider.val(cricketsLow + cricketsLowInterval);
+        } else if ( cricketsCurrentVolNum <= (cricketsHighHalf + (cricketsHighInterval/2) ) && cricketsCurrentVolNum >= (cricketsHighHalf - cricketsHighInterval/2) && cricketsFlip == 0) {
+          var cricketsHighHalfCoin = Math.random();
+          console.log ("halfway and cricketsHighhalfcoin is " + cricketsHighHalfCoin);
+          if ( cricketsHighHalfCoin >= 0.5 ) {
+            cricketsFlip = 1;
+          } else {
+            cricketsslider.val(cricketsCurrentVolNum + cricketsHighInterval); 
+          }
+        } else if ( cricketsCurrentVolNum >= cricketsHigh ) {
+          cricketsFlip = 1;
+          cricketsslider.val(cricketsCurrentVolNum - cricketsHighInterval);
+        } else if ( cricketsCurrentVolNum < cricketsStart && cricketsCurrentVolNum > cricketsLow && cricketsFlip == 0 ) {
+          cricketsslider.val(cricketsCurrentVolNum - cricketsLowInterval);  
+        } else if ( cricketsCurrentVolNum < cricketsStart && cricketsCurrentVolNum > cricketsLow && cricketsFlip == 1 ) {
+          cricketsslider.val(cricketsCurrentVolNum + cricketsLowInterval);
+        } else if ( cricketsCurrentVolNum > cricketsStart && cricketsFlip == 0 ) {
+          cricketsslider.val(cricketsCurrentVolNum + cricketsHighInterval);     
+        } else if ( cricketsCurrentVolNum > cricketsStart && cricketsFlip == 1 ) {
+          cricketsslider.val(cricketsCurrentVolNum - cricketsHighInterval);    
+        }
+      cricketsslider.slider("refresh"); 
+      }
+      
+      // 
+      if ( singingbowlsContainer.hasClass( 'sliders-expanded' ) && singingbowlsStart > 0.02 ) {
+
+        var singingbowlsCurrentVol = singingbowlsslider.val();
+        var singingbowlsCurrentVolNum = parseFloat( singingbowlsCurrentVol );
+        
+        if ( singingbowlsCurrentVolNum === singingbowlsStart ) {
+          singingbowlsFlip = 0;
+          var coin = Math.random();
+          if ( coin <= 0.5 ) {
+            singingbowlsslider.val(singingbowlsCurrentVolNum - singingbowlsLowInterval);
+          } else {
+            singingbowlsslider.val(singingbowlsCurrentVolNum + singingbowlsHighInterval);
+          }
+        } else if ( singingbowlsCurrentVolNum <= (singingbowlsLowHalf + (singingbowlsLowInterval/2) ) && singingbowlsCurrentVolNum >= (singingbowlsLowHalf - singingbowlsLowInterval/2) && singingbowlsFlip == 0) {
+          var singingbowlsLowHalfCoin = Math.random();
+          if ( singingbowlsLowHalfCoin <= 0.5 ) {
+            singingbowlsFlip = 1;
+          }
+          else {
+            singingbowlsslider.val(singingbowlsCurrentVolNum - singingbowlsLowInterval)  
+          }
+        } else if ( singingbowlsCurrentVolNum <= singingbowlsLow) {
+          singingbowlsFlip = 1;
+          singingbowlsslider.val(singingbowlsLow + singingbowlsLowInterval);
+        } else if ( singingbowlsCurrentVolNum <= (singingbowlsHighHalf + (singingbowlsHighInterval/2) ) && singingbowlsCurrentVolNum >= (singingbowlsHighHalf - singingbowlsHighInterval/2) && singingbowlsFlip == 0) {
+          var singingbowlsHighHalfCoin = Math.random();
+          console.log ("halfway and singingbowlsHighhalfcoin is " + singingbowlsHighHalfCoin);
+          if ( singingbowlsHighHalfCoin >= 0.5 ) {
+            singingbowlsFlip = 1;
+          } else {
+            singingbowlsslider.val(singingbowlsCurrentVolNum + singingbowlsHighInterval); 
+          }
+        } else if ( singingbowlsCurrentVolNum >= singingbowlsHigh ) {
+          singingbowlsFlip = 1;
+          singingbowlsslider.val(singingbowlsCurrentVolNum - singingbowlsHighInterval);
+        } else if ( singingbowlsCurrentVolNum < singingbowlsStart && singingbowlsCurrentVolNum > singingbowlsLow && singingbowlsFlip == 0 ) {
+          singingbowlsslider.val(singingbowlsCurrentVolNum - singingbowlsLowInterval);  
+        } else if ( singingbowlsCurrentVolNum < singingbowlsStart && singingbowlsCurrentVolNum > singingbowlsLow && singingbowlsFlip == 1 ) {
+          singingbowlsslider.val(singingbowlsCurrentVolNum + singingbowlsLowInterval);
+        } else if ( singingbowlsCurrentVolNum > singingbowlsStart && singingbowlsFlip == 0 ) {
+          singingbowlsslider.val(singingbowlsCurrentVolNum + singingbowlsHighInterval);     
+        } else if ( singingbowlsCurrentVolNum > singingbowlsStart && singingbowlsFlip == 1 ) {
+          singingbowlsslider.val(singingbowlsCurrentVolNum - singingbowlsHighInterval);    
+        }
+      singingbowlsslider.slider("refresh"); 
+      }
+      
+      // 
+      
+      if ( whitenoiseContainer.hasClass( 'sliders-expanded' ) && whitenoiseStart > 0.02 ) {
+
+        var whitenoiseCurrentVol = whitenoiseslider.val();
+        var whitenoiseCurrentVolNum = parseFloat( whitenoiseCurrentVol );
+        
+        if ( whitenoiseCurrentVolNum === whitenoiseStart ) {
+          whitenoiseFlip = 0;
+          var coin = Math.random();
+          if ( coin <= 0.5 ) {
+            whitenoiseslider.val(whitenoiseCurrentVolNum - whitenoiseLowInterval);
+          } else {
+            whitenoiseslider.val(whitenoiseCurrentVolNum + whitenoiseHighInterval);
+          }
+        } else if ( whitenoiseCurrentVolNum <= (whitenoiseLowHalf + (whitenoiseLowInterval/2) ) && whitenoiseCurrentVolNum >= (whitenoiseLowHalf - whitenoiseLowInterval/2) && whitenoiseFlip == 0) {
+          var whitenoiseLowHalfCoin = Math.random();
+          if ( whitenoiseLowHalfCoin <= 0.5 ) {
+            whitenoiseFlip = 1;
+          }
+          else {
+            whitenoiseslider.val(whitenoiseCurrentVolNum - whitenoiseLowInterval)  
+          }
+        } else if ( whitenoiseCurrentVolNum <= whitenoiseLow) {
+          whitenoiseFlip = 1;
+          whitenoiseslider.val(whitenoiseLow + whitenoiseLowInterval);
+        } else if ( whitenoiseCurrentVolNum <= (whitenoiseHighHalf + (whitenoiseHighInterval/2) ) && whitenoiseCurrentVolNum >= (whitenoiseHighHalf - whitenoiseHighInterval/2) && whitenoiseFlip == 0) {
+          var whitenoiseHighHalfCoin = Math.random();
+          console.log ("halfway and whitenoiseHighhalfcoin is " + whitenoiseHighHalfCoin);
+          if ( whitenoiseHighHalfCoin >= 0.5 ) {
+            whitenoiseFlip = 1;
+          } else {
+            whitenoiseslider.val(whitenoiseCurrentVolNum + whitenoiseHighInterval); 
+          }
+        } else if ( whitenoiseCurrentVolNum >= whitenoiseHigh ) {
+          whitenoiseFlip = 1;
+          whitenoiseslider.val(whitenoiseCurrentVolNum - whitenoiseHighInterval);
+        } else if ( whitenoiseCurrentVolNum < whitenoiseStart && whitenoiseCurrentVolNum > whitenoiseLow && whitenoiseFlip == 0 ) {
+          whitenoiseslider.val(whitenoiseCurrentVolNum - whitenoiseLowInterval);  
+        } else if ( whitenoiseCurrentVolNum < whitenoiseStart && whitenoiseCurrentVolNum > whitenoiseLow && whitenoiseFlip == 1 ) {
+          whitenoiseslider.val(whitenoiseCurrentVolNum + whitenoiseLowInterval);
+        } else if ( whitenoiseCurrentVolNum > whitenoiseStart && whitenoiseFlip == 0 ) {
+          whitenoiseslider.val(whitenoiseCurrentVolNum + whitenoiseHighInterval);     
+        } else if ( whitenoiseCurrentVolNum > whitenoiseStart && whitenoiseFlip == 1 ) {
+          whitenoiseslider.val(whitenoiseCurrentVolNum - whitenoiseHighInterval);    
+        }
+      whitenoiseslider.slider("refresh"); 
+      }
+      
+      //     
+           
   }
   clearInterval(meanderFunction);  
   meanderSliderValue = (1000 - meanderSlider.val() );
   meanderFunction = setInterval( meanderActualFunction, meanderSliderValue);
-  };
+  }
 
 
 //  var rainMeander = setInterval( function() { rainMeanderFunc(rainStart, rainHigh, rainHighHalf, rainLow, rainLowHalf, rainslider) }, meanderSliderValue);
@@ -2327,6 +2798,16 @@ meanderButton.click( function() {
   </div>
 </div>
 
+<div id="crickets-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="crickets-collapse-button"></div>
+  <div class="expand-button" id="crickets-expand-button"><div class="expand-icon"></div></div>
+  <div id="crickets-slider-background" class="slider-background"></div>
+  <div id="crickets-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="crickets-slider">Crickets</label> </div>
+      <input type="range" id="crickets-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
 <div id="humans-slider-container" class="sliders sliders-collapsed">
   <div class="collapse-button" id="humans-collapse-button"></div>
   <div class="expand-button" id="humans-expand-button"><div class="expand-icon"></div></div>
@@ -2337,13 +2818,23 @@ meanderButton.click( function() {
   </div>
 </div>
 
-<div id="cicadatest-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="cicada-collapse-button"></div>
-  <div class="expand-button" id="cicada-expand-button"><div class="expand-icon"></div></div>
-  <div id="cicadatest-slider-background" class="slider-background"></div> 
-  <div id="cicadatest-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="cicadatest-slider">Cicadas</label> </div>
-      <input type="range" id="cicadatest-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+<div id="singingbowls-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="singingbowls-collapse-button"></div>
+  <div class="expand-button" id="singingbowls-expand-button"><div class="expand-icon"></div></div>
+  <div id="singingbowls-slider-background" class="slider-background"></div>
+  <div id="singingbowls-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="singingbowls-slider">Singing bowls</label> </div>
+      <input type="range" id="singingbowls-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="whitenoise-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="whitenoise-collapse-button"></div>
+  <div class="expand-button" id="whitenoise-expand-button"><div class="expand-icon"></div></div>
+  <div id="whitenoise-slider-background" class="slider-background"></div>
+  <div id="whitenoise-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="whitenoise-slider">White noise</label> </div>
+      <input type="range" id="whitenoise-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
 
@@ -2519,6 +3010,20 @@ meanderButton.click( function() {
 </div>
 
 <div class="audioplayer">
+  <audio id="cricketsplayer" loop>
+    <source id="cricketsmp4" src="" type="audio/mp4">
+    <source id="cricketsogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="cricketsglueplayer">
+    <source id="cricketsgluemp4" src="" type="audio/mp4">
+    <source id="cricketsglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
   <audio id="humansplayer" loop>
     <source id="humansmp4" src="" type="audio/mp4">
     <source id="humansogg" src="" type="audio/ogg">
@@ -2533,16 +3038,33 @@ meanderButton.click( function() {
 </div>
 
 <div class="audioplayer">
-  <audio id="cicadatest">
-    <source id="cicadatestmp4" src="" type="audio/mp4">
+  <audio id="singingbowlsplayer" loop>
+    <source id="singingbowlsmp4" src="" type="audio/mp4">
+    <source id="singingbowlsogg" src="" type="audio/ogg">
   </audio>
 </div>
 
 <div class="audioplayer">
-  <audio id="cicadatest-glue">
-    <source id="cicadatest-gluemp4" src="" type="audio/mp4">
+  <audio id="singingbowlsglueplayer">
+    <source id="singingbowlsgluemp4" src="" type="audio/mp4">
+    <source id="singingbowlsglueogg" src="" type="audio/ogg">
   </audio>
 </div>
+
+<div class="audioplayer">
+  <audio id="whitenoiseplayer" loop>
+    <source id="whitenoisemp4" src="" type="audio/mp4">
+    <source id="whitenoiseogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="whitenoiseglueplayer">
+    <source id="whitenoisegluemp4" src="" type="audio/mp4">
+    <source id="whitenoiseglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
 
 <!-- end audio players -->
 
