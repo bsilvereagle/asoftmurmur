@@ -1499,7 +1499,7 @@ if(urlvhex !== null){
   
 //  
   
-  var queryfirevolume = parseInt(queryvolumes[0], 16) / 100;
+  var queryfirevolume = parseInt(queryvolumes[2], 16) / 100;
 
   if( queryfirevolume > 0.02 && fireContainer.hasClass( 'sliders-collapsed' ) ) { 
     expandSliderFire();
@@ -1514,7 +1514,7 @@ if(urlvhex !== null){
   
 //  
   
-  var querywavesvolume = parseInt(queryvolumes[0], 16) / 100;
+  var querywavesvolume = parseInt(queryvolumes[3], 16) / 100;
 
   if( querywavesvolume > 0.02 && wavesContainer.hasClass( 'sliders-collapsed' ) ) { 
     expandSliderWaves();
@@ -1589,7 +1589,7 @@ if(urlvhex !== null){
   
 // 
   
-  var querywhitenoisevolume = parseInt(queryvolumes[7], 16) / 100;
+  var querywhitenoisevolume = parseInt(queryvolumes[8], 16) / 100;
 
   if( querywhitenoisevolume > 0.02 && whitenoiseContainer.hasClass( 'sliders-collapsed' ) ) { 
     expandSliderWhitenoise();
