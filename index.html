@@ -1346,31 +1346,31 @@ tfbutton.click(function(){
   var fadestarttime = mstotime(fadems);
   
   var rainval = rainslider.val();
-  var rainco = rainslider.val() / fadedecisecs;
+  var rainco = rainslider.val() / fadesecs;
   
   var thunderval = thunderslider.val();  
-  var thunderco = thunderslider.val() / fadedecisecs;
+  var thunderco = thunderslider.val() / fadesecs;
   
   var fireval = fireslider.val();
-  var fireco = fireslider.val() / fadedecisecs;
+  var fireco = fireslider.val() / fadesecs;
 
   var wavesval = wavesslider.val();
-  var wavesco = wavesslider.val() / fadedecisecs;
+  var wavesco = wavesslider.val() / fadesecs;
 
   var birdsval = birdsslider.val();
-  var birdsco = birdsslider.val() / fadedecisecs;
+  var birdsco = birdsslider.val() / fadesecs;
 
   var humansval = humansslider.val();
-  var humansco = humansslider.val() / fadedecisecs;
+  var humansco = humansslider.val() / fadesecs;
   
   var cricketsval = cricketsslider.val();
-  var cricketsco = cricketsslider.val() / fadedecisecs;
+  var cricketsco = cricketsslider.val() / fadesecs;
   
   var singingbowlsval = singingbowlsslider.val();
-  var singingbowlsco = singingbowlsslider.val() / fadedecisecs;
+  var singingbowlsco = singingbowlsslider.val() / fadesecs;
   
   var whitenoiseval = whitenoiseslider.val();
-  var whitenoiseco = whitenoiseslider.val() / fadedecisecs;    
+  var whitenoiseco = whitenoiseslider.val() / fadesecs;    
  
   timedpausepre.hide();
   timedstartpre.hide();
@@ -1387,11 +1387,11 @@ tfbutton.click(function(){
      ppbutton.attr("class", "pause-all");
   }
   
-  var fadetimeout = setInterval(function(){timedfadefunction()},100);
+  var fadetimeout = setInterval(function(){timedfadefunction()}, 1000);
   
   function timedfadefunction(){
   
-    fadems = fadems - 100;
+    fadems = fadems - 1000;
     var fadetimeleft = mstotime(fadems);
     $("#timedfademinutesleft").text(fadetimeleft);
     
