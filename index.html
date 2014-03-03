@@ -6,7 +6,6 @@
 <title>A Soft Murmur</title>
 <meta name="description" content="Mix ambient sounds together to wash away distraction and help you focus or relax" />
 <link rel="stylesheet" href="style.css" />
-<script src="js/concat.js"></script>
 <link rel="icon" href="favicon.png">
 
 <!-- Twitter Card data -->
@@ -25,6 +24,461 @@
 <meta property="og:description" content="Mix ambient sounds together to wash away distraction and help you focus or relax" /> 
 <meta property="og:site_name" content="A Soft Murmur" />
 
+
+</head>
+
+<body data-role="none">
+<div id="page-container">
+
+<div id="share-buttons">
+  <a href="info.html" id="about-top" class="top-buttons" data-ajax="false" target="_blank">About</a>
+  <a href="#" id="share" class="sharetoggle top-buttons">Share</a>
+  <a href="#" id="updates" class="top-buttons">Updates</a>
+    <div class="sharehidden">
+      <p>Link for your custom mix:</p>
+      <p><span id="showshareurl"></span></p>
+      <p>Share your mix on:</p>
+      <div id="socialbuttons">
+      
+        <p><a href="#" id="facebooklink" target="_blank" class="sharelink">Facebook</a></p>
+        <p><a href="#" id="twitterlink" target="_blank" class="sharelink">Twitter</a></p>
+        <p id="plast"><a href="#" id="googlepluslink" target="_blank" class="sharelink">Google+</a></p>
+      
+      </div>  
+    </div>
+    
+    <div id="updates-hidden">
+    
+      <!-- Begin MailChimp Signup Form -->
+        <div id="mc_embed_signup">
+        <form action="http://gabrielmartin.us7.list-manage1.com/subscribe/post?u=a3f273bf0a1ee8e5678293af1&amp;id=981104d315" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          
+        <div class="mc-field-group">
+          <label for="mce-EMAIL" id="mce-EMAIL-label">Get updates by email</label>
+          <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="your.email@address.org">
+        </div>
+          <div id="mce-responses" class="clear">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;"><input type="text" name="b_a3f273bf0a1ee8e5678293af1_981104d315" value=""></div>
+          <div class="clear"><input type="submit" value="Get updates!" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </form>
+        </div>
+
+      <!--End mc_embed_signup-->
+      
+      <p> or </p>
+      
+      <p><a class="sharelink" href="https://twitter.com/asoftmurmur" target="_blank">@asoftmurmur on Twitter</a></p>
+      
+    </div>
+  
+
+</div>
+
+<div id="site-title">
+  <h1>A SOFT MURMUR</h1>
+</div>
+
+<div id="intro-text" class="dtext">
+  <p>Ambient sounds to wash away distraction.</p>
+</div>
+
+<div id="all-controls">
+  <div id="play-pause-container">
+    <a href="#">
+      <div id="play-pause-button" class="play-all"></div>
+    </a>
+  </div>
+</div>
+<div id="loading" class="dtext">
+  <p>Loading</p>
+</div>
+
+<div id="options" class="otext">
+  <p id="tools-p"><a href="#" id="optionsbutton" class="show_hide"><span class="hotkey">T</span>ools</a></p>
+  <div class="optionshidden">
+  <div id="optionscontainer">
+  <div id ="buttonoptions" class="linkbuttons">
+        <p id="silence-p" class="key-shortcut"><a href="#" id="silence">Silence all</a></p>
+        <p id="meander-p" class="key-shortcut"><a href="#" id="meander">Meander</a></p>
+  </div>
+  
+    <div id="timedpausepre" class="linkbuttons">
+    <p><a href="#" id="timedpauseprompt">Timed pause</a></p>
+    <div id="timedpausenumberentry">Pause in <input type="number" id="minutestillpause" value="10" size ="1" data-role="none" /> minutes</div>
+    <div id="timedpauseentry"><a href="#" id="timedpausebutton">Start timer</a></div>
+    </div>
+    
+    <div id="timedstartpre" class="linkbuttons">
+    <p><a href="#" id="timedstartprompt">Alarm</a></p>
+    <div id="timedstartnumberentry">Start playing in <input type="number" id="minutestillstart" value="10" size ="1" data-role="none" /> minutes</div>
+    <div id="timedstartentry"><a href="#" id="timedstartbutton">Start timer</a></div>
+    </div>    
+    
+    <div id="timedfadepre" class="linkbuttons">
+    <p><a href="#" id="timedfadeprompt">Timed fade to silence</a></p>
+    <div id="timedfadenumberentry">Fade to silence over</a> <input type="number" id="minutestillfade" value="10" size ="1" data-role="none" /> minutes</div>
+    <div id="timedfadeentry"><a href="#" id="timedfadebutton">Start timer</a></div>
+    </div>
+    
+    <div id="post-container">
+    <div id="timedpausepost" class="linkbuttons">
+    <p>Sounds will pause in <span id="timedpauseminutesleft"></span>.</p><p> <a href="#" id="canceltp">Cancel</a></p>
+    </div>
+    <div id="timedstartpost" class="linkbuttons">
+    <p>Sounds will start in <span id="timedstartminutesleft"></span>.</p><p> <a href="#" id="cancelts">Cancel</a></p>
+    </div>    
+    <div id="timedfadepost" class="linkbuttons">
+    <p>Sounds will fade to silence in <span id="timedfademinutesleft"></span>.</p><p> <a href="#" id="canceltf">Cancel</a></p>  
+    </div>
+    <div id="meanderpost">
+    <p id="meander-description">Meandering <span id="meander-speed">steadily</span></p> 
+    
+    <div id="meander-slider-container">
+      <div class="labelfix">
+        <label for="meander-slider">Speed</label>
+      </div>
+      
+      <input type="range" id="meander-slider" value="500" min="100" max="900" step="200" class="ui-hidden-accessible"/>
+
+    </div> 
+       
+    <p class="linkbuttons"><a href="#" id="cancelmeander">Cancel</a></p>  
+    </div>
+    </div>
+  
+  </div>
+</div>
+</div>
+
+<div id="sliders-container">
+
+<div id="rain-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="rain-collapse-button"></div>
+  <div class="expand-button" id="rain-expand-button"><div class="expand-icon"></div></div>
+  <div id="rain-slider-background" class="slider-background"></div>
+  <div id="rain-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="rain-slider">Rain</label> </div>
+      <input type="range" id="rain-slider" value="0.3" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="thunder-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="thunder-collapse-button"></div>
+  <div class="expand-button" id="thunder-expand-button"><div class="expand-icon"></div></div>
+  <div id="thunder-slider-background" class="slider-background"></div>
+  <div id="thunder-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="thunder-slider">Thunder</label> </div>
+      <input type="range" id="thunder-slider" value="0.8" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="fire-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="fire-collapse-button"></div>
+  <div class="expand-button" id="fire-expand-button"><div class="expand-icon"></div></div>
+  <div id="fire-slider-background" class="slider-background"></div>
+  <div id="fire-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="fire-slider">Fire</label> </div>
+      <input type="range" id="fire-slider" value="0.4" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="waves-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="waves-collapse-button"></div>
+  <div class="expand-button" id="waves-expand-button"><div class="expand-icon"></div></div>
+  <div id="waves-slider-background" class="slider-background"></div>
+  <div id="waves-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="waves-slider">Waves</label> </div>
+      <input type="range" id="waves-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="birds-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="birds-collapse-button"></div>
+  <div class="expand-button" id="birds-expand-button"><div class="expand-icon"></div></div>
+  <div id="birds-slider-background" class="slider-background"></div>
+  <div id="birds-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="birds-slider">Birds</label> </div>
+      <input type="range" id="birds-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="crickets-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="crickets-collapse-button"></div>
+  <div class="expand-button" id="crickets-expand-button"><div class="expand-icon"></div></div>
+  <div id="crickets-slider-background" class="slider-background"></div>
+  <div id="crickets-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="crickets-slider">Crickets</label> </div>
+      <input type="range" id="crickets-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="humans-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="humans-collapse-button"></div>
+  <div class="expand-button" id="humans-expand-button"><div class="expand-icon"></div></div>
+  <div id="humans-slider-background" class="slider-background"></div>
+  <div id="humans-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="humans-slider">Humans</label> </div>
+      <input type="range" id="humans-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="singingbowls-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="singingbowls-collapse-button"></div>
+  <div class="expand-button" id="singingbowls-expand-button"><div class="expand-icon"></div></div>
+  <div id="singingbowls-slider-background" class="slider-background"></div>
+  <div id="singingbowls-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="singingbowls-slider">Singing bowl</label> </div>
+      <input type="range" id="singingbowls-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+<div id="whitenoise-slider-container" class="sliders sliders-collapsed">
+  <div class="collapse-button" id="whitenoise-collapse-button"></div>
+  <div class="expand-button" id="whitenoise-expand-button"><div class="expand-icon"></div></div>
+  <div id="whitenoise-slider-background" class="slider-background"></div>
+  <div id="whitenoise-slider-container-inner" class="slider-inner">
+    <div class="labelfix"> <label for="whitenoise-slider">White noise</label> </div>
+      <input type="range" id="whitenoise-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
+  </div>
+</div>
+
+</div>
+
+<div id="image-preload-1">
+</div>
+
+<div id="image-preload-2">
+</div>
+
+<div id="footer">
+</div>
+
+<!-- Audio players without controls -->
+
+<!-- Make audio local for faster testing
+
+<div class="audioplayer">
+  <audio id="wavesplayer" loop preload="none">
+    <source src="http://st3.mi4.org/waves.fade.mp4" type="audio/mp4" />
+    <source src="http://st3.mi4.org/waves.fade.ogg" type="audio/ogg" />
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="wavesglueplayer" preload="auto">
+    <source src="http://stat3.orderedwords.com/waves.glue.mp4" type="audio/mp4" />
+    <source src="http://stat3.orderedwords.com/waves.glue.ogg" type="audio/ogg" />
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="rainplayer" loop preload="none">
+    <source src="http://st2.mi4.org/rain.fade.mp4" type="audio/mp4">
+    <source src="http://st2.mi4.org/rain.fade.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="rainglueplayer" preload="auto">
+    <source src="http://stat2.orderedwords.com/rain.glue.mp4" type="audio/mp4">
+    <source src="http://stat2.orderedwords.com/rain.glue.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="thunderplayer" loop preload="none">
+    <source src="http://st3.mi4.org/thunder.fade.mp4" type="audio/mp4">
+    <source src="http://st3.mi4.org/thunder.fade.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="thunderglueplayer" preload="auto">
+    <source src="http://stat3.orderedwords.com/thunder.glue.mp4" type="audio/mp4">
+    <source src="http://stat3.orderedwords.com/thunder.glue.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="fireplayer" loop preload="none">
+    <source src="http://st1.mi4.org/fire.fade.mp4" type="audio/mp4">
+    <source src="http://st1.mi4.org/fire.fade.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="fireglueplayer" preload="auto">
+    <source src="http://stat1.orderedwords.com/fire.glue.mp4" type="audio/mp4">
+    <source src="http://stat1.orderedwords.com/fire.glue.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="birdsplayer" loop preload="none">
+    <source src="http://st1.mi4.org/birds.fade.mp4" type="audio/mp4">
+    <source src="http://st1.mi4.org/birds.fade.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="birdsglueplayer" preload="auto">
+    <source src="http://stat1.orderedwords.com/birds.glue.mp4" type="audio/mp4">
+    <source src="http://stat1.orderedwords.com/birds.glue.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="humansplayer" loop preload="none">
+    <source src="http://st2.mi4.org/humans.fade.mp4" type="audio/mp4">
+    <source src="http://st2.mi4.org/humans.fade.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="humansglueplayer" preload="auto">
+    <source src="http://stat2.orderedwords.com/humans.glue.mp4" type="audio/mp4">
+    <source src="http://stat2.orderedwords.com/humans.glue.ogg" type="audio/ogg">
+  </audio>
+</div>
+
+-->
+
+<div class="audioplayer">
+  <audio id="rainplayer" loop>
+    <source id="rainmp4" src="" type="audio/mp4">
+    <source id="rainogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="rainglueplayer">
+    <source id="raingluemp4" src="" type="audio/mp4">
+    <source id="rainglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="thunderplayer" loop>
+    <source id="thundermp4" src="" type="audio/mp4">
+    <source id="thunderogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="thunderglueplayer">
+    <source id="thundergluemp4" src="" type="audio/mp4">
+    <source id="thunderglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="fireplayer" loop>
+    <source id="firemp4" src="" type="audio/mp4">
+    <source id="fireogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="fireglueplayer">
+    <source id="firegluemp4" src="" type="audio/mp4">
+    <source id="fireglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="wavesplayer" loop>
+    <source id="wavesmp4" src="" type="audio/mp4">
+    <source id="wavesogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="wavesglueplayer">
+    <source id="wavesgluemp4" src="" type="audio/mp4">
+    <source id="wavesglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="birdsplayer" loop>
+    <source id="birdsmp4" src="" type="audio/mp4">
+    <source id="birdsogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="birdsglueplayer">
+    <source id="birdsgluemp4" src="" type="audio/mp4">
+    <source id="birdsglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="cricketsplayer" loop>
+    <source id="cricketsmp4" src="" type="audio/mp4">
+    <source id="cricketsogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="cricketsglueplayer">
+    <source id="cricketsgluemp4" src="" type="audio/mp4">
+    <source id="cricketsglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="humansplayer" loop>
+    <source id="humansmp4" src="" type="audio/mp4">
+    <source id="humansogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="humansglueplayer">
+    <source id="humansgluemp4" src="" type="audio/mp4">
+    <source id="humansglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="singingbowlsplayer" loop>
+    <source id="singingbowlsmp4" src="" type="audio/mp4">
+    <source id="singingbowlsogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="singingbowlsglueplayer">
+    <source id="singingbowlsgluemp4" src="" type="audio/mp4">
+    <source id="singingbowlsglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="whitenoiseplayer" loop>
+    <source id="whitenoisemp4" src="" type="audio/mp4">
+    <source id="whitenoiseogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+<div class="audioplayer">
+  <audio id="whitenoiseglueplayer">
+    <source id="whitenoisegluemp4" src="" type="audio/mp4">
+    <source id="whitenoiseglueogg" src="" type="audio/ogg">
+  </audio>
+</div>
+
+
+<!-- end audio players -->
+
+</div>
+</body>
+
+<script src="js/concat.js"></script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -2666,456 +3120,5 @@ meanderButton.click( function() {
 
 });
 </script>
-</head>
 
-<body data-role="none">
-<div id="page-container">
-
-<div id="share-buttons">
-  <a href="info.html" id="about-top" class="top-buttons" data-ajax="false" target="_blank">About</a>
-  <a href="#" id="share" class="sharetoggle top-buttons">Share</a>
-  <a href="#" id="updates" class="top-buttons">Updates</a>
-    <div class="sharehidden">
-      <p>Link for your custom mix:</p>
-      <p><span id="showshareurl"></span></p>
-      <p>Share your mix on:</p>
-      <div id="socialbuttons">
-      
-        <p><a href="#" id="facebooklink" target="_blank" class="sharelink">Facebook</a></p>
-        <p><a href="#" id="twitterlink" target="_blank" class="sharelink">Twitter</a></p>
-        <p id="plast"><a href="#" id="googlepluslink" target="_blank" class="sharelink">Google+</a></p>
-      
-      </div>  
-    </div>
-    
-    <div id="updates-hidden">
-    
-      <!-- Begin MailChimp Signup Form -->
-        <div id="mc_embed_signup">
-        <form action="http://gabrielmartin.us7.list-manage1.com/subscribe/post?u=a3f273bf0a1ee8e5678293af1&amp;id=981104d315" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-          
-        <div class="mc-field-group">
-          <label for="mce-EMAIL" id="mce-EMAIL-label">Get updates by email</label>
-          <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="your.email@address.org">
-        </div>
-          <div id="mce-responses" class="clear">
-            <div class="response" id="mce-error-response" style="display:none"></div>
-            <div class="response" id="mce-success-response" style="display:none"></div>
-          </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-            <div style="position: absolute; left: -5000px;"><input type="text" name="b_a3f273bf0a1ee8e5678293af1_981104d315" value=""></div>
-          <div class="clear"><input type="submit" value="Get updates!" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-        </form>
-        </div>
-
-      <!--End mc_embed_signup-->
-      
-      <p> or </p>
-      
-      <p><a class="sharelink" href="https://twitter.com/asoftmurmur">@asoftmurmur on Twitter</a></p>
-      
-    </div>
-  
-
-</div>
-
-<div id="site-title">
-  <h1>A SOFT MURMUR</h1>
-</div>
-
-<div id="intro-text" class="dtext">
-  <p>Ambient sounds to wash away distraction.</p>
-</div>
-
-<div id="all-controls">
-  <div id="play-pause-container">
-    <a href="#">
-      <div id="play-pause-button" class="play-all"></div>
-    </a>
-  </div>
-</div>
-<div id="loading" class="dtext">
-  <p>Loading</p>
-</div>
-
-<div id="options" class="otext">
-  <p id="tools-p"><a href="#" id="optionsbutton" class="show_hide"><span class="hotkey">T</span>ools</a></p>
-  <div class="optionshidden">
-  <div id="optionscontainer">
-  <div id ="buttonoptions" class="linkbuttons">
-        <p id="silence-p" class="key-shortcut"><a href="#" id="silence">Silence all</a></p>
-        <p id="meander-p" class="key-shortcut"><a href="#" id="meander">Meander</a></p>
-  </div>
-  
-    <div id="timedpausepre" class="linkbuttons">
-    <p><a href="#" id="timedpauseprompt">Timed pause</a></p>
-    <div id="timedpausenumberentry">Pause in <input type="number" id="minutestillpause" value="10" size ="1" data-role="none" /> minutes</div>
-    <div id="timedpauseentry"><a href="#" id="timedpausebutton">Start timer</a></div>
-    </div>
-    
-    <div id="timedstartpre" class="linkbuttons">
-    <p><a href="#" id="timedstartprompt">Alarm</a></p>
-    <div id="timedstartnumberentry">Start playing in <input type="number" id="minutestillstart" value="10" size ="1" data-role="none" /> minutes</div>
-    <div id="timedstartentry"><a href="#" id="timedstartbutton">Start timer</a></div>
-    </div>    
-    
-    <div id="timedfadepre" class="linkbuttons">
-    <p><a href="#" id="timedfadeprompt">Timed fade to silence</a></p>
-    <div id="timedfadenumberentry">Fade to silence over</a> <input type="number" id="minutestillfade" value="10" size ="1" data-role="none" /> minutes</div>
-    <div id="timedfadeentry"><a href="#" id="timedfadebutton">Start timer</a></div>
-    </div>
-    
-    <div id="post-container">
-    <div id="timedpausepost" class="linkbuttons">
-    <p>Sounds will pause in <span id="timedpauseminutesleft"></span>.</p><p> <a href="#" id="canceltp">Cancel</a></p>
-    </div>
-    <div id="timedstartpost" class="linkbuttons">
-    <p>Sounds will start in <span id="timedstartminutesleft"></span>.</p><p> <a href="#" id="cancelts">Cancel</a></p>
-    </div>    
-    <div id="timedfadepost" class="linkbuttons">
-    <p>Sounds will fade to silence in <span id="timedfademinutesleft"></span>.</p><p> <a href="#" id="canceltf">Cancel</a></p>  
-    </div>
-    <div id="meanderpost">
-    <p id="meander-description">Meandering <span id="meander-speed">steadily</span></p> 
-    
-    <div id="meander-slider-container">
-      <div class="labelfix">
-        <label for="meander-slider">Speed</label>
-      </div>
-      
-      <input type="range" id="meander-slider" value="500" min="100" max="900" step="200" class="ui-hidden-accessible"/>
-
-    </div> 
-       
-    <p class="linkbuttons"><a href="#" id="cancelmeander">Cancel</a></p>  
-    </div>
-    </div>
-  
-  </div>
-</div>
-</div>
-
-<div id="sliders-container">
-
-<div id="rain-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="rain-collapse-button"></div>
-  <div class="expand-button" id="rain-expand-button"><div class="expand-icon"></div></div>
-  <div id="rain-slider-background" class="slider-background"></div>
-  <div id="rain-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="rain-slider">Rain</label> </div>
-      <input type="range" id="rain-slider" value="0.3" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="thunder-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="thunder-collapse-button"></div>
-  <div class="expand-button" id="thunder-expand-button"><div class="expand-icon"></div></div>
-  <div id="thunder-slider-background" class="slider-background"></div>
-  <div id="thunder-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="thunder-slider">Thunder</label> </div>
-      <input type="range" id="thunder-slider" value="0.8" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="fire-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="fire-collapse-button"></div>
-  <div class="expand-button" id="fire-expand-button"><div class="expand-icon"></div></div>
-  <div id="fire-slider-background" class="slider-background"></div>
-  <div id="fire-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="fire-slider">Fire</label> </div>
-      <input type="range" id="fire-slider" value="0.4" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="waves-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="waves-collapse-button"></div>
-  <div class="expand-button" id="waves-expand-button"><div class="expand-icon"></div></div>
-  <div id="waves-slider-background" class="slider-background"></div>
-  <div id="waves-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="waves-slider">Waves</label> </div>
-      <input type="range" id="waves-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="birds-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="birds-collapse-button"></div>
-  <div class="expand-button" id="birds-expand-button"><div class="expand-icon"></div></div>
-  <div id="birds-slider-background" class="slider-background"></div>
-  <div id="birds-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="birds-slider">Birds</label> </div>
-      <input type="range" id="birds-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="crickets-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="crickets-collapse-button"></div>
-  <div class="expand-button" id="crickets-expand-button"><div class="expand-icon"></div></div>
-  <div id="crickets-slider-background" class="slider-background"></div>
-  <div id="crickets-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="crickets-slider">Crickets</label> </div>
-      <input type="range" id="crickets-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="humans-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="humans-collapse-button"></div>
-  <div class="expand-button" id="humans-expand-button"><div class="expand-icon"></div></div>
-  <div id="humans-slider-background" class="slider-background"></div>
-  <div id="humans-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="humans-slider">Humans</label> </div>
-      <input type="range" id="humans-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="singingbowls-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="singingbowls-collapse-button"></div>
-  <div class="expand-button" id="singingbowls-expand-button"><div class="expand-icon"></div></div>
-  <div id="singingbowls-slider-background" class="slider-background"></div>
-  <div id="singingbowls-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="singingbowls-slider">Singing bowl</label> </div>
-      <input type="range" id="singingbowls-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-<div id="whitenoise-slider-container" class="sliders sliders-collapsed">
-  <div class="collapse-button" id="whitenoise-collapse-button"></div>
-  <div class="expand-button" id="whitenoise-expand-button"><div class="expand-icon"></div></div>
-  <div id="whitenoise-slider-background" class="slider-background"></div>
-  <div id="whitenoise-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="whitenoise-slider">White noise</label> </div>
-      <input type="range" id="whitenoise-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
-  </div>
-</div>
-
-</div>
-
-<div id="image-preload-1">
-</div>
-
-<div id="image-preload-2">
-</div>
-
-<div id="footer">
-</div>
-
-<!-- Audio players without controls -->
-
-<!-- Make audio local for faster testing
-
-<div class="audioplayer">
-  <audio id="wavesplayer" loop preload="none">
-    <source src="http://st3.mi4.org/waves.fade.mp4" type="audio/mp4" />
-    <source src="http://st3.mi4.org/waves.fade.ogg" type="audio/ogg" />
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="wavesglueplayer" preload="auto">
-    <source src="http://stat3.orderedwords.com/waves.glue.mp4" type="audio/mp4" />
-    <source src="http://stat3.orderedwords.com/waves.glue.ogg" type="audio/ogg" />
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="rainplayer" loop preload="none">
-    <source src="http://st2.mi4.org/rain.fade.mp4" type="audio/mp4">
-    <source src="http://st2.mi4.org/rain.fade.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="rainglueplayer" preload="auto">
-    <source src="http://stat2.orderedwords.com/rain.glue.mp4" type="audio/mp4">
-    <source src="http://stat2.orderedwords.com/rain.glue.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="thunderplayer" loop preload="none">
-    <source src="http://st3.mi4.org/thunder.fade.mp4" type="audio/mp4">
-    <source src="http://st3.mi4.org/thunder.fade.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="thunderglueplayer" preload="auto">
-    <source src="http://stat3.orderedwords.com/thunder.glue.mp4" type="audio/mp4">
-    <source src="http://stat3.orderedwords.com/thunder.glue.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="fireplayer" loop preload="none">
-    <source src="http://st1.mi4.org/fire.fade.mp4" type="audio/mp4">
-    <source src="http://st1.mi4.org/fire.fade.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="fireglueplayer" preload="auto">
-    <source src="http://stat1.orderedwords.com/fire.glue.mp4" type="audio/mp4">
-    <source src="http://stat1.orderedwords.com/fire.glue.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="birdsplayer" loop preload="none">
-    <source src="http://st1.mi4.org/birds.fade.mp4" type="audio/mp4">
-    <source src="http://st1.mi4.org/birds.fade.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="birdsglueplayer" preload="auto">
-    <source src="http://stat1.orderedwords.com/birds.glue.mp4" type="audio/mp4">
-    <source src="http://stat1.orderedwords.com/birds.glue.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="humansplayer" loop preload="none">
-    <source src="http://st2.mi4.org/humans.fade.mp4" type="audio/mp4">
-    <source src="http://st2.mi4.org/humans.fade.ogg" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="humansglueplayer" preload="auto">
-    <source src="http://stat2.orderedwords.com/humans.glue.mp4" type="audio/mp4">
-    <source src="http://stat2.orderedwords.com/humans.glue.ogg" type="audio/ogg">
-  </audio>
-</div>
-
--->
-
-<div class="audioplayer">
-  <audio id="rainplayer" loop>
-    <source id="rainmp4" src="" type="audio/mp4">
-    <source id="rainogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="rainglueplayer">
-    <source id="raingluemp4" src="" type="audio/mp4">
-    <source id="rainglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="thunderplayer" loop>
-    <source id="thundermp4" src="" type="audio/mp4">
-    <source id="thunderogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="thunderglueplayer">
-    <source id="thundergluemp4" src="" type="audio/mp4">
-    <source id="thunderglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="fireplayer" loop>
-    <source id="firemp4" src="" type="audio/mp4">
-    <source id="fireogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="fireglueplayer">
-    <source id="firegluemp4" src="" type="audio/mp4">
-    <source id="fireglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="wavesplayer" loop>
-    <source id="wavesmp4" src="" type="audio/mp4">
-    <source id="wavesogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="wavesglueplayer">
-    <source id="wavesgluemp4" src="" type="audio/mp4">
-    <source id="wavesglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="birdsplayer" loop>
-    <source id="birdsmp4" src="" type="audio/mp4">
-    <source id="birdsogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="birdsglueplayer">
-    <source id="birdsgluemp4" src="" type="audio/mp4">
-    <source id="birdsglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="cricketsplayer" loop>
-    <source id="cricketsmp4" src="" type="audio/mp4">
-    <source id="cricketsogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="cricketsglueplayer">
-    <source id="cricketsgluemp4" src="" type="audio/mp4">
-    <source id="cricketsglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="humansplayer" loop>
-    <source id="humansmp4" src="" type="audio/mp4">
-    <source id="humansogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="humansglueplayer">
-    <source id="humansgluemp4" src="" type="audio/mp4">
-    <source id="humansglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="singingbowlsplayer" loop>
-    <source id="singingbowlsmp4" src="" type="audio/mp4">
-    <source id="singingbowlsogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="singingbowlsglueplayer">
-    <source id="singingbowlsgluemp4" src="" type="audio/mp4">
-    <source id="singingbowlsglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="whitenoiseplayer" loop>
-    <source id="whitenoisemp4" src="" type="audio/mp4">
-    <source id="whitenoiseogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-<div class="audioplayer">
-  <audio id="whitenoiseglueplayer">
-    <source id="whitenoisegluemp4" src="" type="audio/mp4">
-    <source id="whitenoiseglueogg" src="" type="audio/ogg">
-  </audio>
-</div>
-
-
-<!-- end audio players -->
-
-</div>
-</body>
 </html>
