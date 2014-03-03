@@ -1325,8 +1325,7 @@ timedfadeprompt.click( function() {
     
     var timedFadePromptStart = function () {
                                   tfbutton.trigger( "click" ); 
-                                  $(document).unbind('keydown', timedFadePromptStart );
-                                  console.log("pressed return");                            
+                                  $(document).unbind('keydown', timedFadePromptStart );                           
                                 };
                                 
     $(document).bind('keydown', 'return', timedFadePromptStart);
@@ -1891,8 +1890,6 @@ var meanderSpeedText = $("#meander-speed")
 meanderSlider.on( 'change', function( event, ui ) {
   meanderSliderValue = (1000 - meanderSlider.val() );
   if (meanderSliderValue != meanderSliderValueStart) {
-  
-    console.log("meanderSliderValue = " + meanderSliderValue);
     if (meanderSliderValue === 500) {
       var coin500 = Math.random();
       if ( coin500 > 0.666 ) {
@@ -2239,7 +2236,6 @@ meanderButton.click( function() {
           rainslider.val(rainLow + rainLowInterval);
         } else if ( rainCurrentVolNum <= (rainHighHalf + (rainHighInterval/2) ) && rainCurrentVolNum >= (rainHighHalf - rainHighInterval/2) && rainFlip == 0) {
           var rainHighHalfCoin = Math.random();
-          console.log ("halfway and rainHighhalfcoin is " + rainHighHalfCoin);
           if ( rainHighHalfCoin >= 0.5 ) {
             rainFlip = 1;
           } else {
@@ -2288,7 +2284,6 @@ meanderButton.click( function() {
           thunderslider.val(thunderLow + thunderLowInterval);
         } else if ( thunderCurrentVolNum <= (thunderHighHalf + (thunderHighInterval/2) ) && thunderCurrentVolNum >= (thunderHighHalf - thunderHighInterval/2) && thunderFlip == 0) {
           var thunderHighHalfCoin = Math.random();
-          console.log ("halfway and thunderHighhalfcoin is " + thunderHighHalfCoin);
           if ( thunderHighHalfCoin >= 0.5 ) {
             thunderFlip = 1;
           } else {
@@ -2337,7 +2332,6 @@ meanderButton.click( function() {
           fireslider.val(fireLow + fireLowInterval);
         } else if ( fireCurrentVolNum <= (fireHighHalf + (fireHighInterval/2) ) && fireCurrentVolNum >= (fireHighHalf - fireHighInterval/2) && fireFlip == 0) {
           var fireHighHalfCoin = Math.random();
-          console.log ("halfway and fireHighhalfcoin is " + fireHighHalfCoin);
           if ( fireHighHalfCoin >= 0.5 ) {
             fireFlip = 1;
           } else {
@@ -2386,7 +2380,6 @@ meanderButton.click( function() {
           wavesslider.val(wavesLow + wavesLowInterval);
         } else if ( wavesCurrentVolNum <= (wavesHighHalf + (wavesHighInterval/2) ) && wavesCurrentVolNum >= (wavesHighHalf - wavesHighInterval/2) && wavesFlip == 0) {
           var wavesHighHalfCoin = Math.random();
-          console.log ("halfway and wavesHighhalfcoin is " + wavesHighHalfCoin);
           if ( wavesHighHalfCoin >= 0.5 ) {
             wavesFlip = 1;
           } else {
@@ -2435,7 +2428,6 @@ meanderButton.click( function() {
           birdsslider.val(birdsLow + birdsLowInterval);
         } else if ( birdsCurrentVolNum <= (birdsHighHalf + (birdsHighInterval/2) ) && birdsCurrentVolNum >= (birdsHighHalf - birdsHighInterval/2) && birdsFlip == 0) {
           var birdsHighHalfCoin = Math.random();
-          console.log ("halfway and birdsHighhalfcoin is " + birdsHighHalfCoin);
           if ( birdsHighHalfCoin >= 0.5 ) {
             birdsFlip = 1;
           } else {
@@ -2484,7 +2476,6 @@ meanderButton.click( function() {
           humansslider.val(humansLow + humansLowInterval);
         } else if ( humansCurrentVolNum <= (humansHighHalf + (humansHighInterval/2) ) && humansCurrentVolNum >= (humansHighHalf - humansHighInterval/2) && humansFlip == 0) {
           var humansHighHalfCoin = Math.random();
-          console.log ("halfway and humansHighhalfcoin is " + humansHighHalfCoin);
           if ( humansHighHalfCoin >= 0.5 ) {
             humansFlip = 1;
           } else {
@@ -2533,7 +2524,6 @@ meanderButton.click( function() {
           cricketsslider.val(cricketsLow + cricketsLowInterval);
         } else if ( cricketsCurrentVolNum <= (cricketsHighHalf + (cricketsHighInterval/2) ) && cricketsCurrentVolNum >= (cricketsHighHalf - cricketsHighInterval/2) && cricketsFlip == 0) {
           var cricketsHighHalfCoin = Math.random();
-          console.log ("halfway and cricketsHighhalfcoin is " + cricketsHighHalfCoin);
           if ( cricketsHighHalfCoin >= 0.5 ) {
             cricketsFlip = 1;
           } else {
@@ -2581,7 +2571,6 @@ meanderButton.click( function() {
           singingbowlsslider.val(singingbowlsLow + singingbowlsLowInterval);
         } else if ( singingbowlsCurrentVolNum <= (singingbowlsHighHalf + (singingbowlsHighInterval/2) ) && singingbowlsCurrentVolNum >= (singingbowlsHighHalf - singingbowlsHighInterval/2) && singingbowlsFlip == 0) {
           var singingbowlsHighHalfCoin = Math.random();
-          console.log ("halfway and singingbowlsHighhalfcoin is " + singingbowlsHighHalfCoin);
           if ( singingbowlsHighHalfCoin >= 0.5 ) {
             singingbowlsFlip = 1;
           } else {
@@ -2630,7 +2619,6 @@ meanderButton.click( function() {
           whitenoiseslider.val(whitenoiseLow + whitenoiseLowInterval);
         } else if ( whitenoiseCurrentVolNum <= (whitenoiseHighHalf + (whitenoiseHighInterval/2) ) && whitenoiseCurrentVolNum >= (whitenoiseHighHalf - whitenoiseHighInterval/2) && whitenoiseFlip == 0) {
           var whitenoiseHighHalfCoin = Math.random();
-          console.log ("halfway and whitenoiseHighhalfcoin is " + whitenoiseHighHalfCoin);
           if ( whitenoiseHighHalfCoin >= 0.5 ) {
             whitenoiseFlip = 1;
           } else {
