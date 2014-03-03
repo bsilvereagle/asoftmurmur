@@ -2157,6 +2157,15 @@ share.click( function() {
 var updatesButton = $('#updates'),
     updatesHidden = $('#updates-hidden');
     
+function closeUpdates() {
+    updatesHidden.hide();
+    share.fadeIn( fadeInOutMs );
+    $('#about-top').fadeIn ( fadeInOutMs );
+    updatesButton.css( "text-align", "right" );
+    updatesButton.removeClass( "updates-active" )
+    updatesButton.text( "Updates" );
+}    
+    
 updatesButton.click( function() {
   
   if ( $(this).hasClass( "updates-active" ) === false ) {
@@ -2167,18 +2176,17 @@ updatesButton.click( function() {
     $(this).addClass( "updates-active" )
     $(this).text( "Hide" );
   } else {
-    updatesHidden.hide();
-    share.fadeIn( fadeInOutMs );
-    $('#about-top').fadeIn ( fadeInOutMs );
-    $(this).css( "text-align", "right" );
-    $(this).removeClass( "updates-active" )
-    $(this).text( "Updates" );
+    closeUpdates();
   }
   
 })
 
 $('#mce-EMAIL').click( function() {
   $(this).attr("placeholder", "");
+});
+
+$('#mc-embedded-subscribe').click( function() {
+  closeUpdates();
 });
 
 // Update stuff
