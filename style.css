@@ -145,12 +145,32 @@ html {
 
 /* Share stuff */
 
+#share:after {
+  content: " Your Mix";
+}
+
+#share.share-active:after {
+  content: none;
+}
+
+#updates:before {
+  content: "Get ";
+}
+
+#updates.updates-active:before {
+  content: none;
+}
+
 #about-top {
   text-align: left;
 }
 
 #updates {
   text-align: right;
+}
+
+#updates-hidden {
+  display: none;
 }
 
 #share-buttons,
@@ -202,9 +222,54 @@ html {
 
 /* end of share stuff */
 
-#footer {
-  padding: 5px 0 10px 0;
+.mc-field-group {
+  margin-top: 20px;
 }
+
+#mce-EMAIL-label {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+#mce-EMAIL {
+  width: 20em;
+  max-width: 90%;
+  background-color: #FFF;
+  margin: 0 auto;
+  -webkit-text-stroke: 0px;
+  padding: 5px;
+  font-family: Arial;
+  font-size: 1.5em;
+  border:4px solid #000;
+}
+
+#mce-EMAIL:active,
+#mce-EMAIL:focus {
+  border: 4px solid #CCC;
+}
+
+#mc-embedded-subscribe { 
+  width: 10em;
+  max-width: 90%;
+  height: 2em;
+  font-size: 1.5em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#mc-embedded-subscribe:hover {
+  cursor: pointer;
+  cursor: hand;
+}
+
+
+/* Mailchimp stuff */
+
+
+
+  
+
+/* End mailchimp stuff */
 
 #facebook {
   float: left;
@@ -371,7 +436,7 @@ html {
 
 .sliders .ui-input-text {
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
   font-family: Montserrat;
   -webkit-text-stroke:0.1px #000;
   margin: 0 0 10px 0;
@@ -610,6 +675,14 @@ html {
 
   #site-title {
     font-size: 1.3em;
+  }
+  
+  #share:after {
+    content: none;
+  }
+  
+  #updates:before {
+    content: none;
   }
   
    #optionscontainer  {

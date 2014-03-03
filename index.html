@@ -1619,9 +1619,15 @@ share.click( function() {
 
   if( sharetext.indexOf( "Share" ) !== -1 ) {
     share.text("Hide");
+    share.addClass( "share-active ");
+    $('#about-top').hide();
+    $('#updates').hide();
   }
   else {
     share.text("Share your mix");
+    share.removeClass( "share-active" );
+    $('#about-top').fadeIn( fadeInOutMs );
+    $('#updates').fadeIn( fadeInOutMs );
   }
 
   var raindec = Math.round(rainslider.val() * 100);
@@ -1697,6 +1703,35 @@ share.click( function() {
 
 // write url with query string when called
 //write social urls
+
+var updatesButton = $('#updates'),
+    updatesHidden = $('#updates-hidden');
+    
+updatesButton.click( function() {
+  
+  if ( $(this).hasClass( "updates-active" ) === false ) {
+    updatesHidden.fadeIn( fadeInOutMs );
+    share.hide();
+    $('#about-top').hide();
+    $(this).css( "text-align", "center" );
+    $(this).addClass( "updates-active" )
+    $(this).text( "Hide" );
+  } else {
+    updatesHidden.hide();
+    share.fadeIn( fadeInOutMs );
+    $('#about-top').fadeIn ( fadeInOutMs );
+    $(this).css( "text-align", "right" );
+    $(this).removeClass( "updates-active" )
+    $(this).text( "Updates" );
+  }
+  
+})
+
+$('#mce-EMAIL').click( function() {
+  $(this).attr("placeholder", "");
+});
+
+// Update stuff
 
 $(document).bind('keydown', 'space', function() {
 
@@ -2653,8 +2688,8 @@ meanderButton.click( function() {
 
 <div id="share-buttons">
   <a href="info.html" id="about-top" class="top-buttons" data-ajax="false" target="_blank">About</a>
-  <a href="#" id="share" class="sharetoggle top-buttons">Share your mix</a>
-  <a href="#" id="updates" class="top-buttons">Get updates</a>
+  <a href="#" id="share" class="sharetoggle top-buttons">Share</a>
+  <a href="#" id="updates" class="top-buttons">Updates</a>
     <div class="sharehidden">
       <p>Link for your custom mix:</p>
       <p><span id="showshareurl"></span></p>
@@ -2666,6 +2701,33 @@ meanderButton.click( function() {
         <p id="plast"><a href="#" id="googlepluslink" target="_blank" class="sharelink">Google+</a></p>
       
       </div>  
+    </div>
+    
+    <div id="updates-hidden">
+    
+      <!-- Begin MailChimp Signup Form -->
+        <div id="mc_embed_signup">
+        <form action="http://gabrielmartin.us7.list-manage1.com/subscribe/post?u=a3f273bf0a1ee8e5678293af1&amp;id=981104d315" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          
+        <div class="mc-field-group">
+          <label for="mce-EMAIL" id="mce-EMAIL-label">Get updates by email</label>
+          <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="your.email@address.org">
+        </div>
+          <div id="mce-responses" class="clear">
+            <div class="response" id="mce-error-response" style="display:none"></div>
+            <div class="response" id="mce-success-response" style="display:none"></div>
+          </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;"><input type="text" name="b_a3f273bf0a1ee8e5678293af1_981104d315" value=""></div>
+          <div class="clear"><input type="submit" value="Get updates!" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </form>
+        </div>
+
+      <!--End mc_embed_signup-->
+      
+      <p> or </p>
+      
+      <p><a class="sharelink" href="https://twitter.com/asoftmurmur">@asoftmurmur on Twitter</a></p>
+      
     </div>
   
 
@@ -2745,6 +2807,7 @@ meanderButton.click( function() {
   
   </div>
 </div>
+</div>
 
 <div id="sliders-container">
 
@@ -2823,7 +2886,7 @@ meanderButton.click( function() {
   <div class="expand-button" id="singingbowls-expand-button"><div class="expand-icon"></div></div>
   <div id="singingbowls-slider-background" class="slider-background"></div>
   <div id="singingbowls-slider-container-inner" class="slider-inner">
-    <div class="labelfix"> <label for="singingbowls-slider">Singing bowls</label> </div>
+    <div class="labelfix"> <label for="singingbowls-slider">Singing bowl</label> </div>
       <input type="range" id="singingbowls-slider" value="0.0" min="0" max="0.999" step="0.001" class="ui-hidden-accessible"/>
   </div>
 </div>
