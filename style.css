@@ -150,6 +150,7 @@ html {
 }
 
 #share.share-active:after {
+  content: "";
   content: none;
 }
 
@@ -158,6 +159,7 @@ html {
 }
 
 #updates.updates-active:before {
+  content: "";
   content: none;
 }
 
@@ -678,10 +680,12 @@ html {
   }
   
   #share:after {
+    content: "";
     content: none;
   }
   
   #updates:before {
+    content: "";
     content: none;
   }
   
