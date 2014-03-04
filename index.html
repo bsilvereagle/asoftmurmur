@@ -734,6 +734,8 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
       if ( mp4.attr('src') === "" )  {
         gluemp4.attr('src', gluemp4src).detach().appendTo(glueplayer0);
         mp4.attr('src', mp4src).detach().appendTo(player0);
+        glueogg.attr('src', glueoggsrc).detach().appendTo(glueplayer0);
+        ogg.attr('src', oggsrc).detach().appendTo(player0);
         container.append('<div class="loading-element" id="' + loadingId + '"><p class="dtext">Loading</p></div>');
         button.hide();
         container.insertBefore( $(".sliders-collapsed").first() );
