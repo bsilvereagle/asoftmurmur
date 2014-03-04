@@ -661,6 +661,52 @@ html {
   -webkit-text-stroke: 0;
 }
 
+#ios-apology {
+  position: fixed;
+  top: 10%;
+  left: 5%;
+  width: 90%;
+  height: 80%;
+  background-color: #000;
+  color: #FFF;
+  z-index: 10000;
+  border: 3px dashed #FFF;
+  display: none;
+}
+
+.ios-sorry {
+  width: 80%;
+  margin: 1.5em auto;
+  font-size: 1em;
+  font-family: Montserrat;
+}
+
+h3.ios-sorry {
+  font-size: 1.5em;
+  margin: 10px auto;
+}
+
+.ios-sorry a {
+  color: #FFF;
+}
+
+#ios-apology-appendix {
+  font-size: 0.7em;
+}
+
+#ios-close-button {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  width: 30px;
+  height: 30px;
+  background-image: url('img/collapse.button.png');
+  background-size: 100%;
+  cursor: pointer;
+  cursor: hand;
+  border: 3px solid #FFF;
+}
+
 /* Begin responsive settings for smaller viewports */
 
 @media screen and (max-width: 640px) {

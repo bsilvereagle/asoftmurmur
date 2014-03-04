@@ -386,6 +386,15 @@
 <!-- end audio players -->
 
 </div>
+
+<div id="ios-apology">
+<div id="ios-close-button"></div>
+<h3 class="ios-sorry">Sorry!</h3>
+<p id="ios-apology-main" class="ios-sorry">I'm sorry but A Soft Murmur doesn't work properly on iPhones, iPads or iPods. You might like <a href="http://rainymood.com">Rainy Mood</a> or <a href="http://coffitivity.com">Coffitivity</a> instead.</p>
+<p id="ios-apology-appendix" class="ios-sorry">The problem is that iOS <a href="https://developer.apple.com/library/safari/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html#//apple_ref/doc/uid/TP40009523-CH5-SW10">won't allow multiple audio elements to play at the same time</a>, and won't allow javascript to change the volume of an audio element. Click the cross in the top right to hide this message.</p>
+</p>
+</div>
+
 </body>
 
 <script src="js/concat.js"></script>
@@ -3045,7 +3054,25 @@ meanderButton.click( function() {
 
 //});
 
+
+
 });
+
+// Display apology if device runs iOS
+
+var iOS = /(iPad|iPhone|iPod)/g.test( navigator.userAgent );
+
+console.log(navigator.userAgent);
+console.log(iOS);
+
+if (iOS === true) {
+  $('#ios-apology').show();
+  $('#ios-close-button').click( function() {
+    $('#ios-apology').hide();
+  });
+}
+
+
 
 });
 </script>
