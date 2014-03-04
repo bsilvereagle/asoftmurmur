@@ -722,7 +722,7 @@ var sliderCollapsed= 'sliders-collapsed';
 var sliderExpanded = 'sliders-expanded';
 
 
-function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0, loadingId) {
+function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, glueogg, glueoggsrc, button, player0, glueplayer0, loadingId, glueplayer) {
   if (container.hasClass( sliderCollapsed ) ) {
     container.addClass( "excount" );
     container.fadeOut( fadeInOutMs, function() {
@@ -736,6 +736,7 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
         mp4.attr('src', mp4src).detach().appendTo(player0);
         glueogg.attr('src', glueoggsrc).detach().appendTo(glueplayer0);
         ogg.attr('src', oggsrc).detach().appendTo(player0);
+        glueplayer.attr('preload', 'auto');
         container.append('<div class="loading-element" id="' + loadingId + '"><p class="dtext">Loading</p></div>');
         button.hide();
         container.insertBefore( $(".sliders-collapsed").first() );
@@ -744,6 +745,12 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
         glueplayer0.addEventListener("canplaythrough", function() { 
          $("#" + loadingId).remove();
         });
+        
+        setTimeout( function() {
+        
+          $("#" + loadingId).remove();
+          
+        }, 5000);
       }
       
       else {
@@ -760,55 +767,55 @@ function expandSlider(container, mp4, mp4src, gluemp4, gluemp4src, ogg, oggsrc, 
 }
 
 function expandSliderHumans() {
-  expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0, "loading-humans")
+  expandSlider(humansContainer, humansMp4, humansMp4Src, humansGlueMp4, humansGlueMp4Src, humansOgg, humansOggSrc, humansGlueOgg, humansGlueOggSrc, humansExpandButton, humansplayer0, humansglueplayer0, "loading-humans", humansglueplayer)
 }
 
 //
 
 function expandSliderBirds() {
-  expandSlider(birdsContainer, birdsMp4, birdsMp4Src, birdsGlueMp4, birdsGlueMp4Src, birdsOgg, birdsOggSrc, birdsGlueOgg, birdsGlueOggSrc, birdsExpandButton, birdsplayer0, birdsglueplayer0, "loading-birds")
+  expandSlider(birdsContainer, birdsMp4, birdsMp4Src, birdsGlueMp4, birdsGlueMp4Src, birdsOgg, birdsOggSrc, birdsGlueOgg, birdsGlueOggSrc, birdsExpandButton, birdsplayer0, birdsglueplayer0, "loading-birds", birdsglueplayer)
 }
 
 //
 
 function expandSliderRain() {
-  expandSlider(rainContainer, rainMp4, rainMp4Src, rainGlueMp4, rainGlueMp4Src, rainOgg, rainOggSrc, rainGlueOgg, rainGlueOggSrc, rainExpandButton, rainplayer0, rainglueplayer0, "loading-rain")
+  expandSlider(rainContainer, rainMp4, rainMp4Src, rainGlueMp4, rainGlueMp4Src, rainOgg, rainOggSrc, rainGlueOgg, rainGlueOggSrc, rainExpandButton, rainplayer0, rainglueplayer0, "loading-rain", rainglueplayer)
 }
 
 //
 
 function expandSliderThunder() {
-  expandSlider(thunderContainer, thunderMp4, thunderMp4Src, thunderGlueMp4, thunderGlueMp4Src, thunderOgg, thunderOggSrc, thunderGlueOgg, thunderGlueOggSrc, thunderExpandButton, thunderplayer0, thunderglueplayer0, "loading-thunder")
+  expandSlider(thunderContainer, thunderMp4, thunderMp4Src, thunderGlueMp4, thunderGlueMp4Src, thunderOgg, thunderOggSrc, thunderGlueOgg, thunderGlueOggSrc, thunderExpandButton, thunderplayer0, thunderglueplayer0, "loading-thunder", thunderglueplayer)
 }
 
 //
 
 function expandSliderFire() {
-  expandSlider(fireContainer, fireMp4, fireMp4Src, fireGlueMp4, fireGlueMp4Src, fireOgg, fireOggSrc, fireGlueOgg, fireGlueOggSrc, fireExpandButton, fireplayer0, fireglueplayer0, "loading-fire")
+  expandSlider(fireContainer, fireMp4, fireMp4Src, fireGlueMp4, fireGlueMp4Src, fireOgg, fireOggSrc, fireGlueOgg, fireGlueOggSrc, fireExpandButton, fireplayer0, fireglueplayer0, "loading-fire", fireglueplayer)
 }
 
 //
 
 function expandSliderWaves() {
-  expandSlider(wavesContainer, wavesMp4, wavesMp4Src, wavesGlueMp4, wavesGlueMp4Src, wavesOgg, wavesOggSrc, wavesGlueOgg, wavesGlueOggSrc, wavesExpandButton, wavesplayer0, wavesglueplayer0, "loading-waves")
+  expandSlider(wavesContainer, wavesMp4, wavesMp4Src, wavesGlueMp4, wavesGlueMp4Src, wavesOgg, wavesOggSrc, wavesGlueOgg, wavesGlueOggSrc, wavesExpandButton, wavesplayer0, wavesglueplayer0, "loading-waves", wavesglueplayer)
 }
 
 //
 
 function expandSliderCrickets() {
-  expandSlider(cricketsContainer, cricketsMp4, cricketsMp4Src, cricketsGlueMp4, cricketsGlueMp4Src, cricketsOgg, cricketsOggSrc, cricketsGlueOgg, cricketsGlueOggSrc, cricketsExpandButton, cricketsplayer0, cricketsglueplayer0, "loading-crickets")
+  expandSlider(cricketsContainer, cricketsMp4, cricketsMp4Src, cricketsGlueMp4, cricketsGlueMp4Src, cricketsOgg, cricketsOggSrc, cricketsGlueOgg, cricketsGlueOggSrc, cricketsExpandButton, cricketsplayer0, cricketsglueplayer0, "loading-crickets", cricketsglueplayer)
 }
 
 //
 
 function expandSliderSingingbowls() {
-  expandSlider(singingbowlsContainer, singingbowlsMp4, singingbowlsMp4Src, singingbowlsGlueMp4, singingbowlsGlueMp4Src, singingbowlsOgg, singingbowlsOggSrc, singingbowlsGlueOgg, singingbowlsGlueOggSrc, singingbowlsExpandButton, singingbowlsplayer0, singingbowlsglueplayer0, "loading-singingbowls")
+  expandSlider(singingbowlsContainer, singingbowlsMp4, singingbowlsMp4Src, singingbowlsGlueMp4, singingbowlsGlueMp4Src, singingbowlsOgg, singingbowlsOggSrc, singingbowlsGlueOgg, singingbowlsGlueOggSrc, singingbowlsExpandButton, singingbowlsplayer0, singingbowlsglueplayer0, "loading-singingbowls", singingbowlsglueplayer)
 }
 
 //
 
 function expandSliderWhitenoise() {
-  expandSlider(whitenoiseContainer, whitenoiseMp4, whitenoiseMp4Src, whitenoiseGlueMp4, whitenoiseGlueMp4Src, whitenoiseOgg, whitenoiseOggSrc, whitenoiseGlueOgg, whitenoiseGlueOggSrc, whitenoiseExpandButton, whitenoiseplayer0, whitenoiseglueplayer0, "loading-whitenoise")
+  expandSlider(whitenoiseContainer, whitenoiseMp4, whitenoiseMp4Src, whitenoiseGlueMp4, whitenoiseGlueMp4Src, whitenoiseOgg, whitenoiseOggSrc, whitenoiseGlueOgg, whitenoiseGlueOggSrc, whitenoiseExpandButton, whitenoiseplayer0, whitenoiseglueplayer0, "loading-whitenoise", whitenoiseglueplayer)
 }
 
 //
