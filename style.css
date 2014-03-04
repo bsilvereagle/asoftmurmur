@@ -672,6 +672,9 @@ html {
   z-index: 10000;
   border: 3px dashed #FFF;
   display: none;
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+  opacity: 0.9;
 }
 
 .ios-sorry {
